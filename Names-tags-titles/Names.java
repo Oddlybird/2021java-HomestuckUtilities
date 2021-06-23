@@ -100,6 +100,8 @@ public class Names {
 			if (i==0) {
 				// jl -> ch
 				if ((in[i]=='j')&&(in[i+1]=='l')) {in[i]='c';in[i+1]='h';};
+				// (stop)f -> (stop)h
+				if (((in[i]=='c')||(in[i]=='k')||(in[i]=='x')||(in[i]=='j')||(in[i]=='p')||(in[i]=='b')||(in[i]=='t')||(in[i]=='d')||(in[i]=='g'))&&(in[i+1]=='f')) {in[i+1]='h';};
 				}
 			// three letter strings
 			if (i<3) {
