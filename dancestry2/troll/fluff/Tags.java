@@ -1,0 +1,4479 @@
+package troll.fluff;
+import java.util.Arrays;
+import java.util.Random;
+@SuppressWarnings("unused")
+
+public class Tags {
+
+	public Tags() {
+		// Auto-generated constructor stub
+	}
+
+	public static String gethandle(char a, char b) {
+		String tag = new String("");
+		tag = gethandle1(a) + gethandle2(b);
+		return tag;
+		}			
+
+	public static String gethandle(String a, String b) {
+		String tag = new String("");
+		char a2 = a.charAt(0);
+		char b2 = b.charAt(0);
+		tag = gethandle1(a2) + gethandle2(b2);
+		return tag;
+		}			
+
+	static String gethandle1(char letter) {
+		// feed it a ? to get a random initial
+		letter = Character.toLowerCase(letter);
+		char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+						   'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+		Random rand = new Random();
+		String tag = new String("");
+		tag = "?";
+		if (!Character.isAlphabetic(letter)) {letter=alphabet[rand.nextInt(alphabet.length)];};
+
+		String[] A = {
+				"abandoned", 
+				"abased", 
+				"abbess",
+				"abbot",
+				"abels", 
+				"aberrant",
+				"abhorrent",
+				"abject", 
+				"able", 
+				"abomination", 
+				"abscission", 
+				"absconding",
+				"absolute",
+				"absolved",
+				"abstracted",
+				"abstruse", 
+				"abyss", 
+				"abyssal", 
+				"acapella",
+				"ace", 
+				"acid", 
+				"aconite", 
+				"acrimonious", 
+				"acrophobic",
+				"acryptic",
+				"action",
+				"adamantite",
+				"adequate",
+				"adios", 
+				"adolescent",
+				"adventurous",
+				"adventure",
+				"advertisement",
+				"aerialist", 
+				"aero",
+				"aesthetic", 
+				"aether",
+				"affable", 
+				"afficionado",
+				"aforementioned",
+				"age",
+				"aggressive", 
+				"aggro", 
+				"agile", 
+				"agnogenic",
+				"agoraphobic",
+				"agricultural",
+				"air",
+				"alchemical",
+				"alchohol",
+				"aleatory", 
+				"aleph", 
+				"algebraic", 
+				"alien", 
+				"alleged", 
+				"alligator",
+				"allodic", 
+				"allogeneous", 
+				"alloy",
+				"ally",
+				"aloof", 
+				"alpacas", 
+				"alpha",
+				"already",
+				"alternative",
+				"alternation",
+				"aluminum",
+				"always",
+				"amber",
+				"ambiance",
+				"ambrosine",
+				"amethyst",
+				"amicicidal",
+				"amplified",
+				"amused",
+				"amusing",
+				"amusement",
+				"analog", 
+				"anatomical",
+				"ancient",
+				"anelie",	
+				"angelic",
+				"angled",
+				"anglerfish",
+				"angular",
+				"animalistic", 
+				"animated",
+				"animatronic",
+				"anime",
+				"annoying",
+				"anonymous",
+				"antagonized", 
+				"ante",
+				"anti",
+				"antic", 
+				"antimony",
+				"antipasto",
+				"antiquated",
+				"antisocial",
+				"ants",
+				"apathetic",
+				"apathy",
+				"apocalypse",
+				"apostolic",
+				"appolos",	
+				"apprehensive", 
+				"appropriate",
+				"aqua",
+				"aquatic",	
+				"arachnes",	
+				"arachnids", 
+				"arbitrary",
+				"arboreal",
+				"arcane", 
+				"arch", 
+				"archaic", 
+				"archer",
+				"archimedes",
+				"architectural",
+				"archival", 
+				"arctic", 
+				"arduous", 
+				"argon",
+				"arid", 
+				"aristocratic", 
+				"arrogant",
+				"arsenic", 
+				"artifactual", 
+				"artificial", 
+				"art",
+				"artistic", 
+				"asbestos", 
+				"ascended", 
+				"ascent",
+				"ascetic", 
+				"ashen", 
+				"ash",
+				"athanasy", 
+				"atomic",
+				"atoll",
+				"attentive",
+				"attuned", 
+				"atypical", 
+				"authorized", 
+				"auto", 
+				"automated", 
+				"autumn",
+				"avid", 
+				"awesome",
+				"awkward",
+				"axolotls",
+				"azerothian", 
+				"azure",
+		};
+		String[] B = {
+				"backfire", 
+				"backup", 
+				"backstab",
+				"badgers",
+				"balanced", 
+				"baldrs", 
+				"baleful", 
+				"ballistic",
+				"bamboo",
+				"bandwagon",
+				"baneof",
+				"barbequed",
+				"bardof",
+				"barenecked", 
+				"baritone", 
+				"barmy", 
+				"baron",
+				"baroness",
+				"baseball", 
+				"basic", 
+				"bastille",
+				"bats",
+				"batter", 
+				"bear",
+				"beast",
+				"beautiful",
+				"beaver",
+				"beethovens",
+				"beige",
+				"belated",
+				"belphegors", 
+				"benedicts", 
+				"benevolent", 
+				"benign", 
+				"beta", 
+				"bigoted", 
+				"binary", 
+				"bio", 
+				"birding", 
+				"bismuth",
+				"bisquick", 
+				"bitter", 
+				"bittersweet", 
+				"black",
+				"blackout", 
+				"blade",
+				"blank",
+				"blasted", 
+				"blatant", 
+				"blaze", 
+				"bleeding", 
+				"blended", 
+				"blind",
+				"bliss",
+				"blithe",
+				"blood", 
+				"bloodied",
+				"bloody",
+				"blue",
+				"bluebirdof",
+				"boastful", 
+				"body",
+				"boggart",
+				"boiling",
+				"bolide", 
+				"bomb", 
+				"bone",
+				"bonsai",
+				"boob",
+				"book",
+				"boron",
+				"botanical", 
+				"brackish",
+				"braille",
+				"brain",
+				"bramble",
+				"brazen",
+				"breathing",
+				"breaths",
+				"brick",
+				"brickwork",
+				"brickedup",
+				"bridge",
+				"bridled",
+				"broken",
+				"bromine",
+				"bronze",
+				"brook",
+				"brown",
+				"bubble",
+				"bubbling",
+				"buffalo", 
+				"bulge",
+				"bumbling", 
+				"buriedin", 
+				"burlap",
+				"burnt", 
+				"butterfly",
+				"byzantine",
+		};
+		String[] C = {
+				"cacophonous",
+				"cacophony",
+				"cacheted", 
+				"cactus",
+				"caged",
+				"calamitous", 
+				"calcium", 
+				"calico", 
+				"caliginous", 
+				"caligulas", 
+				"calm", 
+				"cambions", 
+				"cambrian",
+				"camel",
+				"campbell",
+				"canary",
+				"cancerous", 
+				"candid", 
+				"candy", 
+				"canis", 
+				"cannibalistic",
+				"cannon", 
+				"canon", 
+				"canopy",
+				"cantankerous",
+				"canyon",
+				"capricious", 
+				"caprine", 
+				"captious",
+				"captivated",
+				"carapace", 
+				"carbon",
+				"carbonsteel",
+				"carbosilicate",
+				"carbohydrate",
+				"carcino", 
+				"cardinal", 
+				"career", 
+				"careworn", 
+				"carpet",
+				"cascading", 
+				"caste", 
+				"castellar", 
+				"casual", 
+				"casually", 
+				"cataclysmic", 
+				"catastrophic", 
+				"cathedral",
+				"catheter",
+				"cat",
+				"catatonic",
+				"catnip", 
+				"catlike",
+				"caulk",
+				"causal",
+				"caustic", 
+				"cautious",
+				"cave",
+				"cavernous",
+				"cell", 
+				"cello", 
+				"cement",
+				"centaurs",
+				"ceramic",
+				"cerise", 
+				"cerulean",
+				"chain",
+				"chainlink",
+				"chalk",
+				"challenge",
+				"chameleon",
+				"change",
+				"changing",
+				"chaos", 
+				"chaotic", 
+				"charge",
+				"charmed", 
+				"charming", 
+				"chemical", 
+				"cherry", 
+				"cherubic", 
+				"cheshire", 
+				"chicane", 
+				"chicken",
+				"chief",
+				"chiefinstigator",
+				"childish", 
+				"chimeric",
+				"chimerical", 
+				"chirons", 
+				"chlorine",
+				"chocolate",
+				"choice",
+				"choiceof",
+				"choleric",
+				"chord", 
+				"chrome",
+				"chromium",
+				"cinder", 
+				"cinnabar", 
+				"circuit",
+				"circuitous",
+				"classless", 
+				"classy",
+				"claustrophobic",
+				"clay",
+				"cleft", 
+				"clenched",
+				"clerical",
+				"clever", 
+				"cliffside",
+				"clifftop",
+				"clockwork", 
+				"cloistered", 
+				"cloven", 
+				"cloud",
+				"cloudsof",
+				"clown",
+				"clownfish", 
+				"clownish",
+				"coal",
+				"coaxial",
+				"cobalt",
+				"cobblestone",
+				"coffee",
+				"coffeehouse", 
+				"cold", 
+				"collapsed",
+				"collected", 
+				"colorized",
+				"colorful", 
+				"comatose", 
+				"commando",
+				"compulsive",
+				"computational", 
+				"concave", 
+				"concerned", 
+				"concrete",
+				"condescending", 
+				"confused", 
+				"consequential", 
+				"conservative",
+				"construct",
+				"constructed",
+				"construction",
+				"consoling",
+				"consuming",
+				"contact",
+				"contrast",
+				"convict",
+				"cookie",
+				"cool", 
+				"coolkid",
+				"copper",
+				"coppertone",
+				"copperplate",
+				"coral",
+				"cord", 
+				"corporal",
+				"corrupted", 
+				"cosmic", 
+				"cotidal", 
+				"cotton",
+				"cougar",
+				"count",
+				"countess",
+				"counter", 
+				"courage",
+				"courageous",
+				"cow",
+				"cowardly",
+				"crab", 
+				"crabapple", 
+				"crabby", 
+				"crackerbarrel", 
+				"crackerjack", 
+				"craft", 
+				"crafty", 
+				"crane",
+				"cratering", 
+				"crawdad", 
+				"cray", 
+				"crazy", 
+				"creepy", 
+				"cremated", 
+				"critical",
+				"crocodile",
+				"crocodiletear",
+				"crossroad",
+				"crude", 
+				"cryptic", 
+				"crystal",
+				"crystalline",
+				"cube",
+				"cubed",
+				"curious",
+				"cursed",
+				"cursing",
+				"cuttlefish",
+				"cyan",
+				"cybernetic",
+				"cynical",
+		};
+		String[] D = {
+				"daedalus", 
+				"daffy", 
+				"daft", 
+				"damascus", 
+				"damiens", 
+				"damnation", 
+				"damnations",
+				"danceof",
+				"dancing",
+				"dangerous", 
+				"dangerously", 
+				"dapper", 
+				"daredevil", 
+				"dark", 
+				"darkened", 
+				"dastardly",
+				"data", 
+				"dawn",
+				"dawning",
+				"daydreaming", 
+				"daylight", 
+				"daywalkers",
+				"deadeye", 
+				"deadeyed", 
+				"deaf",
+				"deal",
+				"death",
+				"deathtouched",
+				"debased", 
+				"debonair", 
+				"decaying",
+				"decor",
+				"decorated",
+				"decrypted", 
+				"dedicated", 
+				"defective", 
+				"delay", 
+				"deleterious", 
+				"delightful", 
+				"demon", 
+				"demonic", 
+				"demure", 
+				"denied", 
+				"depressed",
+				"depth",
+				"deranged", 
+				"descartes",
+				"descending",
+				"desert", 
+				"desk", 
+				"desolated",
+				"desolation",
+				"destined", 
+				"destiny", 
+				"destitute", 
+				"deterministic",
+				"deviant", 
+				"devilish",
+				"devoted",
+				"dew",
+				"diabolical",
+				"diagnosed",
+				"diamond",
+				"diamondtipped",
+				"dielectric", 
+				"different", 
+				"diffident", 
+				"digital", 
+				"digladiate", 
+				"diminutive", 
+				"dingo",
+				"dinosaur",
+				"diogenes",
+				"dionysus", 
+				"director", 
+				"directory", 
+				"dirt",
+				"disc", 
+				"discombobulated",
+				"disease",
+				"diseased",
+				"dismay", 
+				"dispassionate", 
+				"disquisitive", 
+				"distracted",
+				"diurnal", 
+				"diverse", 
+				"divvied", 
+				"dockside", 
+				"doctor", 
+				"dodeca", 
+				"dog",
+				"dogged",
+				"dogmatic", 
+				"doll",
+				"dolllike",
+				"dolphin",
+				"doom",
+				"doomsday", 
+				"double", 
+				"doublebubble",
+				"doubledown",
+				"doublesnuggle",
+				"doublethe",
+				"doubletrouble",
+				"dove",
+				"dovescry",
+				"draconic", 
+				"dragon", 
+				"dragonsby",
+				"dream", 
+				"dreaming", 
+				"drought",
+				"druidic",
+				"drunken",
+				"dry",
+				"dual", 
+				"dualtone",
+				"duchess",
+				"duchy",
+				"duck",
+				"duckbilled",
+				"ducktaped",
+				"ducky",
+				"duct",
+				"ductile",
+				"ducttape",
+				"dugon",
+				"duke",
+				"dukeof",
+				"dungeon",
+				"dusk", 
+				"dust",
+				"dusty", 
+				"dutch", 
+				"dynamic", 
+				"dynamite",
+				"dye",
+				"dyed",
+		};
+		String[] E = {
+				"earthly",
+				"easilydistracted",
+				"easy",
+				"ebony",
+				"ebullient",
+				"eccentric",
+				"echo",
+				"echoed",
+				"echoing",
+				"eclectic", 
+				"eclipse",
+				"ecliptic", 
+				"ecstatic", 
+				"ecto", 
+				"edge",
+				"edgelord",
+				"edwards", 
+				"ego",
+				"eel", 
+				"eightbit", 
+				"eighth", 
+				"elastic", 
+				"elder", 
+				"eldritch",
+				"electronics",
+				"elegant", 
+				"elementary",
+				"elephantine", 
+				"eleventh", 
+				"elite", 
+				"eloquent", 
+				"elven", 
+				"emerald", 
+				"emergency", 
+				"emergent", 
+				"emotionless", 
+				"encrypted",
+				"endless", 
+				"energetic", 
+				"enraged", 
+				"ensign",
+				"entrancing", 
+				"enumerated",
+				"envoy",
+				"ephemeral", 
+				"epicene", 
+				"equestrian", 
+				"erasmus", 
+				"eratosthenes", 
+				"eris", 
+				"ermine", 
+				"eternal", 
+				"ethereal", 
+				"eulers", 
+				"evanescent",
+				"everafter",
+				"evergreen",
+				"everlasting", 
+				"evocative",
+				"exasperant", 
+				"exasperated",
+				"excellent", 
+				"excommunicated",
+				"existential",
+				"exploring",
+				"extreme", 
+		};
+		String[] F = {
+				"factored", 
+				"faithful", 
+				"false",
+				"falsetto",
+				"fatigued",
+				"fearful",
+				"feckless", 
+				"fedora", 
+				"felidae", 
+				"felis", 
+				"fell", 
+				"felt", 
+				"ferdinands", 
+				"ferocious",
+				"ferret",
+				"festive",
+				"fetid", 
+				"fever",
+				"fibbonaccis", 
+				"fifth", 
+				"fired", 
+				"firey",
+				"first", 
+				"fish", 
+				"fist",
+				"flacid", 
+				"flamboyant", 
+				"flaming", 
+				"fleshy",
+				"flipping",
+				"flotsam",
+				"flow",
+				"flowof",
+				"flowing",
+				"flower",
+				"flowering",
+				"fluffy",
+				"fluorine",
+				"foe",
+				"fog",
+				"foolish",
+				"forbidden",
+				"forensic",
+				"forest",
+				"forested",
+				"forgeof",
+				"forgetful", 
+				"forgotten", 
+				"form",
+				"formatting",
+				"formof",
+				"forsaken",
+				"forthcoming",
+				"fortified",
+				"fortuitous", 
+				"fortunate", 
+				"fossil",
+				"fossilized",
+				"fourth", 
+				"fox",
+				"fractal", 
+				"frantic", 
+				"freedom", 
+				"freefall",
+				"freelance", 
+				"frequent", 
+				"friendly",
+				"friendshaped",
+				"frightened", 
+				"froggish",
+				"frosty",
+				"frosted",
+				"frozen", 
+				"fruity", 
+				"fuck", 
+				"full", 
+				"fullblown",
+				"fume",
+				"fuming",
+				"fungi",
+				"fungoid",
+				"fungus",
+				"fur",
+				"furry",
+				"furred",
+				"furious",
+				"furtive",
+				"fuschia",
+				"future", 
+				"futureproofed",
+		};
+		String[] G = {
+				"gadget", 
+				"gadgeteer",
+				"galadriels", 
+				"galaxy", 
+				"gale", 
+				"gall", 
+				"gallant", 
+				"gallavanting", 
+				"gallionic",
+				"gallows", 
+				"gambling", 
+				"gamma", 
+				"gander", 
+				"garden", 
+				"gardenkeeper",
+				"gargoyle",
+				"garnet",
+				"gasper", 
+				"gatekeeper", 
+				"gaucherie",
+				"gecko",
+				"geeky",
+				"gemcutter",
+				"gemstone",
+				"general", 
+				"generous", 
+				"genial", 
+				"gentle",
+				"genuine", 
+				"germ",
+				"germfilled",
+				"germtastic",
+				"ghastly", 
+				"ghost", 
+				"ghostly", 
+				"ghoul", 
+				"gibbet", 
+				"gilded", 
+				"gingerbread",
+				"giraffe",
+				"gladiate", 
+				"glamorous", 
+				"glass",
+				"glitterfilled",
+				"glitterfueled",
+				"glittering",
+				"gloom",
+				"glow",
+				"glowstick", 
+				"glum",
+				"gluttonous",
+				"gnarly", 
+				"gnoseologic", 
+				"god", 
+				"godlike",
+				"godly", 
+				"godmode", 
+				"godsent", 
+				"gold",
+				"golden", 
+				"golgothas", 
+				"gothic", 
+				"gradient", 
+				"graphical", 
+				"graphite",
+				"grass",
+				"grave",
+				"graveyards",
+				"gravitys",
+				"gravitatonal",
+				"green",
+				"grey", 
+				"greyscale", 
+				"grievous",
+				"griffon",
+				"grim", 
+				"grimalkin", 
+				"grimoire", 
+				"guest", 
+				"guide",
+				"guidemeto",
+				"guided", 
+				"guidedby",
+				"guild", 
+				"guile",
+				"guilty",
+				"gullible",
+				"gummy", 
+				"gumshoes",
+				"gun", 
+				"gustsof",
+				"gutsy", 
+		};
+		String[] H = {
+				"hail",
+				"halcyon",
+				"hallucinating",
+				"hamster",
+				"handsome", 
+				"handy", 
+				"harbor",
+				"harborof",
+				"hardy", 
+				"harmful", 
+				"harmonica", 
+				"harpys",
+				"hat",
+				"hate",
+				"hated", 
+				"hatred",
+				"haunted",
+				"hawk",
+				"hay",
+				"haybale",
+				"haystack",
+				"hazardous", 
+				"haze",
+				"hazeof",
+				"healthy",
+				"heart",
+				"hearty",
+				"heat",
+				"heated", 
+				"hedge",
+				"hefty",
+				"height",
+				"heir",
+				"heiress",
+				"helio", 
+				"helium",
+				"helix", 
+				"helpful", 
+				"hemi", 
+				"hemlock", 
+				"henge",
+				"heretical",
+				"hermetic", 
+				"hermit",
+				"hetero", 
+				"hex", 
+				"hibiscus", 
+				"highspeed", 
+				"highway", 
+				"hilarious",
+				"hill",
+				"hippo",
+				"hippopotamous",
+				"hippocrates", 
+				"historical",
+				"hole",
+				"holedigging",
+				"holly",
+				"hollyjolly",
+				"homicidal",
+				"honor",
+				"honorable",
+				"hope",
+				"hopeful",
+				"hopeless", 
+				"horrible",
+				"horror",
+				"horrorterror",
+				"hospitable",
+				"host",
+				"hot", 
+				"hotpink",
+				"howling",
+				"humanimal",
+				"humble", 
+				"hungering",
+				"hunt",
+				"hunter",
+				"hunting",
+				"hybrid", 
+				"hydro",
+				"hydrogen",
+				"hyperactive",
+				"hyperion", 
+				"hypnotic",
+				"hysterical",
+		};
+		String[] I = {
+				"ice",
+				"iconic", 
+				"idealistic",
+				"iguana",
+				"illegal",
+				"illusionary",
+				"imaginary",
+				"imagine",
+				"imminent", 
+				"immortal", 
+				"impact",
+				"impassive", 
+				"imperfect", 
+				"impious", 
+				"impish",
+				"impressionable",
+				"inaccurate", 
+				"incandescent", 
+				"incapable", 
+				"incipient",
+				"indie",
+				"indigenous", 
+				"indigo",
+				"ineffable",
+				"infanticidal",
+				"infinite",
+				"influential", 
+				"informative", 
+				"inhospitable", 
+				"ink",
+				"inked",
+				"inmagnificent",
+				"innocent",
+				"inquiry", 
+				"inquisitive", 
+				"insanity", 
+				"insatiable", 
+				"insipid",
+				"insomniac", 
+				"insouciant", 
+				"instinctive", 
+				"insufficient", 
+				"insult", 
+				"insulting",
+				"intangible", 
+				"intellectual", 
+				"interloping",
+				"intern",
+				"intothe",
+				"intimidating",
+				"intolerant", 
+				"intransigent", 
+				"introverted", 
+				"invisible", 
+				"inyour",
+				"iodine",
+				"irascible", 
+				"iridium",
+				"iron", 
+				"ironplated",
+				"irradiated",
+				"irrational", 
+				"irregular", 
+				"irrelevant",
+				"irreverent",
+				"irrigation",
+				"iscariots", 
+				"ishmaels", 
+				"island",
+				"islandof",
+				"islands",
+				"isolated", 
+				"isometric", 
+				"isosceles", 
+				"ivory",
+		};
+		String[] J = {
+				"jabberwock",
+				"jackal",
+				"jackanape",
+				"jackass", 
+				"jackboot",
+				"jackrabbit",
+				"jaded",
+				"jagged",
+				"jaguar",
+				"jailhouse", 
+				"jailtime",
+				"jalapeno",
+				"jalopy",
+				"jam",
+				"jamfilled",
+				"jargon",
+				"jasper", 
+				"jaundiced",
+				"jaunty",
+				"jaw",
+				"jawbreaker",
+				"jazz",
+				"jazzy",
+				"jealous",
+				"jean",
+				"jeepers",
+				"jejune",
+				"jello",
+				"jelly",
+				"jellybean",
+				"jeopardy",
+				"jest", 
+				"jet",
+				"jetlag",
+				"jetsam", 
+				"jetstream",
+				"jettisoned",
+				"jewel",
+				"jewelry",
+				"jigsaw",
+				"jilted",
+				"jiminy",
+				"jingoist",
+				"jinx",
+				"jitterbug",
+				"jittery",
+				"jive",
+				"jiving",
+				"jobless",
+				"jocular",
+				"jockstrap",
+				"jointed",
+				"joker",
+				"joking",
+				"jolly",
+				"journal",
+				"journalistic",
+				"journey",
+				"joust",
+				"jovial", 
+				"jovian", 
+				"joy",
+				"joyful",
+				"joyride",
+				"joystick",
+				"jubilant",
+				"jubilation",
+				"judge",
+				"judgement", 
+				"judgemental",
+				"judicial",
+				"judicious",
+				"juggernaut",
+				"juggling",
+				"jugulated",
+				"juicy",
+				"jujitsu",
+				"jumbo",
+				"jumpsuit",
+				"jumping",
+				"juncture",
+				"jungle",
+				"junior",
+				"junk",
+				"junked",
+				"junket",
+				"junkyard",
+				"just",
+				"justicar",
+				"justificatory",
+				"justified",
+				"jutting",
+				"juxtaposed",
+		};
+		String[] K = {
+				"kangaroo",
+				"karaoke",
+				"karate",
+				"keelhaul",
+				"keepsake",
+				"key",
+				"keycard",
+				"keyhole",
+				"kick", 
+				"killer", 
+				"kind",
+				"kinesthetic",
+				"king", 
+				"kitten", 
+				"kitty", 
+				"klepto", 
+				"knack", 
+				"knave",
+				"kneeling", 
+				"knickknack", 
+				"knife", 
+				"knight", 
+				"knotted", 
+				"knowledgeable", 
+				"knowing",
+				"krypton",
+		};
+		String[] L = {
+				"labyrinthine",
+				"labyrinthof",
+				"lackadaisical", 
+				"ladderto",
+				"lady", 
+				"lagomorph",
+				"lake",
+				"lakeof",
+				"lamppost", 
+				"lancing", 
+				"landed", 
+				"lapis",
+				"laser",
+				"lasercleaned",
+				"laserguided",
+				"last", 
+				"lasting", 
+				"laughable", 
+				"laughter",
+				"lavender",
+				"law", 
+				"lawful",
+				"lay", 
+				"lazy",
+				"lead",
+				"leading",
+				"leadlined",
+				"leafygreen",
+				"leave",
+				"leaveme",
+				"leaves",
+				"left", 
+				"lemon", 
+				"lethargic", 
+				"level", 
+				"levitating",
+				"ley", 
+				"liberal", 
+				"life", 
+				"light",
+				"lightning",
+				"lilting", 
+				"limited", 
+				"linguistic",
+				"lion",
+				"liontaming",
+				"listless", 
+				"lit",
+				"lithium",
+				"little", 
+				"liveliest", 
+				"living", 
+				"loamy",
+				"lockup", 
+				"lonely",
+				"loopy",
+				"loss",
+				"lost",
+				"love",
+				"lovely", 
+				"loving",
+				"lucent", 
+				"lucid", 
+				"luciferous",
+				"luck",
+				"lucky", 
+				"lugubrious", 
+				"luminescence", 
+				"luminous", 
+				"lupus", 
+				"lustrous", 
+				"lying",
+		};
+		String[] M = {
+				"madam", 
+				"madness",
+				"maelstrom",
+				"maestro",
+				"maestress",
+				"mageof",
+				"magenta",
+				"magi", 
+				"magic", 
+				"magical",
+				"magma",
+				"magnanimous",
+				"magnesium",
+				"magnetic",
+				"maid",
+				"mailin", 
+				"maladroit", 
+				"malignant", 
+				"malleable",
+				"manatee",
+				"mangled", 
+				"maniacal", 
+				"manic", 
+				"manicpixie",
+				"manicpixiedream",
+				"mankinds",
+				"manticore",
+				"map",
+				"mapped",
+				"marble",
+				"marsh",
+				"marshal",
+				"martyrs", 
+				"masked", 
+				"master", 
+				"masterful", 
+				"matricidal",
+				"matrix", 
+				"meadow",
+				"meatloaf",
+				"mechanical",
+				"mega", 
+				"megalomaniacal", 
+				"melancholy",
+				"mellow", 
+				"melody",
+				"memory", 
+				"mended", 
+				"mental", 
+				"meow", 
+				"mercury",
+				"mermaids",
+				"metal",
+				"metallic", 
+				"methodical", 
+				"meticulous",
+				"mice",
+				"midnight", 
+				"mightjust",
+				"mighty", 
+				"militaristic",
+				"milky", 
+				"miltonian", 
+				"mind",
+				"mindful",
+				"mineral",
+				"mini", 
+				"mining",
+				"minx",
+				"mirror",
+				"mirrored",
+				"mirrorshine",
+				"mirthful",
+				"mischievous", 
+				"misdemeanor",
+				"miserly",
+				"misfit", 
+				"misguided", 
+				"misleading", 
+				"misled", 
+				"mistaken",
+				"misty", 
+				"mithril",
+				"misunderstood", 
+				"mixolydian", 
+				"mobile", 
+				"modern", 
+				"modified",
+				"mondegreen",
+				"money",
+				"monks",
+				"monkeys",
+				"monster",
+				"moose",
+				"moss",
+				"motherfucking", 
+				"motion",
+				"mountain",
+				"mouse", 
+				"mr", 
+				"mrs", 
+				"mud",
+				"muddy",
+				"multicolored", 
+				"muramasas",
+				"mushrooms",
+				"music",
+				"musical", 
+				"musicless", 
+				"mustard",
+				"mx",
+				"mycosynth", 
+				"myopic", 
+				"mycelium",
+				"mysterious",
+				"mysteryof",
+		};
+		String[] N = {
+				"nailfile", 
+				"naive",
+				"naked",
+				"nakedmolerat",
+				"nasty", 
+				"natural",
+				"necrotic",
+				"nefarious",
+				"neodymium",
+				"neon",
+				"neurotic", 
+				"new", 
+				"nickel",
+				"nickelplated", 
+				"night", 
+				"nightfall", 
+				"nightmare", 
+				"nightmarish", 
+				"nihilistic", 
+				"ninja",
+				"ninth", 
+				"nitro",
+				"nitrogen",
+				"nitrous",
+				"nitrous",
+				"noble",
+				"nocturnal", 
+				"noir",
+				"noise",
+				"non", 
+				"nostalgic", 
+				"notorious", 
+				"numeric",
+				"nursing",
+		};
+		String[] O = {
+				"oasisof",
+				"oathof",
+				"oblivious", 
+				"observing",
+				"obsidian",
+				"octagon", 
+				"octarine", 
+				"octo", 
+				"octuple", 
+				"oddball", 
+				"odorous",
+				"oily",
+				"olden", 
+				"olfactory", 
+				"olivers", 
+				"ominous", 
+				"omnipotent",
+				"ooze",
+				"oozing",
+				"opportune",
+				"opposite",
+				"oppressive", 
+				"orange", 
+				"orangecreamsicle",
+				"orchard",
+				"orderly",
+				"ordersup",
+				"ore",
+				"organized", 
+				"ornery", 
+				"ostentatious",
+				"otter",
+				"outlandish",
+				"outlaw",
+				"owl",
+				"owlish",
+				"oxygen",
+				"oxygenated",
+		};
+		String[] P = {
+				"page",
+				"palladium",
+				"pandas", 
+				"panthers",
+				"pantomime",
+				"paper",
+				"paperwork",
+				"paragon", 
+				"parallel", 
+				"parasitic",
+				"parrots",
+				"passionate", 
+				"passive", 
+				"path",
+				"pathologic",
+				"pathological",
+				"pathto",
+				"patient", 
+				"patricidal",
+				"pattering",
+				"peace",
+				"pearly",
+				"peerless",
+				"penguins",
+				"penultimate",
+				"peppered", 
+				"perma", 
+				"pernicious",
+				"perpetual",
+				"persephones", 
+				"perspicatious",
+				"petulant", 
+				"philosophical",
+				"philosophy",
+				"phlegmatic",
+				"phosphorus",
+				"photo", 
+				"pickle", 
+				"pigs",
+				"pink",
+				"pipe",
+				"pipelaying",
+				"pipesmoking",
+				"pirate",
+				"piston",
+				"pitiful", 
+				"pixie",
+				"plains",
+				"planetary", 
+				"plasma",
+				"plastic",
+				"platform",
+				"platinum",
+				"pluck",
+				"pocket",
+				"poets",
+				"poetic", 
+				"political",
+				"polluted",
+				"polychrome",
+				"polymer",
+				"ponies",
+				"porcelaine",
+				"portals",
+				"portalto",
+				"possessed", 
+				"possessive", 
+				"post", 
+				"postmodern",
+				"potassium",
+				"powder",
+				"power",
+				"powerful",
+				"powertool",
+				"prairie",
+				"prank",
+				"prankfueled",
+				"pre", 
+				"precambrian", 
+				"precarious", 
+				"precipiseof",
+				"precise", 
+				"predominant",
+				"presence",
+				"presents",
+				"priestly",
+				"prince", 
+				"prisms",
+				"privateering", 
+				"problem", 
+				"problematic", 
+				"proctor",
+				"professor", 
+				"prophecy", 
+				"prophet", 
+				"prophetic", 
+				"prophillic", 
+				"prosthetic",
+				"pseudo", 
+				"psyched", 
+				"psychotic",
+				"pterodactyls",
+				"pulchritude",
+				"pulse",
+				"pumice",
+				"pumpkin",
+				"pumpkins",
+				"pupil",
+				"purpose",
+				"pyramids",
+				"pyromaniacal", 
+				"pyrotechnic", 
+		};
+		String[] Q = {
+				"qabalah",
+				"qua",
+				"quaaludes",
+				"quack",
+				"quackery",
+				"quacking",
+				"quacks",
+				"quad",
+				"quadding",
+				"quadrangle",
+				"quadrangular",
+				"quadrant",
+				"quadrants",
+				"quadratic",
+				"quadratically",
+				"quadriplegic",
+				"quadrupedal",
+				"quadrupeds",
+				"quadruple",
+				"quads",
+				"quaffing",
+				"quagga",
+				"quagmire",
+				"quagmires",
+				"quail",
+				"quails",
+				"quaint",
+				"quake",
+				"quaker",
+				"quaking",
+				"qualia",
+				"qualifiable",
+				"qualified",
+				"qualifier",
+				"qualifying",
+				"qualitative",
+				"quality",
+				"qualm",
+				"qualms",
+				"quandary",
+				"quanta",
+				"quantic",
+				"quantifiable",
+				"quantified",
+				"quantify",
+				"quantitative",
+				"quantity",
+				"quantum",
+				"quarantine",
+				"quarks",
+				"quarrel",
+				"quarrelsome",
+				"quarry",
+				"quarryman",
+				"quart",
+				"quarter",
+				"quarterback",
+				"quartered",
+				"quarterfinal",
+				"quarterfinals",
+				"quarterly",
+				"quartermaster",
+				"quarterstaff",
+				"quartet",
+				"quartile",
+				"quartz",
+				"quartzite",
+				"quasar",
+				"quash",
+				"quasi",
+				"quasicrystal",
+				"quasiparticle",
+				"quaternion",
+				"quavering",
+				"quay",
+				"quayside",
+				"qubit",
+				"queasy", 
+				"queen",
+				"queer",
+				"queerer",
+				"queerness",
+				"quelled",
+				"quelling",
+				"quench",
+				"querida",
+				"queried",
+				"queries",
+				"quern",
+				"querulous",
+				"query", 
+				"quesadilla",
+				"quest", 
+				"question",
+				"questionable", 
+				"questioning",
+				"questionnaire",
+				"queue",
+				"queueing",
+				"quibble", 
+				"quiche",
+				"quick", 
+				"quickening",
+				"quickie",
+				"quicklime",
+				"quicksand",
+				"quicksilver",
+				"quickstep",
+				"quid",
+				"quiet",
+				"quietest",
+				"quidditch", 
+				"quill",
+				"quilled",
+				"quillwork",
+				"quilt",
+				"quilted",
+				"quinoa",
+				"quintessence",
+				"quintessential",
+				"quintillionth",
+				"quintuple",
+				"quippy",
+				"quips",
+				"quire",
+				"quirk",
+				"quirky", 
+				"quisling",
+				"quit",
+				"quite",
+				"quitter",
+				"quiver",
+				"quiz",
+				"quizmaster",
+				"quizzical",
+				"quota",
+				"quotable",
+				"quotation",
+				"quote",
+				"quoth",
+				"quotient",
+				"qwerty",
+		};
+		String[] R = {
+				"rabbit",
+				"rabid", 
+				"raccoon",
+				"racecar", 
+				"radiant",
+				"radiance",
+				"radium",
+				"radon",
+				"rage",
+				"raid",
+				"rain",
+				"rainbow", 
+				"rainbowdrinkers",
+				"raked", 
+				"rambunctious",
+				"rampaging", 
+				"rampant", 
+				"ramp",
+				"rancid",
+				"randomaccess", 
+				"rangeof",
+				"ranger",
+				"rank", 
+				"ranting",
+				"rat",
+				"raven",
+				"ray",
+				"raysof",
+				"razor", 
+				"razzle",
+				"real",
+				"reason",
+				"reasoning",
+				"rebel",
+				"reborn",
+				"recalcitrant",
+				"reckless",
+				"recusant",
+				"red",
+				"redeyed",
+				"redstone",
+				"reflected",
+				"regretful",
+				"regretted",
+				"regicidal",
+				"relentless", 
+				"relevant",
+				"relic", 
+				"religious", 
+				"reliquary", 
+				"reminiscing",
+				"repeated",
+				"repetition",
+				"reptilian", 
+				"resolutely", 
+				"resplendent", 
+				"restful", 
+				"restless", 
+				"retro", 
+				"reverse",
+				"revolver", 
+				"rhapsody",
+				"rhinoceros",
+				"rhyme",
+				"rhythm",
+				"right", 
+				"righteous", 
+				"rime",
+				"ring", 
+				"ringed", 
+				"ringing", 
+				"rip",
+				"rival",
+				"river",
+				"riverside",
+				"roaring", 
+				"robotic", 
+				"robust", 
+				"rock",
+				"rocknroll",
+				"rogue",
+				"rose",
+				"rosesand",
+				"rot",
+				"rotted",
+				"rotated",
+				"rotund",
+				"royal", 
+				"rubber",
+				"ruby",
+				"ruling", 
+				"rumored",
+				"rust",
+				"rusted",
+		};
+		String[] S = {
+				"sad",
+				"sadistic", 
+				"saffron",
+				"sage",
+				"salacious",
+				"salad",
+				"salamander",
+				"salarian",
+				"salt",
+				"salted",
+				"salty", 
+				"sand",
+				"sandy",
+				"sangfroid", 
+				"sanguine", 
+				"sapphire", 
+				"sappy",
+				"sarcastic", 
+				"sardonic", 
+				"saturn", 
+				"savannah",
+				"savior",
+				"scales", 
+				"schroedingers",
+				"science",
+				"scourge",
+				"scout",
+				"scribe",
+				"scrying",
+				"seagull",
+				"seasons",
+				"seasonal",
+				"second", 
+				"secondhand",
+				"seductive",
+				"seeker",
+				"seer",
+				"self",
+				"selfish", 
+				"sentience",
+				"sepulchral", 
+				"sequel", 
+				"sequestered", 
+				"sequined", 
+				"seraphic", 
+				"serial", 
+				"serious", 
+				"sesquipodelian", 
+				"seventh", 
+				"severe", 
+				"severed", 
+				"shade",
+				"shadow",
+				"shale",
+				"shaman",
+				"shapely",
+				"shark", 
+				"shattering",
+				"sheep",
+				"sherlocks", 
+				"shining", 
+				"shockwave",
+				"shoreline",
+				"shoreward",
+				"shotgun", 
+				"shrine",
+				"shrineof",
+				"shroud",
+				"shunted",
+				"shy",
+				"sick", 
+				"sightless", 
+				"silence", 
+				"silenced",
+				"silent", 
+				"silhouette",
+				"silicate", 
+				"silicon",
+				"silk", 
+				"silt",
+				"silver",
+				"singe",
+				"sinister",
+				"sixth", 
+				"sketchy", 
+				"skateboard",
+				"sketch",
+				"skin",
+				"skull",
+				"skunk",
+				"sky",
+				"slate",
+				"sleepless", 
+				"sleepy", 
+				"slime",
+				"slippery",
+				"sluice",
+				"slumber",
+				"smiling",
+				"smoke",
+				"smoking",
+				"smokey",
+				"snake",
+				"sneaky",
+				"snow",
+				"sober",
+				"sodium",
+				"solace",
+				"solar", 
+				"soldier",
+				"somber", 
+				"song",
+				"sorrow",
+				"soul",
+				"soulless",
+				"sound",
+				"sovereign", 
+				"space",
+				"spacefaring",
+				"spacebound",
+				"spacious",
+				"spark",
+				"spatula", 
+				"spectral",
+				"spherical",
+				"spice",
+				"spicy",
+				"spicebush", 
+				"spider",
+				"spike",
+				"spire", 
+				"splenetic", 
+				"split", 
+				"spoiler",
+				"sponge",
+				"spotted",
+				"spring",
+				"springtime",
+				"spy",
+				"squeamish",
+				"squid",
+				"squire",
+				"stable",
+//"stairs""stars""static""steam""steel grey""steel""steppe""steward""stinky""stockpile""stone""stories""storm""stranger""strings""stumps""stupid""style""sublime""subway""suction""sugar""sulfur""sun""surprise""swamp""sweets""swimming""swindling""sylph"				
+				"stability",
+				"stagnant", 
+				"star", 
+				"stealthy", 
+				"stepping",
+				"stick2", 
+				"stickit2",
+				"storytelling", 
+				"stray", 
+				"stream",
+				"stride", 
+				"string", 
+				"striped", 
+				"suave",
+				"subliminal", 
+				"subversive", 
+				"subzero", 
+				"sugary",
+				"superceded",
+				"superduper",
+				"superficial", 
+				"supersonic",
+				"surreal", 
+				"suspended", 
+				"suspicious", 
+				"sweet", 
+				"system", 
+				"systematic", 
+				"systolic", 
+		};
+		String[] T = {
+				/*
+"tea"
+"teal"
+"teeth"
+"temples"
+"tents"
+"terror"
+"textile"
+"thane"
+"thief"
+"thorns"
+"thought"
+"thunder"
+"tigers"
+"time"
+"timid"
+"tin"
+"tinsel"
+"titanium"
+"toad"
+"toil"
+"tomfoolery"
+"topiary"
+"toucans"
+"touch"
+"trainer"
+"trance"
+"tranquility"
+"transit"
+"translucent"
+"traps"
+"travel"
+"treasure"
+"trove"
+"truth"
+"tube"
+"tubular"
+"tundra"
+"tungsten"
+"tunnel"
+"turmoil"
+"turquoise"
+"turtles"
+"twilight"
+				 */
+				"tableturning", 
+				"taciturn", 
+				"tactic", 
+				"tainted", 
+				"talented", 
+				"tangible", 
+				"teasing", 
+				"teatime", 
+				"technical", 
+				"technicolor", 
+				"techno", 
+				"technologic",
+				"technological", 
+				"telepathic", 
+				"tempered", 
+				"temporal", 
+				"tenacious", 
+				"tenebrous", 
+				"tentacle", 
+				"tenth", 
+				"terminally", 
+				"terrible",
+				"test", 
+				"teutonic", 
+				"textbook", 
+				"thalio", 
+				"the", 
+				"theatric", 
+				"therapeutic", 
+				"thereoid", 
+				"thespian", 
+				"third", 
+				"thirsty", 
+				"thralled", 
+				"thread", 
+				"threat", 
+				"tidewater", 
+				"timaeus", 
+				"timely", 
+				"timorous", 
+				"tipsily",
+				"tipsy", 
+				"tireless", 
+				"titanium", 
+				"toasted", 
+				"tolerant", 
+				"torpid", 
+				"toxic", 
+				"track", 
+				"tranquil", 
+				"transient", 
+				"transparent", 
+				"treacherous",
+				"tremendous", 
+				"triskelion", 
+				"trivial", 
+				"trooper", 
+				"troublesome", 
+				"true", 
+				"truly", 
+				"trusty", 
+				"trying", 
+				"tumbling", 
+				"tuneful", 
+				"turbid", 
+				"turntable", 
+				"turntech", 
+				"twelfth", 
+				"twin", 
+				"twisted", 
+				"twofold", 
+				"tyrannical", 
+		};
+		String[] U = {
+				/*
+"ultraviolence"
+"umbrage"
+"uncoordinated"
+"undead"
+"undulating"
+"ungulate"
+"unicorns"
+"ununseptium"
+"uranium"
+"urns"
+"usher"
+				 */
+				"udder", 
+				"ulterior", 
+				"ultimate",
+				"umbrella", 
+				"uncanny", 
+				"uncertain", 
+				"undaunted", 
+				"undefined", 
+				"under",
+				"underthe",
+				"undistinguished", 
+				"undone", 
+				"undying",
+				"unending",
+				"unexplained",
+				"ungodly", 
+				"union", 
+				"unit", 
+				"united", 
+				"universal", 
+				"unlucky",
+				"unnoticed", 
+				"unstable", 
+				"unstopped",
+				"unsuccessful", 
+				"untested", 
+				"untreated", 
+				"unusual", 
+				"unyielding", 
+				"upper", 
+				"utmost", 
+				"utopian",
+				"utter", 
+		};
+		String[] V = {
+				/*
+"vacuum"
+"vapor"
+"variety"
+"vassal"
+"veil"
+"velociraptors"
+"velvet"
+"vermillion"
+"verve"
+"vespene"
+"vibration"
+"vim"
+"vines"
+"violent"
+"violet"
+"void"
+"vultures"
+				 */
+				"valence", 
+				"valiant", 
+				"vampires",
+				"vampiric", 
+				"vandal", 
+				"vapid", 
+				"vegas", 
+				"venemous", 
+				"vengeful", 
+				"vernacular", 
+				"versimilar", 
+				"vested", 
+				"vicious", 
+				"vile", 
+				"vilified", 
+				"viperous", 
+				"virtual", 
+				"vivacious", 
+				"vivid", 
+				"vodka", 
+				"volatile",
+				"volcanic", 
+				"voluble", 
+				"voluminous", 
+				"volumptuous", 
+				"vortex", 
+		};
+		String[] W = {
+				"waffle", 
+				"walking",
+				"wallof",
+				"wallflower",
+				"wandering", 
+				"war",
+				"warlike",
+				"warlock",
+				"warmth",
+				"waste", 
+				"wasteful",
+				"wasteland",
+				"water",
+				"waterfall",
+				"watery", 
+				"wavering",
+				"wavesof",
+				"waving",
+				"wax",
+				"waxed",
+				"waxfigure",
+				"wealthy", 
+				"weaponized", 
+				"wearied", 
+				"weasel",
+				"weird",
+				"werewolfs",
+				"western",
+				"wet",
+				"wetnwild",
+				"whale",
+				"whaleofa",
+				"what",
+				"whatis",
+				"wheat",
+				"whimsical", 
+				"whispered",
+				"whispy",
+				"white",
+				"wicked",
+				"wilderness",
+				"winded",
+				"winding",
+				"window",
+				"windowto",
+				"windy",
+				"wisdomof",
+				"wise", 
+				"wiseto",
+				"wistful", 
+				"witch",
+				"withholding",
+				"wizardly",
+				"wizardous",
+				"wobbling",
+				"wolf",
+				"wonderful", 
+				"wood",
+				"worship",
+				"wrath",
+		};
+		String[] X = {
+				"xaviers", 
+				"xenial", 
+				"xeno", 
+				"xenogenetic", 
+				"xenon", 
+				"xenophobic", 
+				"xenophyllic", 
+				"xeophyte", 
+				"xenon",
+				"xeranthemum", 
+				"xeric", 
+				"xerox", 
+				"xerxes", 
+				"xinjiang", 
+				"xiphoid", 
+				"xlinked", 
+				"xray", 
+				"xtreme", 
+				"xyelidae", 
+				"xylene", 
+				"xylogen", 
+				"xzylic", 
+		};
+		String[] Y = {
+				"yacht", 
+				"yam", 
+				"yard", 
+				"yarn", 
+				"ycleped", 
+				"yearning", 
+				"yeast", 
+				"yeats", 
+				"yellowbellied", 
+				"yeoman", 
+				"yesterdays", 
+				"yew", 
+				"yggdrasils", 
+				"yinyang", 
+				"yogi", 
+				"yolk", 
+				"yore",
+				"younger", 
+				"your",
+				"yourbeloved",
+				"yourbest",
+				"yourlast",
+				"youronly",
+				"yourveryown",
+				"yttrium",
+		};
+		String[] Z = {
+				"zagreus", 
+				"zany", 
+				"zapotec", 
+				"zealous", 
+				"zebra", 
+				"zeitgeist", 
+				"zen", 
+				"zeolitic", 
+				"zephyr",
+				"zero", 
+				"zeroth", 
+				"zesty", 
+				"zeta", 
+				"zeugma", 
+				"ziggurat", 
+				"zillionth", 
+				"zinc", 
+				"zirconium",
+				"zombie", 
+				"zoo", 
+				"zootic", 
+				"zuccini", 
+				"zygote", 
+		};
+
+		
+		if (letter=='a') {tag = A[rand.nextInt(A.length)];};
+		if (letter=='b') {tag = B[rand.nextInt(B.length)];};
+		if (letter=='c') {tag = C[rand.nextInt(C.length)];};
+		if (letter=='d') {tag = D[rand.nextInt(D.length)];};
+		if (letter=='e') {tag = E[rand.nextInt(E.length)];};
+		if (letter=='f') {tag = F[rand.nextInt(F.length)];};
+		if (letter=='g') {tag = G[rand.nextInt(G.length)];};
+		if (letter=='h') {tag = H[rand.nextInt(H.length)];};
+		if (letter=='i') {tag = I[rand.nextInt(I.length)];};
+		if (letter=='j') {tag = J[rand.nextInt(J.length)];};
+		if (letter=='k') {tag = K[rand.nextInt(K.length)];};
+		if (letter=='l') {tag = L[rand.nextInt(L.length)];};
+		if (letter=='m') {tag = M[rand.nextInt(M.length)];};
+		if (letter=='n') {tag = N[rand.nextInt(N.length)];};
+		if (letter=='o') {tag = O[rand.nextInt(O.length)];};
+		if (letter=='p') {tag = P[rand.nextInt(P.length)];};
+		if (letter=='q') {tag = Q[rand.nextInt(Q.length)];};
+		if (letter=='r') {tag = R[rand.nextInt(R.length)];};
+		if (letter=='s') {tag = S[rand.nextInt(S.length)];};
+		if (letter=='t') {tag = T[rand.nextInt(T.length)];};
+		if (letter=='u') {tag = U[rand.nextInt(U.length)];};
+		if (letter=='v') {tag = V[rand.nextInt(V.length)];};
+		if (letter=='w') {tag = W[rand.nextInt(W.length)];};
+		if (letter=='x') {tag = X[rand.nextInt(X.length)];};
+		if (letter=='y') {tag = Y[rand.nextInt(Y.length)];};
+		if (letter=='z') {tag = Z[rand.nextInt(Z.length)];};
+		return tag;
+	}
+
+	
+	static String gethandle2(char letter) {
+		// feed it a ? to get a random initial
+		letter = Character.toLowerCase(letter);
+		char[] alphabet = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+						   'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
+		Random rand = new Random();
+		String tag = new String("");
+		tag = "?";
+		if (!Character.isAlphabetic(letter)) {letter=alphabet[rand.nextInt(alphabet.length)];};
+
+		String[] A = {
+				/*
+https://www.thefreedictionary.com/words-that-start-with-a
+
+"Abbess"
+"Abbot"
+"Absolver"
+"Acid"
+"Action"
+"Adamantite"
+"Adventure"
+"Advertisement"
+"Aether"
+"Afficionado"
+"Age"
+"Agriculture"
+"Air"
+"Alcohol"
+"Alligators"
+"Alloy"
+"Ally"
+"Alternation"
+"Aluminum"
+"Amber"
+"Ambiance"
+"Amethyst"
+"Amusement"
+"Angels"
+"Anglerfish"
+"Annoyance"
+"Antimony"
+"Ants"
+"Apathy"
+"Arbitrary"
+"Archer"
+"Architecture"
+"Argon"
+"Arrogant"
+"Arsenic"
+"Art"
+"Art"
+"Ascent"
+"Ash"
+"Atoll"
+"Autumn"
+"Awesome"
+"Awesome"
+"Axolotls"
+				 */
+				"Aardvark",
+				"Abbatoir",
+				"Abdicant",
+				"Aberration",
+				"Abjurer",
+				"Abnormality",
+				"Abomination", 
+				"Above",
+				"Abscond",
+				"Abyss",
+				"Academia",
+				"Academic",
+				"Academy",
+				"Acetate",
+				"Acquiescence",
+				"Acquisition",
+				"Activist",
+				"Activity",
+				"Acupuncture",
+				"Adept",
+				"Administrant",
+				"Admiral",
+				"Adventurer",
+				"Adversary",
+				"Advisor",
+				"Advocate",
+				"Aegis",
+				"Aerofoil",
+				"Aeromancer",
+				"Aeronaut",
+				"Afficionado",
+				"Affinity",
+				"Affliction",
+				"Agamemnon",
+				"Agenda",
+				"Agent",
+				"Aggressor",
+				"Agitator",
+				"Agony",
+				"Ailuromancy",
+				"Alchemist",
+				"Alchemiter",
+				"Alert",
+				"Allegro",
+				"Alloy",
+				"Alone",
+				"Ambition",
+				"Ampersand",
+				"Amphibian",
+				"Analogy",
+				"Anasthesia",
+				"Anathema",
+				"Anatomy",
+				"Anchorite",
+				"Angel",
+				"Angelic",
+				"Animus",
+				"Annihilation",
+				"Annihilator",
+				"Anomaly",
+				"Antisocial",
+				"Antlers",
+				"Aorta",
+				"Apartments",
+				"Apathy",
+				"Aperture",
+				"Apiculturist",
+				"Apostate",
+				"Apothecary",
+				"Apparition",
+				"Appearifier",
+				"Apricot",
+				"Aquarium",
+				"Arachnid",
+				"Arbiter",
+				"Archer",
+				"Architect",
+				"Argent",
+				"Aria",
+				"Arisen",
+				"Aristocrat",
+				"Aristotle",
+				"Armageddons",
+				"Arpeggios",
+				"Arrow",
+				"Arthropod",
+				"Artifex",
+				"Artifice",
+				"Artisan",
+				"Artist",
+				"Ash",
+				"Asperation",
+				"Asperity",
+				"Assailant",
+				"Assassin",
+				"Astrologist",
+				"Astromancy",
+				"Astrum",
+				"Auctioneer",
+				"Audacity",
+				"Auspex",
+				"Autopsist",
+				"Auxiliatrix",
+				"Avenger",
+				"Avian",
+				"Aviation",
+				"Aviator",
+				"Award",
+		};	String[] B = {
+				/*
+https://www.thefreedictionary.com/words-that-start-with-b
+"Backstabbing"
+"Badgers"
+"Balance"
+"Bamboo"
+"Bane"
+"Bard"
+"Baron"
+"Baroness"
+"Bastilles"
+"Bats"
+"Bears"
+"Beast"
+"Beauty"
+"Beauty"
+"Beavers"
+"Beige"
+"Bismuth"
+"Black"
+"Blankness"
+"Blaze"
+"Bliss"
+"Blithe"
+"Blood"
+"Blue"
+"Bluebirds"
+"Body"
+"Boil"
+"Bone"
+"Boob"
+"Books"
+"Boron"
+"Braille"
+"Brains"
+"Brazen"
+"Breath"
+"Brick"
+"Bridges"
+"Bromine"
+"Bronze"
+"Brooks"
+"Brown"
+"Bubbles"
+"Buldge"
+"Burlap"
+"Butterflies"
+				 */
+				"Babe",
+				"Bacon",
+				"Bacteria",
+				"Bae",
+				"Balladier",
+				"Ballista",
+				"Ballistics",
+				"Banana",
+				"Bandolier",
+				"Banquet",
+				"Bargain",
+				"Barista",
+				"Bark",
+				"Barnacle",
+				"Barracuda",
+				"Barrio",
+				"Basilisk",
+				"Bassoon",
+				"Bathtub",
+				"Batter",
+				"Bean",
+				"Beekeeper",
+				"Bees",
+				"Bells",
+				"Bender",
+				"Berry",
+				"Biologist",
+				"Bird",
+				"Bishop",
+				"Blackberry",
+				"Blacksmith",
+				"Blademaster",
+				"Blades",
+				"Blaze",
+				"Blood",
+				"Bloom",
+				"Blossom",
+				"Body",
+				"Box",
+				"Brainiac",
+				"Bringer",
+				"Buccaneer",
+				"Bucket",
+				"Buffalo",
+				"Butter",
+				"Butterfingers",
+				"Butterfly",
+		};	String[] C = {
+				/*
+https://www.thefreedictionary.com/words-that-start-with-c
+"Cacophony"
+"Cacti"
+"Cages"
+"Calcium"
+"Camels"
+"Canaries"
+"Canopy"
+"Canyons"
+"Carbon"
+"Carpet"
+"Caste"
+"Cathedrals"
+"Cats"
+"Caulk"
+"Cause"
+"Caves"
+"Cement"
+"Ceramic"
+"Cerulean"
+"Chains"
+"Chalk"
+"Chameleons"
+"Change"
+"Chaos"
+"Charge"
+"Chemicals"
+"Chickens"
+"Chief"
+"Chieftain"
+"Chlorine"
+"Chocolate"
+"Choice"
+"Choleric Humour"
+"Chromium"
+"Circuitry"
+"Clay"
+"Cleric"
+"Cliffs"
+"Clockwork"
+"Clouds"
+"Coal"
+"Cobalt"
+"Cobblestone"
+"Coffee"
+"Cold"
+"Color"
+"Compulsively lying"
+"Concrete"
+"Construction"
+"Contact"
+"Contrast"
+"Convict"
+"Cookie"
+"Coolkid"
+"Copper"
+"Coral"
+"Corporal"
+"Cosmos"
+"Cotton"
+"Cougars"
+"Count"
+"Countess"
+"Courage"
+"Cows"
+"Cranes"
+"Crocodiles"
+"Crossroads"
+"Crystal"
+"Cubes"
+"Curses"
+"Cyan"
+				 */
+				"Cabalist",
+				"Caballero",
+				"Cage",
+				"Caged",
+				"Calibrator",
+				"Calligrapher",
+				"Camel",
+				"Cannibal",
+				"Cantabile",
+				"Canvas",
+				"Capacity",
+				"Capitalist",
+				"Capricious",
+				"Carbide",
+				"Carcharodon",
+				"Cardinal",
+				"Cargo",
+				"Carnifex",
+				"Carnivore",
+				"Carp",
+				"Castigation",
+				"Castle",
+				"Casualty",
+				"Cat",
+				"Cataclysm",
+				"Catalyst",
+				"Catastrophe",
+				"Catch",
+				"Catcher",
+				"Catechism",
+				"Catnip",
+				"Cats",
+				"Celebration",
+				"Celestial",
+				"Cephalopod",
+				"Cervidae",
+				"Challenger",
+				"Champion",
+				"Charlatan",
+				"Charm",
+				"Cheddar",
+				"Chemist",
+				"Chemistry",
+				"Cheshire",
+				"Chidori",
+				"Chocolate",
+				"Chronicle",
+				"Chronicler",
+				"Chronomancy",
+				"Cipher",
+				"Circumstances",
+				"Civet",
+				"Clam",
+				"Clansman",
+				"Clarinet",
+				"Clockwork",
+				"Clownfish",
+				"Coalition",
+				"Cobra",
+				"Cockerel",
+				"Codemaster",
+				"Codswallop",
+				"Cogitation",
+				"Cognate",
+				"Cognizant",
+				"Coldstone",
+				"Comatose",
+				"Commando",
+				"Companion",
+				"Comradery",
+				"Conjecture",
+				"Connoisseur",
+				"Continuation",
+				"Contortionist",
+				"Contriver",
+				"Conundrum",
+				"Conveyance",
+				"Convoy",
+				"Cookies",
+				"Coroner",
+				"Corpse",
+				"Corrector",
+				"Cosmic",
+				"Costumer",
+				"Cottier",
+				"Countryman",
+				"Courier",
+				"Courtier",
+				"Couture",
+				"Crackpot",
+				"Crazed",
+				"Cream",
+				"Creaminess",
+				"Creation",
+				"Criminal",
+				"Critic",
+				"Crow",
+				"Crowbar",
+				"Crowd",
+				"Crusader",
+				"Culinarian",
+				"Culler",
+				"Cultivation",
+				"Curator",
+				"Curio",
+				"Curiosity",
+				"Cutie",
+				"Cuttlefish",
+				"Cyclosis",
+				"Cynic",
+				"Czar",
+		};	String[] D = {
+				/*
+https://www.thefreedictionary.com/words-that-start-with-d
+"Dance"
+"Dancing"
+"Dark"
+"Dawn"
+"Dealer"
+"Death"
+"Decor"
+"Depressed"
+"Depth"
+"Descent"
+"Desolation"
+"Dew"
+"Diamond"
+"Dingo"
+"Dinosaur"
+"Dirt"
+"Disease"
+"Dismay"
+"Dogs"
+"Dolls"
+"Dolphins"
+"Doom"
+"Doves"
+"Dragon"
+"Dragons"
+"Dragons"
+"Dreams"
+"Drought"
+"Druid"
+"Dry"
+"Duchess"
+"Ducks"
+"Dugons"
+"Duke"
+"Dungeons"
+"Dust"
+"Dye"
+				 */
+				"Daemon",
+				"Dandiprat",
+				"Dandy",
+				"Darkness",
+				"Database",
+				"Daydreamer",
+				"Daywalker",
+				"Dazzle",
+				"Deadbeat",
+				"Deadlock",
+				"Deal",
+				"Dealer",
+				"Death",
+				"Debacle",
+				"Decanter",
+				"Decay",
+				"Decentralization",
+				"Decryption",
+				"Defined",
+				"Delirium",
+				"Demagogue",
+				"Dementia",
+				"Demise",
+				"Demon",
+				"Demonic",
+				"Demotivator",
+				"Dependence",
+				"Dependency",
+				"Depression",
+				"Depsair",
+				"Derivative",
+				"Destabilization",
+				"Detective",
+				"Detonator",
+				"Deuterium",
+				"Devastating",
+				"Devotion",
+				"Diamond",
+				"Dichotomy",
+				"Dictator",
+				"Diffidence",
+				"Dime",
+				"Dingo",
+				"Dionym",
+				"Discombobulation",
+				"Discord",
+				"Discordant",
+				"Disinterest",
+				"Dissentor",
+				"Dissonance",
+				"Divination",
+				"Divisor",
+				"Divulger",
+				"Dog",
+				"Doggerel",
+				"Doomed",
+				"Doppelganger",
+				"Double",
+				"Doublecrosser",
+				"Dragon",
+				"Dream",
+				"Dreamboat",
+				"Dreamer",
+				"Dreamgirl",
+				"Dreamreader",
+				"Drifter",
+				"Drop",
+				"Dualist",
+				"Duality",
+				"Duelist",
+				"Duet",
+				"Dunkass",
+				"Dynast",
+		};	String[] E = {
+				/*
+https://www.thefreedictionary.com/words-that-start-with-e
+"Earth"
+"Easily distracted"
+"Ebony"
+"Eccentric"
+"Echo"
+"Eclipse"
+"Ego"
+"Eldritch"
+"Electronics"
+"Elegance"
+"Elephants"
+"Emeralds"
+"Ensign"
+"Envoy"
+"Evergreens"
+"Exploration"
+				 */
+				"Earthmover",
+				"Eccentric",
+				"Echo",
+				"Eclipse",
+				"Edgelord",
+				"Educator",
+				"Effect",
+				"Efflorescence",
+				"Egophony",
+				"Eidolon",
+				"Ejecta",
+				"Elation",
+				"Elegance",
+				"Elemental",
+				"Elevator",
+				"Elitist",
+				"Emanation",
+				"Ember",
+				"Emblem",
+				"Empath",
+				"Enamel",
+				"Encryption",
+				"Ennui",
+				"Enthusiast",
+				"Entity",
+				"Epiphanies", 
+				"Epiphany",
+				"Epistle",
+				"Epitaph",
+				"Equinox",
+				"Errata",
+				"Escapade",
+				"Escapist",
+				"Eternal",
+				"Eternity",
+				"Ethnarch",
+				"Evanescent",
+				"Exalt",
+				"Excess",
+				"Experience",
+				"Explorer",
+				"Explosions",
+				"Expunged",
+				"Extinguisher",
+				"Eye",
+		};	String[] F = {
+				/*
+https://www.thefreedictionary.com/words-that-start-with-f
+"Faith"
+"Falsehood"
+"Fatigue"
+"Fear"
+"Ferrets"
+"Festivities"
+"Fever"
+"Fire"
+"Fist"
+"Flame"
+"Flesh"
+"Flow"
+"Flowers"
+"Fluffy"
+"Fluorine"
+"Foe"
+"Fog"
+"Forensics"
+"Forest green"
+"Forest"
+"Forger"
+"Forgetful"
+"Form"
+"Forthcoming"
+"Fortification"
+"Fortunate"
+"Fossils"
+"Foxes"
+"Freefall"
+"Friendship"
+"Frost"
+"Fumes"
+"Fungi"
+"Fur"
+"Fuschia"
+				 */
+				"Factory",
+				"Factotem",
+				"Familiar",
+				"Fanatic",
+				"Fancier",
+				"Fangs",
+				"Farmer",
+				"Fashionista",
+				"Feet",
+				"Feliform",
+				"Feline",
+				"Festival",
+				"Figment",
+				"Finedolce",
+				"Fire",
+				"Fisherman",
+				"Fist",
+				"Fisticuffs",
+				"Flagella",
+				"Flame",
+				"Flier",
+				"Flipside",
+				"Forbear",
+				"Forger",
+				"Formula",
+				"Fossil",
+				"Freak",
+				"Free",
+				"Freebooter",
+				"Frenzy",
+				"Frivolity",
+				"Frog",
+				"Frost",
+				"Fugue",
+				"Fully",
+				"Fulmination",
+				"Funambulist",
+				"Funnyman",
+				"Fusion",
+				"Future",
+		};	String[] G = {
+				/*
+https://www.thefreedictionary.com/words-that-start-with-g
+"Gadgetry"
+"Galaxy"
+"Gale"
+"Gardens"
+"Gargoyles"
+"Garnet"
+"Geckos"
+"Gemstones"
+"Germs"
+"Ghosts"
+"Giraffes"
+"Glamour"
+"Glass"
+"Glitter"
+"Gloom"
+"Glow"
+"Glue"
+"Gluttonous"
+"Gold"
+"Graphite"
+"Grass"
+"Graves"
+"Gravity"
+"Green"
+"Griffons"
+"Guide"
+"Guile"
+"Guilty"
+"Gullible"
+"Gust"
+				 */
+				"Gala",
+				"Galliard",
+				"Gambler",
+				"Gamegrub",
+				"Gamer",
+				"Gardener",
+				"Gardens",
+				"Gargantuan",
+				"Gastronomic",
+				"Gator",
+				"Gem",
+				"Geneticist",
+				"Genetics",
+				"Genocide",
+				"Gent",
+				"Geomancy",
+				"Gerent",
+				"Ghost",
+				"Girl",
+				"Glitch",
+				"Glory",
+				"Gluttony",
+				"Gnostic",
+				"God",
+				"Godcomplex",
+				"Godhead",
+				"Godling",
+				"Golem",
+				"Gone",
+				"Gourmet",
+				"Grandiosity",
+				"Graveyard",
+				"Gregarity",
+				"Grey",
+				"Grievance",
+				"Grimalkin",
+				"Grin",
+				"Grip",
+				"Grog",
+				"Grounded",
+				"Guardian",
+				"Guardsman",
+				"Guillotine",
+				"Guitarist",
+				"Gumball",
+				"Gumshoe",
+				"Gunsmith",
+				"Guzzler",
+		};	String[] H = {
+				/*
+"Hail"
+"Hallucinations"
+"Hamsters"
+"Harbors"
+"Hate"
+"Hats"
+"Haunted"
+"Hawks"
+"Hay"
+"Haze"
+"Heart"
+"Heat"
+"Hedges"
+"Height"
+"Heir"
+"Heiress"
+"Helium"
+"Helpful"
+"Henge"
+"Hermit"
+"Hills"
+"Hippos"
+"Holes"
+"Holly"
+"Honor"
+"Hope"
+"Horror"
+"Host"
+"Hot pink"
+"Hot"
+"Humanimals"
+"Hunter"
+"Hydrogen"
+"Hyperactive"
+				 */
+				"Hadogenes",
+				"Handle",
+				"Handyman",
+				"Harbinger",
+				"Harlequin",
+				"Harmony",
+				"Haruspex",
+				"Havoc",
+				"Hazel",
+				"Heartstrings",
+				"Heartwood",
+				"Heavyweight",
+				"Hellbringer",
+				"Hellion",
+				"Helmsman",
+				"Hemophagy",
+				"Heresy",
+				"Heretic",
+				"Hermetics",
+				"Hoarder",
+				"Hoofbeast",
+				"Hook",
+				"Horizon",
+				"Horticulturist",
+				"Hospitality",
+				"Howler",
+				"Humility",
+				"Hunter",
+				"Huntress",
+				"Hyperdrive",
+				"Hypnosis",
+				"Hysteric",
+		};	String[] I = {
+				/*
+"Ice"
+"Iguanas"
+"Illusion"
+"Imagination"
+"Impact"
+"Impressionable"
+"Indigo"
+"Ink"
+"Insanity"
+"Insipidity"
+"Insomnia"
+"Insulting"
+"Intern"
+"Intimidation"
+"Iodine"
+"Iridium"
+"Iron"
+"Irradiation"
+"Irrational"
+"Irrigation"
+"Islands"
+"Ivory"
+				 */
+				"Icecream",
+				"Idealist",
+				"Idiosyncrasy",
+				"Idiot",
+				"Illustrator",
+				"Incarnate",
+				"Incinerator",
+				"Inferiority",
+				"Inferno",
+				"Infidelity",
+				"Infiltrator",
+				"Infinite",
+				"Inflection",
+				"Influence",
+				"Ingenuity",
+				"Innocence",
+				"Inquirer",
+				"Inquisition",
+				"Insomnia",
+				"Insomniac",
+				"Inspector",
+				"Instigator",
+				"Instrument",
+				"Intelligence",
+				"Intent",
+				"Interference",
+				"Inthedark",
+		};	String[] J = {
+				/*
+"Jails"
+"Jazz"
+"Jokers"
+"Jolliness"
+"Joy"
+"Joyful"
+"Judge"
+"Jungle"
+"Junk"
+"Juror"
+"Juxtaposition"
+				 */
+				"Jaborandi",
+				"Javelin",
+				"Jealousy",
+				"Jitterbug",
+				"Journalist",
+				"Jubilance",
+				"Judgemental",
+				"Juggernaut",
+				"Juice",
+				"Jurisprudence",
+				"Justification",
+				"Juxtaposition",
+		};	String[] K = {
+				/*
+"Kangaroos"
+"Karaoke"
+"Karate"
+"Keeper"
+"Keys"
+"Kindness"
+"Kinesthetics"
+"King"
+"Knave"
+"Knight"
+"Knowledge"
+"Knowledge"
+"Krypton"
+				 */
+				"Keeper",
+				"Kerfuffle",
+				"Keys",
+				"Killer",
+				"Kind",
+				"Kindred",
+				"Kinesis",
+				"Kinsmen",
+				"Kitty",
+				"Kleptomaniac",
+				"Knight",
+				"Knot",
+		};	String[] L = {
+				/*
+"Labyrinth"
+"Ladders"
+"Lakes"
+"Lapis"
+"Lasers"
+"Laughter"
+"Lavender"
+"Law"
+"Laze"
+"Lazy"
+"Lead"
+"Leaves"
+"Lemon"
+"Lemurs"
+"Levitation"
+"Life"
+"Light"
+"Lightning"
+"Lions"
+"Lithium"
+"Loam"
+"Loopy"
+"Loss"
+"Love"
+"Luck"
+				 */
+				"Lachrymose",
+				"Lagomorph",
+				"Lament",
+				"Layabout",
+				"Leftover",
+				"Legacy",
+				"Legend",
+				"Lemonade",
+				"Liberator",
+				"Libratos",
+				"Light",
+				"Lilly",
+				"Lilshit",
+				"Linguistics",
+				"Link",
+				"Logistics",
+				"Lord",
+				"Lover",
+				"Lullaby",
+				"Luminary",
+				"Lurker",
+		};	String[] M = {
+				/*
+"Madness"
+"Maestress"
+"Maestro"
+"Mage"
+"Magenta"
+"Magic"
+"Magma"
+"Magnesium"
+"Magnets"
+"Maid"
+"Manatees"
+"Manticores"
+"Maps"
+"Marble"
+"Marsh"
+"Marshal"
+"Meadow"
+"Melancholic Humour"
+"Melody"
+"Mercury"
+"Metal"
+"Mice"
+"Midnight blue"
+"Might"
+"Milk"
+"Mind"
+"Mineral"
+"Mining"
+"Minx"
+"Mirrors"
+"Mirth"
+"Misdemeanor"
+"Misers"
+"Mist"
+"Mithril"
+"Money"
+"Monk"
+"Monkeys"
+"Moose"
+"Moss"
+"Motion"
+"Mountains"
+"Mud"
+"Multi-colored"
+"Mushrooms"
+"Music"
+"Mustard yellow"
+"Mysterious"
+				 */
+				"Machine",
+				"Macrocosm",
+				"Madness",
+				"Maelstrom",
+				"Mage",
+				"Magic",
+				"Magician",
+				"Maiden",
+				"Maneuver",
+				"Maniac",
+				"Marauder",
+				"Marionette",
+				"Marksman",
+				"Marshmallow",
+				"Martyrdom",
+				"Masquerade",
+				"Master",
+				"Masterpiece",
+				"Materialist",
+				"Maverick",
+				"Mechanics",
+				"Medicament",
+				"Medication",
+				"Megalodon",
+				"Melody",
+				"Mercenary",
+				"Messenger",
+				"Metaphor",
+				"Mimic",
+				"Misandrist",
+				"Mischief",
+				"Mistress",
+				"Mobile",
+				"Mobilizer",
+				"Mobster",
+				"Mofo",
+				"Monger",
+				"Monophobe",
+				"Monster",
+				"Moose",
+				"Motherfucker",
+				"Motion",
+				"Muffin",
+				"Muralist",
+		};	String[] N = {
+				/*
+"Nails"
+"Naive"
+"Naked molerats"
+"Nature"
+"Nature"
+"Neodymium"
+"Neon yellow"
+"Neon"
+"Neurotic"
+"Nickel"
+"Night"
+"Ninja"
+"Nitrogen"
+"Noble"
+"Noir"
+"Noise"
+"Nurse"
+				 */
+				"Nativity",
+				"Nebula",
+				"Necromancer",
+				"Necromancy",
+				"Necrophagy",
+				"Nightfall",
+				"Nightmare",
+				"Nobility",
+				"Noisemaker",
+				"Nostalgia",
+				"Notation",
+				"Nursery",
+		};	String[] O = {
+				/*
+"Oases"
+"Oath"
+"Obsidian"
+"Octarine"
+"Odors"
+"Oil"
+"Olive green"
+"Ooze"
+"Opposites"
+"Orange Creamsicle"
+"Orange"
+"Orchard"
+"Order"
+"Ore"
+"Otters"
+"Outlaw"
+"Owls"
+"Oxygen"
+				 */
+				"Observatory",
+				"Obsession",
+				"Ocelot",
+				"Octave",
+				"Odyssey",
+				"Ohm",
+				"Olympiad",
+				"Olympic",
+				"Omitted",
+				"One",
+				"Onlooker",
+				"Opalescence",
+				"Operator",
+				"Optimist",
+				"Oracle",
+				"Oration",
+				"Orator",
+				"Orb",
+				"Origin",
+				"Ornithogalum",
+				"Ossifrage",
+				"Ouroboros",
+				"Outlier",
+				"Overseer",
+				"Oxide",
+				"Oxymoron",
+		};	String[] P = {
+				/*
+"Page"
+"Palladium"
+"Pandas"
+"Panthers"
+"Paper"
+"Parrots"
+"Paths"
+"Peace"
+"Pearl white"
+"Pearl"
+"Penguins"
+"Philosophy"
+"Phlegmatic Humour"
+"Phosphorus"
+"Pigs"
+"Pink"
+"Pipes"
+"Pirate"
+"Pistons"
+"Plains"
+"Plastic"
+"Platforms"
+"Platinum"
+"Pluck"
+"Poet"
+"Politics"
+"Pollution"
+"Polymer"
+"Ponies"
+"Portals"
+"Potassium"
+"Powder"
+"Power"
+"Power"
+"Prairie"
+"Pranks"
+"Precipice"
+"Presence"
+"Presents"
+"Priest"
+"Priestess"
+"Prisms"
+"Proctor"
+"Prophet"
+"Pterodactyls"
+"Pulchritude"
+"Pulse"
+"Pumice"
+"Pumpkin"
+"Pumpkins"
+"Pupil"
+"Purpose"
+"Pyramids"
+				 */
+				"Pacifist",
+				"Painter",
+				"Palindrome",
+				"Palooka",
+				"Palooza",
+				"Pancake",
+				"Paradox",
+				"Parasite",
+				"Pastry",
+				"Patch",
+				"Paws",
+				"Pentagram",
+				"Perennial",
+				"Perfectionist",
+				"Persistence",
+				"Person",
+				"Personage",
+				"Pestilence",
+				"Petrichor",
+				"Phantasm",
+				"Phantom",
+				"Photographer",
+				"Piano",
+				"Pinecone",
+				"Pixiedreamgirl",
+				"Pixiedreamboat",
+				"Plotter",
+				"Popsicle",
+				"Popstar",
+				"Potions",
+				"Practice",
+				"Predictability",
+				"Premonition",
+				"Pride",
+				"Prime",
+				"Princess",
+				"Producer",
+				"Professor",
+				"Programmer",
+				"Promise",
+				"Propaganda",
+				"Propagandist",
+				"Prophet",
+				"Prosecutor",
+				"Protagonist",
+				"Protean",
+				"Protector",
+				"Protege",
+				"Protocol",
+				"Proxy",
+				"Psychedelic",
+				"Psychiatrist",
+				"Psychopath",
+				"Pumpkin",
+				"Puppeteer",
+				"Pursuer",
+				"Pylon",
+				"Pyrokinetic",
+		};	String[] Q = {
+				/*
+"Quakes"
+"Quarry"
+"Quartz"
+"Queen"
+"Quintessence"
+    qabalah
+    qaid
+    qua
+    quaalude
+    quaaludes
+    quack
+    quackery
+    quacking
+    quacks
+    quad
+    quadding
+    quadrangle
+    quadrangular
+    quadrant
+    quadrants
+    quadratic
+    quadratically
+    quadriplegia
+    quadruped
+    quadrupedal
+    quadrupeds
+    quadruple
+    quads
+    quaff
+    quaffing
+    quagga
+    quagmire
+    quagmires
+    quail
+    quailing
+    quails
+    quaint
+    quais
+    quake
+    quaker
+    quakes
+    qualia
+    qualifiable
+    qualification
+    qualifications
+    qualified
+    qualifiedly
+    qualifier
+    qualify
+    qualifying
+    qualitative
+    qualities
+    quality
+    qualm
+    qualms
+    quandary
+    quanta
+    quantic
+    quantifiable
+    quantified
+    quantifier
+    quantify
+    quantitative
+    quantitatively
+    quantities
+    quantity
+    quantum
+    quarantine
+    quark
+    quarks
+    quarrel
+    quarrels
+    quarrelsome
+    quarry
+    quarryman
+    quarrymen
+    quart
+    quarter
+    quarterback
+    quartered
+    quarterer
+    quarterers
+    quarterfinal
+    quarterfinalist
+    quarterfinals
+    quarterlies
+    quarterly
+    quartermaster
+    quartermasters
+    quarterstaff
+    quarterstaves
+    quartet
+    quartic
+    quartile
+    quartz
+    quartzes
+    quartzite
+    quasar
+    quash
+    quashing
+    quasi
+    quasicrystal
+    quasiparticle
+    quaternion
+    quaver
+    quavering
+    quays
+    quayside
+    quaysides
+    qubit
+    queasy
+    queen
+    queer
+    queered
+    queerer
+    queerly
+    queerness
+    quell
+    quelled
+    quench
+    querida
+    queried
+    queries
+    quern
+    querns
+    querulous
+    query
+    quesadilla
+    quest
+    question
+    questionable
+    questionnaire
+    questionnaires
+    questor
+    quests
+    quetzal
+    queue
+    queued
+    queuer
+    queuers
+    queues
+    queuing
+    quibble
+    quiche
+    quick
+    quickening
+    quickie
+    quicklime
+    quicklimes
+    quicksand
+    quicksilver
+    quid
+    quiet
+    quill
+    quilled
+    quillwork
+    quilt
+    quilted
+    quinoa
+    quintessence
+    quintessential
+    quintillion
+    quintillionth
+    quintuple
+    quipped
+    quippy
+    quips
+    quipster
+    quire
+    quirk
+    quirks
+    quirky
+    quislings
+    quit
+    quite
+    quitter
+    quiver
+    quiz
+    quizmaster
+    quizzical
+    quota
+    quotable
+    quotation
+    quotations
+    quote
+    quoth
+    quotient
+    qwerty
+				 */
+				"Quadrangular",
+				"Quadriplegia",
+				"Qualification",
+				"Quantification",
+				"Quarterfinal",
+				"Quartile",
+				"Queen",
+				"Query",
+				"Questioner",
+				"Quibbler",
+				"Quicksilver",
+				"Quintessence",
+				"Quizzicality",
+		};	String[] R = {
+				/*
+"Rabbits"
+"Raccoons"
+"Radiance"
+"Radium"
+"Radon"
+"Rage"
+"Raider"
+"Rain"
+"Rainbow"
+"Rainbows"
+"Rambunctious"
+"Ramps"
+"Rancid"
+"Ranger"
+"Rats"
+"Rays"
+"Reason"
+"Rebel"
+"Rebirth"
+"Red"
+"Redstone"
+"Reflection"
+"Regret"
+"Repetition"
+"Reversal"
+"Rhinos"
+"Rhyme"
+"Rhythm"
+"Right"
+"Rime"
+"Rip"
+"Rival"
+"Rivers"
+"Rock"
+"Rotund"
+"Rogue"
+"Roses"
+"Rot"
+"Rubber"
+"Ruby"
+"Rust"
+				 */
+				"Radioactive",
+				"Rage",
+				"Ragnarok",
+				"Rain",
+				"Rainbowdrinker",
+				"Rainbows",
+				"Rampage",
+				"Raptor",
+				"Raskal",
+				"Ravager",
+				"Rebel",
+				"Redaction",
+				"Redemption",
+				"Redeyes",
+				"Reduce",
+				"Regulator",
+				"Reject",
+				"Reloaded",
+				"Renegade",
+				"Repose",
+				"Researcher",
+				"Revelations",
+				"Reverie",
+				"Ribcage",
+				"Rider",
+				"Rigormortis",
+				"Robber",
+				"Robotics",
+				"Rocket",
+				"Rockstar",
+				"Rodent",
+				"Rodeo",
+				"Rollerskates",
+				"Romantic",
+				"Royalty",
+				"Runner",
+		};	String[] S = {
+				/*
+"Sadness"
+"Sage"
+"Salamanders"
+"Salt"
+"Salty"
+"Sappy"
+"Sand"
+"Sanguine Humour"
+"Savannah"
+"Saviour"
+"Scales"
+"Science"
+"Science"
+"Scourge"
+"Scout"
+"Scribe"
+"Seagulls"
+"Season"
+"Seeker"
+"Seer"
+"Self"
+"Sentience"
+"Shade"
+"Shadow"
+"Shale"
+"Shaman"
+"Shape"
+"Sharks"
+"Shattering"
+"Sheep"
+"Shores"
+"Shrines"
+"Shrouds"
+"Shy"
+"Silence"
+"Silhouette"
+"Silicon"
+"Silk"
+"Silt"
+"Silver"
+"Silver"
+"Singe"
+"Skateboarding"
+"Sketch"
+"Skin"
+"Skunks"
+"Sky blue"
+"Sky"
+"Slate"
+"Slime"
+"Sluice"
+"Slumber"
+"Smoke"
+"Snakes"
+"Snakes"
+"Snow"
+"Sodium"
+"Solace"
+"Soldier"
+"Song"
+"Sorrow"
+"Soul"
+"Sound"
+"Space"
+"Spark"
+"Spheres"
+"Spices"
+"Spikes"
+"Spires"
+"Sponge"
+"Springs"
+"Spy"
+"Squids"
+"Squire"
+"Stability"
+"Stairs"
+"Stars"
+"Static"
+"Steam"
+"Steel grey"
+"Steel"
+"Steppe"
+"Steward"
+"Stinky"
+"Stockpile"
+"Stone"
+"Stories"
+"Storm"
+"Stranger"
+"Strings"
+"Stumps"
+"Stupid"
+"Style"
+"Sublime"
+"Subway"
+"Suction"
+"Sugar"
+"Sulfur"
+"Sun"
+"Surprise"
+"Swamp"
+"Sweets"
+"Swimming"
+"Swindling"
+"Sylph"
+				 */
+				"Salad",
+				"Salamander",
+				"Salmon",
+				"Sampler",
+				"Samurai",
+				"Sandman",
+				"Sane",
+				"Sarcasm",
+				"Savant",
+				"Savior",
+				"Scarecrow",
+				"Scavenger",
+				"Science",
+				"Scienstiff",
+				"Scientist",
+				"Scion",
+				"Scribbler",
+				"Scripter",
+				"Scum",
+				"Scuttlebutt",
+				"Scythe",
+				"Seahorse",
+				"Seaters",
+				"Senpai",
+				"Sentennial",
+				"Serendipity",
+				"Serpent",
+				"Shadows",
+				"Sharkbite",
+				"Shenanigans",
+				"Shepherd",
+				"Shifter",
+				"Shipper",
+				"Shredder",
+				"Sickness",
+				"Sidekick",
+				"Silhouette",
+				"Silk",
+				"Silver",
+				"Sinner",
+				"Skeleton",
+				"Skull",
+				"Skullduggery",
+				"Slacker",
+				"Sleuth",
+				"Smackdown",
+				"Smuggler",
+				"Snakeeater",
+				"Snarker",
+				"Sniper",
+				"Solution",
+				"Somnium",
+				"Sonata",
+				"Song",
+				"Sorrow",
+				"Soul",
+				"Sovereign",
+				"Space",
+				"Spaceship",
+				"Sparrow",
+				"Spawn",
+				"Spectator",
+				"Spectre",
+				"Spies",
+				"Spirit",
+				"Sprinter",
+				"Sprite",
+				"Stapler",
+				"Star",
+				"Steward",
+				"Stone",
+				"Story",
+				"Storyteller",
+				"Strategem",
+				"Strategist",
+				"Study",
+				"Suburbia",
+				"Sugar",
+				"Supreme",
+				"Surrealist",
+				"Swag",
+				"Swallowtail",
+				"Sweeps",
+				"Swindler",
+				"Swordsman",
+				"Swordsmith",
+				"Sylph",
+				"Symbols",
+		};	String[] T = {
+				/*
+"Tea"
+"Teal"
+"Teeth"
+"Temples"
+"Tents"
+"Terror"
+"Textile"
+"Thane"
+"Thief"
+"Thorns"
+"Thought"
+"Thunder"
+"Tigers"
+"Time"
+"Timid"
+"Tin"
+"Tinsel"
+"Titanium"
+"Toad"
+"Toil"
+"Tomfoolery"
+"Topiary"
+"Toucans"
+"Touch"
+"Trainer"
+"Trance"
+"Tranquility"
+"Transit"
+"Translucent"
+"Traps"
+"Travel"
+"Treasure"
+"Trove"
+"Truth"
+"Tube"
+"Tundra"
+"Tungsten"
+"Tunnel"
+"Turmoil"
+"Turquoise"
+"Turtles"
+"Twilight"
+				 */
+				"Tattooist",
+				"Taxonomist",
+				"Technician",
+				"Technologist",
+				"Technomancy",
+				"Technophile",
+				"Teenager",
+				"Temerity",
+				"Temperament",
+				"Tenement",
+				"Terminator",
+				"Terror",
+				"Terrorist",
+				"Testification",
+				"Testified",
+				"Testimony",
+				"Thalassophobia",
+				"Thanatopsis",
+				"Thaumaturgy",
+				"Theophagy",
+				"Theorum",
+				"Theory",
+				"Therapist",
+				"Theriac",
+				"Theriomorph",
+				"Thespian",
+				"Thief",
+				"Thirteen",
+				"Thorns",
+				"Thunder",
+				"Tickettaker",
+				"Timetraveller",
+				"Titan",
+				"Toasted",
+				"Tome",
+				"Toreador",
+				"Tornado",
+				"Toxophilite",
+				"Trafficker",
+				"Transcendent",
+				"Trapper",
+				"Traveler",
+				"Traversal",
+				"Treasure",
+				"Tremere",
+				"Tribulation",
+				"Trickster",
+				"Troubador",
+				"Trouble",
+				"Truth",
+				"Turtle",
+				"Tutor",
+				"Twilight",
+				"Twister",
+				"Typhoon",
+				"Tyranny",
+				"Tyrant",
+		};	String[] U = {
+				/*
+"Ultraviolence"
+"Umbrage"
+"Uncoordinated"
+"Undead"
+"Undulating"
+"Ungulate"
+"Unicorns"
+"Ununseptium"
+"Uranium"
+"Urns"
+"Usher"
+				 */
+				"Umbra",
+				"Umbrage",
+				"Umbrella",
+				"Underbiter",
+				"Underlord",
+				"Undertaker",
+				"Unicorn",
+				"Uniter",
+				"Unleashed",
+				"Upbringing",
+				"Upheaval",
+				"Usurper",
+		};	String[] V = {
+				/*
+"Vacuum"
+"Vapor"
+"Variety"
+"Vassal"
+"Veil"
+"Velociraptors"
+"Velvet"
+"Vermillion"
+"Verve"
+"Vespene"
+"Vibration"
+"Vim"
+"Vines"
+"Violent"
+"Violet"
+"Void"
+"Vultures"
+				 */
+				"Vacancy",
+				"Vagabond",
+				"Vampire",
+				"Variable",
+				"Vegetarian",
+				"Velociraptor",
+				"Vermiform",
+				"Verses",
+				"Vestal",
+				"Vestibule",
+				"Vex",
+				"Vexation",
+				"Vexer",
+				"Victory",
+				"Vigor",
+				"Vines",
+				"Virtuoso",
+				"Virus",
+				"Visionary",
+				"Vivacious",
+				"Vocaloid",
+				"Void",
+				"Voracity",
+		};	String[] W = {
+				/*
+"Walls"
+"Walruses"
+"War"
+"Warlike"
+"Warlock"
+"Warmth"
+"Wasteland"
+"Water"
+"Waterfalls"
+"Waves"
+"Wax"
+"Wealth"
+"Weasels"
+"Weird"
+"Wet"
+"Whales"
+"Whatpumpkin orange"
+"Wheat"
+"White"
+"Wilderness"
+"Wind"
+"Windows"
+"Wisdom"
+"Witch"
+"Wizard"
+"Wobbling"
+"Wolves"
+"Worshipper"
+"Womb"
+"Wood"
+"Wrath"
+				 */
+				"Waffle",
+				"Walker",
+				"Waltz",
+				"Warden",
+				"Warlord",
+				"Warmachine",
+				"Wasp",
+				"Waterfall",
+				"Watt",
+				"Weirdo",
+				"Werewolf",
+				"Wheel",
+				"Whim",
+				"Whirlwind",
+				"Whisper",
+				"Whispers",
+				"Wildcard",
+				"Wizard",
+				"Wizarding",
+				"Wizkid",
+				"Wolf",
+				"Wonder",
+				"Wonderment",
+				"Wounded",
+				"Wyrm",
+		};	String[] X = {
+				"X99",
+				"Xanthate",
+				"Xanthein",
+				"Xanthene",
+				"Xanthine",
+				"Xanthoma",
+				"Xanthone",
+				"Xebec",
+				"Xenoblast",
+				"Xenocryst",
+				"Xenogamy",
+				"Xenogeny",
+				"Xenolith",
+				"Xenon",
+				"Xenophile",
+				"Xenopus",
+				"Xerarch",
+				"Xerography",
+				"Xerosis",
+				"Xylem",
+				"Xylitol",
+				"Xylocarp",
+				"Xylograph",
+				"Xylol",
+				"Xylophone",
+				"Xylose",
+				"Xylotomy",
+				"Xyster",
+				"Xystus",
+		};	String[] Y = {
+				/*
+"Yang"
+"Yarn"
+"Yellow"
+"Yin"
+"Yore"
+"Yttrium"
+				 */
+				"Yahoo",
+				"Yak",
+				"Yapping",
+				"Yardwork",
+				"Yarn",
+				"Yawning",
+				"Yearning",
+				"Yeoman",
+				"Yesternights",
+				"Yield",
+				"Yikes",
+				"Yodelling",
+				"Yogurt",
+				"Yoke",
+				"Yolk",
+				"Yonder",
+				"You",
+				"Youngster",
+				"Yowling",
+				"Yuck",
+		};	String[] Z = {
+				/***
+"Zeal"
+"Zen"
+"Zephyr"
+"Zinc"
+"Zirconium"
+				 */
+				"Zapotec",
+				"Zealot",
+				"Zeitgeist",
+				"Zeppelin",
+				"Zeugma",
+				"Zodiac",
+				"Zombie",
+		};
+
+		
+		if (letter=='a') {tag = A[rand.nextInt(A.length)];};
+		if (letter=='b') {tag = B[rand.nextInt(B.length)];};
+		if (letter=='c') {tag = C[rand.nextInt(C.length)];};
+		if (letter=='d') {tag = D[rand.nextInt(D.length)];};
+		if (letter=='e') {tag = E[rand.nextInt(E.length)];};
+		if (letter=='f') {tag = F[rand.nextInt(F.length)];};
+		if (letter=='g') {tag = G[rand.nextInt(G.length)];};
+		if (letter=='h') {tag = H[rand.nextInt(H.length)];};
+		if (letter=='i') {tag = I[rand.nextInt(I.length)];};
+		if (letter=='j') {tag = J[rand.nextInt(J.length)];};
+		if (letter=='k') {tag = K[rand.nextInt(K.length)];};
+		if (letter=='l') {tag = L[rand.nextInt(L.length)];};
+		if (letter=='m') {tag = M[rand.nextInt(M.length)];};
+		if (letter=='n') {tag = N[rand.nextInt(N.length)];};
+		if (letter=='o') {tag = O[rand.nextInt(O.length)];};
+		if (letter=='p') {tag = P[rand.nextInt(P.length)];};
+		if (letter=='q') {tag = Q[rand.nextInt(Q.length)];};
+		if (letter=='r') {tag = R[rand.nextInt(R.length)];};
+		if (letter=='s') {tag = S[rand.nextInt(S.length)];};
+		if (letter=='t') {tag = T[rand.nextInt(T.length)];};
+		if (letter=='u') {tag = U[rand.nextInt(U.length)];};
+		if (letter=='v') {tag = V[rand.nextInt(V.length)];};
+		if (letter=='w') {tag = W[rand.nextInt(W.length)];};
+		if (letter=='x') {tag = X[rand.nextInt(X.length)];};
+		if (letter=='y') {tag = Y[rand.nextInt(Y.length)];};
+		if (letter=='z') {tag = Z[rand.nextInt(Z.length)];};
+		return tag;
+	}
+	
+
+}
+	
