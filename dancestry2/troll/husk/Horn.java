@@ -23,9 +23,10 @@ public class Horn {
 	// char 5+6: Hh sS -- one big (H)ollow vs smaller (h)ollows vs porou(s) vs (S)olid interior
 	// char 7-9: Vv Cc Uu Oo Ii Xx -- notches/holes by size and shape.  Xx = no notches.
 	public String Tipgene;
-	// char 1-4: break the below into combinations of a few smaller genes
-	//# P(point), B(bump), b(branching), C(cone), F(flat), H(hook), J(jagged)
-    //# R(round), S(split), s(spade), L(bolt), p(Pincher)
+	// char 1-2: Hh Pp Ss 
+        // P? split, ?P point, S? cone, ?S pincher, H? bolt, ?H bump (? = lowercase p, s, or h)
+        // PP point, PS split, PH L-hook, SP antler, SS spade, SH hook, HP, thorny, HS can-opener, HH hook
+        // pp jagged, ps cone, ph hook, sp pincher, ss sphere, sh cone, hp bolt, hs flat, hh flat
 //	public String Tip;	
 	public String Anggene; //+width+spin
 	// char 1+2: AaSsBb - whether horn curling is Angular, Smooth, or Both

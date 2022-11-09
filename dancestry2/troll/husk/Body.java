@@ -44,7 +44,7 @@ public class Body {
 	// 1char: #  - tail length in (TT)forearm-spans, (Tt)handspans or (tT)inches.
 	// 1char: #  - tail width in fingerwidths
 	// 2char: Rr - tail tip from horntip
-	// 2char: Rr - tail type (bare, tufted, furred, mane, scale, club, clawed, spiked, etc)
+	// 2char: Rr - tail type (bare, tufted, furred, mane, scale, club, clawed, spiked, horse, etc)
 	public String skingene = "";
 	// whether biolum is ACTIVE or not will depend on epigenetics -- psychic stat, seadweller control genes, etc.
 	// 4 char : Bioluminescent Skin Patterning - Rr(rainbowdrinker) Pp(psychic) Nn Ee (none), + 
