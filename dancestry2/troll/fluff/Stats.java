@@ -16,21 +16,24 @@ public class Stats {
 	public int moxie = 0;
 	public int psyche = 0;
 	//secret1
-	public int faith = 0;
-	public int order = 0;
-	public int entropy = 0;
-	public int connection = 0;
-	public int self = 0;
-	public int opportunity = 0;
+	public int faith = 0;       // +rage -hope
+	public int order = 0;       // +life -doom
+	public int entropy = 0;     // +time -space
+	public int connection = 0;  // +blood -breath
+	public int self = 0;        // +mind -heart
+	public int opportunity = 0; // +light -void
 	// secret 2
-	public int activity = 0;
-	public int exploit = 0;
-	public int move = 0;
-	public int know = 0;
-	public int manip = 0;
-	public int create = 0;
-	public int destroy = 0;
-	
+	public int activity = 0;   // sum above between -60 (passive) and +60 (active)
+	public int exploit = 0;    // sum absolute value of self+connection+faith           +knight/-page
+	public int move = 0;       // sum absolute value of self+connection+entropy         +thief/-rogue
+	public int know = 0;       // sum absolute value of opportunity+faith+order         +mage/-seer
+	public int manip = 0;      // sum absolute value of opportunity+faith+connection    +witch/-heir
+	public int create = 0;     // sum absolute value of entropy+order+opportunity       +maid/-sylph
+	public int destroy = 0;    // sum absolute value of entropy+order+self              +prince/-bard
+	// if create is greatest, create>15, activity<-25, then Muse.
+        // if destroy is greatest, destroy>15, activity>25, then Lord.
+        // if activity=0 and create-destroy = 0 = manip-know = move-exploit : waste
+        
 	int pts = 0;
 	public String aspect = "";
 	public String role = "";
@@ -193,139 +196,6 @@ public class Stats {
 	}
 
 	// Calling them roles instead of classes so my IDE doesn't freak out
-	public String getrole() {
-		String role = new String("");
-		role = ""; // Make sure it's this
-		// Let's do this with stat comparisons.
-				
-		// Assign them in this order, becoming gradually harder to manage
-		if (exploit>9)  {if (activity>=0)  {role="Knight";};
-		   				 if (activity<0)   {role="Page";};};
-		if (move>15)    {if (activity>=2)  {role="Thief";};
-						 if (activity<-2)  {role="Rogue";};};
-		if (know>15)    {if (activity>=3)  {role="Mage";};
-		                 if (activity<-3)  {role="Seer";};};
-		if (manip>15)   {if (activity>=5)  {role="Witch";};
-		   				 if (activity<-6)  {role="Heir";};};
-		if (create>15)  {if (activity>=10) {role="Maid";};
-				   		 if (activity<-12) {role="Sylph";};};
-		if (destroy>15) {if (activity>=12) {role="Prince";};
-						 if (activity<-15) {role="Bard";};};
-		if (role=="") {
-			if (activity>=30) 							  {role="Lord";};
-			if (activity==0)                              {role="Waste";};
-			if (activity<-30) 							  {role="Muse";};
-			
-			// Welcome to B-tier, where the standards are much lower.			
-            if (create>=destroy) {if (activity>=1)  {role="Maid";};
-		 						  if (activity<-1)  {role="Sylph";};};
-		 	if (destroy>create)  {if (activity>=2)  {role="Prince";};
-		 						  if (activity<-2)  {role="Bard";};};
-									   
-			if (know>=manip)    { if (activity>=1)  {role="Mage";};
-            					  if (activity<-1)  {role="Seer";};};
-            if (manip>know)     { if (activity>=1)  {role="Witch";};
-            					  if (activity<-1)  {role="Heir";};};
-            					        
-            if (move<=exploit)  { if (activity>=1)  {role="Thief";};
-            					  if (activity<1)   {role="Rogue";};};
-			if (exploit>move)   { if (activity>=1)  {role="Knight";};
-							      if (activity<0)   {role="Page";};};	
-            					        
-  			if ((activity>=20)&&(role=="")) {role="Lord";};
-  			if ((activity<-20)&&(role=="")) {role="Muse";};
-  			}
-
-		if ((role=="")||(role=="Waste")) {
-			// Welcome to C tier! 
-			if ((clout<2)||(clout>4)) 		{role="Prince"; if (activity<0) {role="Bard";};};
-			if ((moxie<2)||(moxie>4)) 		{role="Maid"; if (activity<0) 	{role="Sylph";};};
-			if ((hunch<2)||(hunch>4)) 		{role="Witch"; if (activity<0) 	{role="Heir";};};
-			if ((alacrity<2)||(alacrity>4)) {role="Thief"; if (activity<0) 	{role="Rogue";};};
-			if ((acumen<2)||(acumen>4)) 	{role="Mage"; if (activity<0)	{role="Seer";};};
-			if ((resolve<2)||(resolve>4)) 	{role="Knight"; if (activity<0) {role="Page";};};
-  			}
-		
-		//if (role=="") {role="TEST";};
-		
-	
-		String finalrole = new String(role);
-		return finalrole;
-	}
-
-	// Calling them roles instead of classes so my IDE doesn't freak out
-	public String getrole2() {
-		String role = new String("");
-		role = ""; // Make sure it's this
-		// Let's do this with stat comparisons.
-		int group1 = exploit + move;
-		int group2 = know + manip;
-		int group3 = create + destroy;
-
-		// Create, Destroy: Maid, Sylph, Prince, Bard.
-		if ((group3>=group1)&&(group3>=group2)) {
-			if (create>=destroy) {
-				if (activity>=0)  {role="Maid";};
-				if (activity<0)   {role="Sylph";};};	
-			if (create<destroy) {
-				if (activity>=0)  {role="Prince";};
-				if (activity<0)   {role="Bard";};};	
-			};
-
-		// Exploit, Relocate : Knight, Page, Thief, Rogue.
-		if ((group1>=group2)&&(group1>=group3)) {
-			if (exploit>move) {
-				if (activity>=0)  {role="Knight";};
-				if (activity<0)   {role="Page";};};	
-			if (exploit<=move) {
-				if (activity>=0)  {role="Thief";};
-				if (activity<0)   {role="Rogue";};};	
-			};
-		
-		// Know, Manipulate : Mage, Seer, Witch, Heir.
-		if ((group2>=group1)&&(group2>=group3)) {
-			if (know>=manip) {
-				if (activity>=0)  {role="Mage";};
-				if (activity<0)   {role="Seer";};};	
-			if (know<manip) {
-				if (activity>=0)  {role="Witch";};
-				if (activity<0)   {role="Heir";};};	
-			};
-		
-		// Override zone to add some variety
-		Random rand = new Random();
-		int rarerole = rand.nextInt(99);
-		// Lords, Muses, and Wastes have certain activity levels.
-		if (rarerole<2) {
-			if (activity>30) {role="Lord";};  // active
-			if (activity<-30) {role="Muse";}; // passive
-			if (activity==0) {role="Waste";}; // Awkward
-		};
-
-		// If you have very high or low stats, that can adjust your class.
-		if (rarerole>40) {
-			if ((clout==1)||(clout>5))       {role="Prince";if (activity<0) {role="Bard";};};
-			if ((grit==1)||(grit>5))         {role="Witch"; if (activity<0) {role="Heir";};};
-			if ((alacrity==1)||(alacrity>6)) {role="Thief"; if (activity<0) {role="Rogue";};};
-			if ((acumen==1)||(acumen>6))     {role="Mage";  if (activity<0) {role="Seer";};};
-			if ((hunch==1)||(hunch>6))       {role="Mage";  if (activity<0) {role="Seer";};};
-			if ((resolve==1)||(resolve>5))   {role="Knight";if (activity<0) {role="Page";};};
-			if ((moxie==1)||(moxie>5))       {role="Maid";  if (activity<0) {role="Sylph";};};
-		};
-		
-		// There are some other stats that can give you a class, less often...
-		if ((rarerole>10)&&(rarerole<50)) {
-			if ((resolve<3)&&(activity<0)) {role="Page";};
-			if ((resolve>4)&&(activity>0)) {role="Prince";};
-			if ((acumen+hunch>8)||(acumen+hunch<5)) {role="Mage";  if (activity<0) {role="Seer";};};
-			if ((hunch+moxie>8)||(hunch+moxie<4))   {role="Witch"; if (activity<0) {role="Heir";};};
-			if ((hunch+alacrity>8)||(hunch+alacrity<4)) {role="Thief";  if (activity<0) {role="Rogue";};};
-		};
-			
-		String finalrole = new String(role);
-		return finalrole;
-	}
-
 	public String getrole3() {
 		String role = new String("");
 		role = ""; // Make sure it's this
