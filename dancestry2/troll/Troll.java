@@ -20,6 +20,7 @@ public class Troll {
 	public String specibus; 
 	public String weapon;
 	public String element; 
+        public Desc desc;
 	
 	// Keep a list of what each caste is Expected to look like, and describe differences from standard
 	
@@ -49,9 +50,11 @@ public class Troll {
 		
 		element =    ella.getelement("any");
 		interests = hobby.getinterests(stats);
-		//specibus = speccy.getstrife("");
 		specibus = speccy.getstrifespecial(interests, stats);
 		weapon = speccy.getweapon(specibus);
+                // fill out the description...
+                desc = new Desc(body);
+                
 	}
 
 	
@@ -66,7 +69,7 @@ public class Troll {
 
 // TODO: bloodlines. Make sign name respect bloodlines.
 
-// -: additional calcinous or bioluminescent or finlike formations
+// -: additional calcinous or bioluminescent or finlike formations, in new skin section of body feature
 
 // organsystems, internal headcanon differences (reproductive, other), genetic diseases/syndromes/mutations
 
@@ -93,7 +96,10 @@ public class Troll {
 // -: melanistic(blackhorn), leucistic(whitehorn), albinism
 
 // psychic powers, voodoo, eldritch, etc
-// psychic eyes glow, rainbow drinker skin glows after death, seadwerllers glow various times
+// psychic eyes glow, rainbow drinker skin glows after death, seadwellers glow various times
+// clowns voodoo, seadwellers eldritch
+// trolls with red genes are inclined to all powers, including physical
+// trolls with blue and green genes are inclined to mental / emotive / sensory
 
 // title.
 
