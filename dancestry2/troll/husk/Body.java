@@ -70,8 +70,8 @@ public class Body {
 	// 2char: Ss : controls, SS sea Ss sS check and ss land
 	// 2char: Ff : wfingers, FF full Ff/fF, ff no webbing.
 	// 2char: Tt : wtoes, TT Tt/tT, tt no webbing.
-	// 2char: Ff : dorsal fins on limbs, DD Dd dD dd none.
-	// 2char: Ff : dorsal fins on body/tail, DD Dd dD dd none.
+	// 2char: Ff : dorsal fins on limbs, FF Ff fF ff none.
+	// 2char: Ff : dorsal fins on body/tail, FF Ff fF ff none.
 	// 2char: Nn : nictating membrane eyelids.  NN (lids), Nn nN (permanent transparent layer) nn normal land
 	// 2char: Ee : ears. EE full, Ee / eE half, ee none.
 	// 2char: CC : cheekfin.  CC, Cc/cC, cc.

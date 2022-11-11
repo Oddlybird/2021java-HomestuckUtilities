@@ -394,10 +394,10 @@ public class Gene {
 	
 	public static String permute(String code, String A, String B, String Atxt, String ABtxt, String BAtxt, String Btxt) {
 		String txt = new String("");
-		if (code==A+A) {txt = Atxt;};
-		if (code==A+B) {txt = ABtxt;};
-		if (code==B+A) {txt = BAtxt;};
-		if (code==B+B) {txt = Btxt;};
+		if (code.equals(A+A)) {txt = Atxt;};
+		if (code.equals(A+B)) {txt = ABtxt;};
+		if (code.equals(B+A)) {txt = BAtxt;};
+		if (code.equals(B+B)) {txt = Btxt;};
 		return txt;
 	}
 
@@ -405,12 +405,12 @@ public class Gene {
 			String AAtxt, String ABtxt, String BBtxt, String BCtxt, String CCtxt, String ACtxt) {
 		String txt = new String("");
 		
-		if (code==A+A) {txt = AAtxt;};
-		if ((code==A+B)||(code==B+A)) {txt = ABtxt;};
-		if (code==B+B) {txt = BBtxt;};
-		if ((code==C+B)||(code==B+C)) {txt = BCtxt;};
-		if (code==C+C) {txt = CCtxt;};
-		if ((code==A+C)||(code==C+A)) {txt = ACtxt;};
+		if (code.equals(A+A)) {txt = AAtxt;};
+		if ((code.equals(A+B))||(code.equals(B+A))) {txt = ABtxt;};
+		if (code.equals(B+B)) {txt = BBtxt;};
+		if ((code.equals(C+B))||(code.equals(B+C))) {txt = BCtxt;};
+		if (code.equals(C+C)) {txt = CCtxt;};
+		if ((code.equals(A+C))||(code.equals(C+A))) {txt = ACtxt;};
 
 		return txt;
 	}
@@ -419,16 +419,16 @@ public class Gene {
 			String AAtxt, String Aatxt, String aatxt, String Abtxt, String abtxt, String ABtxt,
 			String Batxt, String bbtxt, String Bbtxt, String BBtxt) {
 		String txt = new String("");
-		if (code==A+A) {txt = AAtxt;};
-		if ((code==A+a)||(code==a+A)) {txt = Aatxt;};
-		if (code==a+a) {txt = aatxt;};
-		if ((code==A+b)||(code==b+A)) {txt = Abtxt;};
-		if ((code==a+b)||(code==b+a)) {txt = abtxt;};
-		if ((code==A+B)||(code==B+A)) {txt = ABtxt;};
-		if ((code==a+B)||(code==B+a)) {txt = Batxt;};
-		if (code==b+b) {txt = bbtxt;};
-		if ((code==b+B)||(code==B+b)) {txt = Bbtxt;};
-		if (code==B+B) {txt = BBtxt;};
+		if (code.equals(A+A)) {txt = AAtxt;};
+		if ((code.equals(A+a))||(code.equals(a+A))) {txt = Aatxt;};
+		if (code.equals(a+a)) {txt = aatxt;};
+		if ((code.equals(A+b))||(code.equals(b+A))) {txt = Abtxt;};
+		if ((code.equals(a+b))||(code.equals(b+a))) {txt = abtxt;};
+		if ((code.equals(A+B))||(code.equals(B+A))) {txt = ABtxt;};
+		if ((code.equals(a+B))||(code.equals(B+a))) {txt = Batxt;};
+		if (code.equals(b+b)) {txt = bbtxt;};
+		if ((code.equals(b+B))||(code.equals(B+b))) {txt = Bbtxt;};
+		if (code.equals(B+B)) {txt = BBtxt;};
 		return txt;
 	}
 	
