@@ -1,8 +1,0 @@
-/**
- * 
- */
-/**
- * @author wirrit
- *
- */
-package troll;
