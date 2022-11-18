@@ -27,7 +27,7 @@ public class Name {
 		
 	}	
 	
-	public String gen() {
+	static public String gen() {
 		Random rand = new Random();
 		String[] structure = {
 	    		"POFLOF", "POONON", "FOFFOL", "NOLFPO", "PONNOP", "FPOLLO", "FOPOLO", "PFOPOO", "FOPOPO", "FOLOPL",

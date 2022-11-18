@@ -6,11 +6,13 @@ import java.util.Random;
 public class Element {
 	Random rand = new Random();
 	String[] subtype = {
+                    // Most of the results should be
 			"periodic", "classic", "planescape", "off", "wuxing", "misc", "pokemon",
 			"periodic", "classic", "planescape", "off", "wuxing", "misc", "pokemon2",
-			"noms", "material", "metal", "planets", "alchemy", "flower", "gem", 
-			"noms", "material", "metal", "planets", "alchemy", "flower", "gem", 
-                        "majorarcana", "hexagrams", "covens", "spellschool", "domain"
+			"noms", "material", "metal", "alchemy", "flower", "gem", 
+			"noms", "material", "metal", "alchemy", "flower", "gem",
+                    // but every so often, toss in some 
+                        "planets", "majorarcana", "hexagrams", "covens", "spellschool", "domain"
         };
 				
 	public String getelement(String code) {
@@ -18,28 +20,28 @@ public class Element {
 		var = subtype();  										// set it to a random option
 		if (Arrays.asList(subtype).contains(code)) {var=code;}; // but if code is a valid one, use it
 		
-		if (var=="flower")     {var=getflower();};
-		if (var=="wuxing")     {var=getwuxing();};
-		if (var=="hexagrams")  {var=gethexagram();};
-		if (var=="alchemy")    {var=getalchemy();};
-		if (var=="planets")    {var=getplanets();};
-		if (var=="pokemon")    {var=getpokemon();};		
-		if (var=="pokemon2")   {var=getpokemon2();};		
-		if (var=="majorarcana"){var=getmajorarcana();};		
-		if (var=="metal")      {var=getmetal();};
-		if (var=="material")   {var=getmaterial();};
-		if (var=="noms")       {var=getnoms();};
-		if (var=="off")        {var=getoff();};
-		if (var=="gem")        {var=getgem();};
-		if (var=="misc")       {var=getmisc();};
-		if (var=="planescape") {var=getplanescape();};
-		if (var=="classic")    {var=getclassic();};
-		if (var=="aristotle")  {var=getaristotle();};
-		if (var=="humour")     {var=gethumour();};
-		if (var=="periodic")   {var=getperiodic();};
-		if (var=="covens")     {var=getcoven();};
-		if (var=="spellschool"){var=getspellschool();};
-		if (var=="domain")     {var=getdomain();};
+		if (var.equals("flower"))     {var=getflower();};
+		if (var.equals("wuxing"))     {var=getwuxing();};
+		if (var.equals("hexagrams"))  {var=gethexagram();};
+		if (var.equals("alchemy"))    {var=getalchemy();};
+		if (var.equals("planets"))    {var=getplanets();};
+		if (var.equals("pokemon"))    {var=getpokemon();};		
+		if (var.equals("pokemon2"))   {var=getpokemon2();};		
+		if (var.equals("majorarcana")){var=getmajorarcana();};		
+		if (var.equals("metal"))      {var=getmetal();};
+		if (var.equals("material"))   {var=getmaterial();};
+		if (var.equals("noms"))       {var=getnoms();};
+		if (var.equals("off"))        {var=getoff();};
+		if (var.equals("gem"))        {var=getgem();};
+		if (var.equals("misc"))       {var=getmisc();};
+		if (var.equals("planescape")) {var=getplanescape();};
+		if (var.equals("classic"))    {var=getclassic();};
+		if (var.equals("aristotle"))  {var=getaristotle();};
+		if (var.equals("humour"))     {var=gethumour();};
+		if (var.equals("periodic"))   {var=getperiodic();};
+		if (var.equals("covens"))     {var=getcoven();};
+		if (var.equals("spellschool")){var=getspellschool();};
+		if (var.equals("domain"))     {var=getdomain();};
 		// All done!
                 
                 var = var.toLowerCase();
@@ -60,10 +62,18 @@ public class Element {
 	private String getflower() {
 		String var = "";
 		String[] set = {
-				"Lily", "Allium", "Lilly-of-the-valley", "Aster", "Baby's Breath", "Orchid", "Carnation", "Chrysanthemum", 
-				"Yarrow", "Cosmos", "Cornflower", "Daffodil", "Dahlia", "Daisy", "Freesia", "Gardenia", 
-				"Goldenrod", "Heather", "Hydrangea", "Iris", "Lilac", "Lavender", "Mimosa", "Narcissus", 
-				"Peony", "Poppy", "Rose", "Snapdragon", "Poinsettia", "Sunflower", "Tulip", };
+                    "Yarrow", "Allium", "Amaranth", "Anemone", "Aster", "Azalea", 
+                    "Baby's Breath", "Begonia", "Bellflower", "Bistort", "Bluet",
+                    "Carnation", "Chrysanthemum", "Cornflower", "Cosmos", "Crocus",
+                    "Daffodil", "Dahlia", "Daisy", "Dandelion", "Delphinium",
+                    "Fairy-slipper", "Freesia", "Gardenia", "Goldenrod",
+                    "Heather", "Hibiscus", "Hydrangea", "Iris", "Jacaranda",
+                    "Lavender", "Lilac", "Lilly-of-the-valley", "Lily", "Mimosa",
+                    "Narcissus", "Nightshade", "Orchid", "Peony", "Poinsettia",
+                    "Poppy", "Rose", "Snapdragon", "Snowdrops", "Sunflower",
+                    "Tulip", "Violet", "Wildflower", "Winter Cyclamen",
+                    "Winter Scillia",                         
+                };
 		var=set[rand.nextInt(set.length)];
 		var = var.toLowerCase();
 		return var;
@@ -379,27 +389,27 @@ public class Element {
 	private String getgem() {
 		String var = "";
 		String[] geologic = {
-				"adularia moonstone", "alexandrite", "almandine", "amazonite", "amber", "amethyst", "ametrine",
-				"ammolite", "andesine", "apatite", "aquamarine", "azurite", "beryl", "biotite", "bloodstone", 
-				"bort diamond", "bronzite", "calcite", "californite", "carnelian", "caulk", "chalcedony", "chalk",
-				"chroite tourmaline", "chrome tourmaline", "chrysoberyl", "chrysocolla", "cinnabar", "citrine", 
-				"coal", "coral", "corundum", "cryolite", "cubic zirconia", "cuprite", "cylonite spinel", "demantoid", 
-				"dendritic agate", "diamond", "diopside", "dioptase", "dravite tourmaline", "druzy", "elbaite tourmaline",
-				"emerald", "euclase","feldspar", "fire agate","fire opal","flint","fluorite", "fordite","garnet", "glass", 
-				"golden beryl", "sea glass", "goshenite","graphite", "gypsum", "halite", "heliodor", "hematite", "hessonite", 
-				"howlite", "indicolite tourmaline", "iolite","iris agate", "jacinth zircon", "jade", "jadeite", "jasper", "jet", 
-				"kainite", "kunzite", "kyanite", "labradorite", "lace agate", "lapis","lazurite","leucite","listwanite mica", 
-				"malachite", "malaia garnet","marble", "melanite", "mica", "microcline", "milky quartz", "moissanite", "moonstone", 
-				"morganite","moss agate", "nacre","nephrite","obsidian", "olenite tourmaline", "onyx agate","onyx", 
-				"opal", "orange topaz", "orthoclase","padparadscha sapphire","painite", "paraiba tourmaline", "pearl", 
-				"periclase", "peridot","petrified wood", "pitersite", "prasiolite","prismatine", "purpurite", "pyrite",
-				"pyromorphite","pyrope", "pyrrhotite", "quartz", "radiolarite","rainbow moonstone", "red beryl", "rhodolite", 
-				"rhodonite", "rock crystal","rose quartz", "rossmanite tourmaline","rubellite tourmaline", "ruby", 
-				"rust", "rutile", "sanidine","sapphire","sard", "sardonyx agate", "selenite", "serpentine", "shale", 
-				"smoky quartz", "soapstone", "sodalite", "spessartine","spessartite", "spinel", "sugilite", "sulfur", 
-				"sunstone","sylvite","taaffeite", "talc","tantalite", "tanzanite","thaumasite", "thulite", "tigers eye", 
-				"topaz","topazolite","tourmaline","trapiche emerald", "tremolite", "tsavorite", "turquoise", "variscite", 
-				"wavellite", "white opal", "zircon", "zoisite"};
+		"adularia moonstone", "alexandrite", "almandine", "amazonite", "amber", "amethyst", "ametrine",
+		"ammolite", "andesine", "apatite", "aquamarine", "azurite", "beryl", "biotite", "bloodstone", 
+		"bort diamond", "bronzite", "calcite", "californite", "carnelian", "caulk", "chalcedony", "chalk",
+		"chroite tourmaline", "chrome tourmaline", "chrysoberyl", "chrysocolla", "cinnabar", "citrine", 
+		"coal", "coral", "corundum", "cryolite", "cubic zirconia", "cuprite", "cylonite spinel", "demantoid", 
+		"dendritic agate", "diamond", "diopside", "dioptase", "dravite tourmaline", "druzy", "elbaite tourmaline",
+		"emerald", "euclase","feldspar", "fire agate","fire opal","flint","fluorite", "fordite","garnet", "glass", 
+		"golden beryl", "sea glass", "goshenite","graphite", "gypsum", "halite", "heliodor", "hematite", "hessonite", 
+		"howlite", "indicolite tourmaline", "iolite","iris agate", "jacinth zircon", "jade", "jadeite", "jasper", "jet", 
+		"kainite", "kunzite", "kyanite", "labradorite", "lace agate", "lapis","lazurite","leucite","listwanite mica", 
+		"malachite", "malaia garnet","marble", "melanite", "mica", "microcline", "milky quartz", "moissanite", "moonstone", 
+		"morganite","moss agate", "nacre","nephrite","obsidian", "olenite tourmaline", "onyx agate","onyx", 
+		"opal", "orange topaz", "orthoclase","padparadscha sapphire","painite", "paraiba tourmaline", "pearl", 
+		"periclase", "peridot","petrified wood", "pitersite", "prasiolite","prismatine", "purpurite", "pyrite",
+		"pyromorphite","pyrope", "pyrrhotite", "quartz", "radiolarite","rainbow moonstone", "red beryl", "rhodolite", 
+		"rhodonite", "rock crystal","rose quartz", "rossmanite tourmaline","rubellite tourmaline", "ruby", 
+		"rust", "rutile", "sanidine","sapphire","sard", "sardonyx agate", "selenite", "serpentine", "shale", 
+                "smoky quartz", "soapstone", "sodalite", "spessartine","spessartite", "spinel", "sugilite", "sulfur", 
+		"sunstone","sylvite","taaffeite", "talc","tantalite", "tanzanite","thaumasite", "thulite", "tigers eye", 
+		"topaz","topazolite","tourmaline","trapiche emerald", "tremolite", "tsavorite", "turquoise", "variscite", 
+		"wavellite", "white opal", "zircon", "zoisite"};
 		var=geologic[rand.nextInt(geologic.length)];
 		return var;
 	}
@@ -440,13 +450,13 @@ public class Element {
 	private String getperiodic() {
 		String var = "";
 		String[] periodic = {
-				"hydrogen", "helium", "lithium", "palladium", "boron", "carbon",  "nitrogen", "oxygen",
-				"fluorine", "neon", "sodium", "magnesium", "aluminum", "silicon",  "phosphorus", "sulfur",
-				"chlorine", "argon", "potassium", "calcium", "silver", "titanium",  "tin", "chromium",
-				"antimony", "iron", "cobalt", "nickel", "copper", "zinc",  "iodine", "xenon",
-				"arsenic", "neodmium", "bromine", "krypton", "tungsten", "iridium",  "yttrium", "zirconium",
-				"platinum", "gold", "mercury", "lead", "bismuth", "radon", "radium", "uranium",
-				"unnseptium", "ununoctium", "ununonium"};
+		"hydrogen", "helium", "lithium", "palladium", "boron", "carbon",  "nitrogen", "oxygen",
+		"fluorine", "neon", "sodium", "magnesium", "aluminum", "silicon",  "phosphorus", "sulfur",
+		"chlorine", "argon", "potassium", "calcium", "silver", "titanium",  "tin", "chromium",
+		"antimony", "iron", "cobalt", "nickel", "copper", "zinc",  "iodine", "xenon",
+		"arsenic", "neodmium", "bromine", "krypton", "tungsten", "iridium",  "yttrium", "zirconium",
+		"platinum", "gold", "mercury", "lead", "bismuth", "radon", "radium", "uranium",
+		"unnseptium", "ununoctium", "ununonium"};
 		var=periodic[rand.nextInt(periodic.length)];
 		return var;
 	}

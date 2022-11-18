@@ -7,13 +7,50 @@ public class Desc {
         String build = "";
         String respirate = "";
         String fins = "";
-    
-	public Desc(troll.husk.Body body) {
+        String rack = "";
+
+        // If you want to feed more data, remember to update both here and the place
+        // in troll.Troll() where info is fed over here
+        
+	public Desc(troll.husk.Body body, troll.husk.Horns horns, troll.husk.Eye eyes, troll.fluff.Stats stats) {
+            // Just the body section
             build = build(body.buildgene);
             respirate = respirate(body.respiratorygene);
             fins = fins(body.fingene);
-        }       
-        	
+            
+            // horns
+            rack = horns(horns);
+
+            // eyes
+            /* stuff */
+
+            // stats
+            /* stuff */            
+                        
+        }
+        
+        // bits and bobs
+        
+	public static String infeet(int inches) {
+		String height = new String("");
+		int feet = 0;
+		
+		// Count the number of feet
+		while (inches-11>0) {feet++; inches = inches - 12;}		
+		height = feet + "ft " + inches + "in";		
+		return height;
+	}
+
+	public static String colortostring(Color color) {
+		String txt = "";
+		
+		txt = "(" + Integer.toString(color.getRed()) + ", ";
+		txt = txt + Integer.toString(color.getGreen()) + ", ";
+		txt = txt + Integer.toString(color.getBlue()) + ")";		
+		return txt;
+	}	
+       
+        // big chonks
 	public static String build(String code) {
 		while (code.length()<6) {code=code+"5";};
 		
@@ -55,26 +92,7 @@ public class Desc {
                 
 		return txt;
 	}
-	
-	public static String infeet(int inches) {
-		String height = new String("");
-		int feet = 0;
 		
-		// Count the number of feet
-		while (inches-11>0) {feet++; inches = inches - 12;}		
-		height = feet + "ft " + inches + "in";		
-		return height;
-	}
-
-	public static String colortostring(Color color) {
-		String txt = "";
-		
-		txt = "(" + Integer.toString(color.getRed()) + ", ";
-		txt = txt + Integer.toString(color.getGreen()) + ", ";
-		txt = txt + Integer.toString(color.getBlue()) + ")";		
-		return txt;
-	}	
-	
 	public static String respirate(String code) {
 		String txt = new String("");
 		String control  = code.substring(0,4);
@@ -239,8 +257,79 @@ public class Desc {
                                                                                        
 		return txt;
 	}
-       
-        
+
+       	public static String horns(troll.husk.Horns horns) {
+		String txt = new String("");
+                // This involves HEAVY usage of description functions found in Horn and Horns
+                // check which things match
+                boolean matchMount = false;
+                boolean matchDir = false;
+                boolean matchCross = false;
+                boolean matchTip = false;
+                boolean matchLength = false;
+                boolean matchCurl = false;
+                if (horns.rgene.mountpoint(horns.rgene.Placegene).equals(horns.lgene.mountpoint(horns.lgene.Placegene))) {matchMount = true;};
+                if (horns.rgene.dirpoint(horns.rgene.Dirgene).equals(horns.lgene.dirpoint(horns.lgene.Dirgene))) {matchDir = true;};
+                if (horns.rgene.crossection(horns.rgene.Radialgene).equals(horns.lgene.crossection(horns.lgene.Radialgene))) {matchCross = true;};
+                if (horns.rgene.tipname(horns.rgene.Tipgene).equals(horns.lgene.tipname(horns.lgene.Tipgene))) {matchTip = true;};
+                if (horns.rgene.handspans(horns.rgene.Curlengene).equals(horns.rgene.handspans(horns.rgene.Curlengene))) {matchLength = true;};
+                String lcurl = horns.lgene.curly(horns.lgene.Anggene, horns.lgene.Radialgene, horns.lgene.Curlengene);
+                String rcurl = horns.rgene.curly(horns.rgene.Anggene, horns.rgene.Radialgene, horns.rgene.Curlengene);
+                if (lcurl.equals(rcurl)) {matchCurl=true;};
+                // Count the horns. 
+                String numeracyRight = horns.numeracy(horns.form.substring(12,14));
+		String numeracyLeft = horns.numeracy(horns.form.substring(14,16));
+                // "doubled", "stunted", "withered", or "normal"
+                int numdub = 2; // two by default
+                if (numeracyRight.equals("doubled")) {numdub++;}; // double right
+                if (numeracyLeft.equals("doubled")) {numdub++;};  // double left                
+                // figure the type                
+		String type = horns.htype(horns.form.substring(16,20));
+                // declare the basics.               
+                txt = numdub + " ";
+                if (matchLength) {txt = txt + horns.rgene.handspans(horns.rgene.Curlengene);};
+                if (matchCurl)   {txt = txt + rcurl;};
+                txt = txt + type;
+                
+                // describe the parts that do match
+                if (matchMount) {txt = txt + ", " + horns.rgene.mountpoint(horns.rgene.Placegene);};
+                if (matchDir)   {txt = txt + ", that point " + horns.rgene.dirpoint(horns.rgene.Dirgene);};
+                // curl in degrees, whether it's sharp or smooth or both
+                if (matchCross) {txt = txt + ", with a " + horns.rgene.crossection(horns.rgene.Radialgene) + "-shaped base";};
+                if (matchTip) {txt = txt + ", and have " + horns.rgene.tipname(horns.rgene.Tipgene) + "tips";};
+                
+                // end combined chunk.
+                txt = txt + ".";
+               // If anything doesn't match, 
+               if ((!matchDir)||(!matchMount)||(!matchCross)||(!matchTip)||(!matchLength)||(!matchCurl)||(!numeracyLeft.equals("normal"))||(!numeracyRight.equals("normal"))) {
+                   txt = txt + "  The left horn";
+                    // all the unique data about the left horn: dir length, curl, etc
+                    if ((!numeracyLeft.equals("normal"))||(!numeracyRight.equals("normal"))) {txt = txt + " is " + numeracyLeft; };
+                    if (!matchLength) {txt = txt + " is " + horns.lgene.handspans(horns.lgene.Curlengene);};
+                    if (!matchCurl)   {txt = txt + " is " + lcurl;};
+                    if (!matchMount)  {txt = txt + " is " + horns.lgene.mountpoint(horns.lgene.Placegene);};
+                    if (!matchDir)    {txt = txt + " points " + horns.lgene.dirpoint(horns.lgene.Dirgene);};
+                    if (!matchCross)  {txt = txt + " with a " + horns.lgene.crossection(horns.lgene.Radialgene) + "-shaped base";};
+                    if (!matchTip)    {txt = txt + " and has a " + horns.lgene.tipname(horns.lgene.Tipgene) + "-tip";};
+                    
+                   txt = txt + ".  The right horn";
+                    
+                    // all the unique data about the right horn
+                    if ((!numeracyLeft.equals("normal"))||(!numeracyRight.equals("normal"))) {txt = txt + " is " + numeracyRight; };
+                    if (!matchLength) {txt = txt + " is " + horns.rgene.handspans(horns.rgene.Curlengene);};
+                    if (!matchCurl)   {txt = txt + " is " + rcurl;};
+                    if (!matchMount)  {txt = txt + " is " + horns.rgene.mountpoint(horns.rgene.Placegene);};
+                    if (!matchDir)    {txt = txt + " points " + horns.rgene.dirpoint(horns.rgene.Dirgene);};
+                    if (!matchCross)  {txt = txt + " with a " + horns.rgene.crossection(horns.rgene.Radialgene) + "-shaped base";};
+                    if (!matchTip)    {txt = txt + " and has a " + horns.rgene.tipname(horns.rgene.Tipgene) + "-tip";};
+               };
+                
+		return txt;
+	}
+
+
+
+        // blank entry
 	public static String blank(String code) {
 		String txt = new String("");
 		boolean cont = true;
