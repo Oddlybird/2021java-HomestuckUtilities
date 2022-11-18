@@ -12,9 +12,10 @@ public class Eye {
 	public String leftcolor = "";
 	// set to bloodcol, or to color indicated in eye gene
 	public String lefteye = "";  // The left eye.
-	//2char: Ee control: EE Ee eE eye active, ee eye suppressed,
+	//2char: Ee control: EE Ee eE eye active, ee eye suppressed, DD doubled.
 	//2char: Ss control: Symmetry.  Blend cap eyes together, lowercase together, cap overwrites lower.
 	// any eyes that do not end up used/placed are ignored when symmetrising
+        // note to self : remove this.  Let eyes be different.
 	//2char: PP control: multipupil?  PP =Y, else = N
 	//2char: XX Solid color eye?  RrGgBb color components, Cc = caste/blood colored.  Xx = Normal pupil.
 	//2char: AB Shape : almond, narrow, big round, boxy, sunken, other

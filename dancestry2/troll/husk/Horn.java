@@ -56,31 +56,30 @@ public class Horn {
 //		Tip = tipname(Tipgene);
 		Anggene = Gene.mutiBlend(pickang(blood), pickang(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickang("rand"));
 	}
-	
-// data interpretation
-	public int handspans(String curl) {
+
+        
+        
+// data interpretation / description
+	public String handspans(String curl) {
 		int c = 0;
 		if (Character.isUpperCase(curl.charAt(0))) {c++;};
 		if (Character.isUpperCase(curl.charAt(1))) {c++;};
 		if (Character.isUpperCase(curl.charAt(2))) {c++;};
-		if (Character.isUpperCase(curl.charAt(3))) {c++;};		
-		return c;		
+		if (Character.isUpperCase(curl.charAt(3))) {c++;};
+                
+                String horn = "";
+                if (c<2)  {horn="short ";};
+                if (c==2) {horn="";};
+                if (c==3) {horn="long ";};
+                if (c==4) {horn="very long ";};
+        
+		return horn;		
 	}
 
 	public int curldegree(String curl) {
 		int c = 0;
-		char[] carl = curl.toCharArray();
-
-		if ((carl[0] =='B')||(carl[0] =='b')) {c=c+45;};
-		if ((carl[1] =='B')||(carl[1] =='b')) {c=c+45;};
-		if ((carl[2] =='B')||(carl[2] =='b')) {c=c+45;};
-		if ((carl[3] =='B')||(carl[3] =='b')) {c=c+45;};
-
-		if ((carl[0] =='C')||(carl[0] =='c')) {c=c+90;};
-		if ((carl[1] =='C')||(carl[1] =='c')) {c=c+90;};
-		if ((carl[2] =='C')||(carl[2] =='c')) {c=c+90;};
-		if ((carl[3] =='C')||(carl[3] =='c')) {c=c+90;};
-
+                c = c + (45 * Gene.counthas(curl, 'B')) + (45 * Gene.counthas(curl, 'b'));
+                c = c + (90 * Gene.counthas(curl, 'C')) + (90 * Gene.counthas(curl, 'c'));
 		return c;		
 	}
 
@@ -123,16 +122,14 @@ public class Horn {
 
 	public String wholistic(Horn h) {
 	String horn = "";
-	String rad1, rad2, hollow, notch = new String("");
+	String hollow, notch = new String("");
 	String sharp, width, spin = new String("");
 	int curl = h.curldegree(h.Curlengene);
 	String shape = "";
 	
 	// char 1+2: Rr Pp - Rounded vs pointed edges
-	rad1=h.Radialgene.substring(0,2);
 	// char 3+4: Rr Oo Tt Cc Ii -- 1 epicenter(circle), 2 epicenters(oval/tear), 3 corners(triangle), cup shape, irregular
-	rad2=h.Radialgene.substring(2,4);
-	shape = crossection(rad1,rad2);	
+	shape = crossection(h.Radialgene);	
 	// char 5+6: Hh sS -- one big (H)ollow vs smaller (h)ollows vs porou(s) vs (S)olid interior
 	hollow=h.Radialgene.substring(4,6);
 	// char 7-9: Vv Cc Uu Oo Ii Xx -- notches/holes by size and shape.  Xx = no notches.
@@ -148,10 +145,7 @@ public class Horn {
 	
 	// Begin assembling text string
 	// LENGTH
-	if (h.handspans(h.Curlengene)<2) {horn="short ";};
-	if (h.handspans(h.Curlengene)==2) {horn="";};
-	if (h.handspans(h.Curlengene)==3) {horn="long ";};
-	if (h.handspans(h.Curlengene)==4) {horn="very long ";};
+        horn = handspans(Curlengene);
 	
 	// angularity
 	if ((curl!=0)&&((sharp=="AA")||(sharp=="Aa")||(sharp=="aA")||(sharp=="sA")||(sharp=="As"))) {
@@ -205,11 +199,61 @@ public class Horn {
 	return horn;
 }	
 
-	public String crossection(String rad1, String rad2) {
+        public String curly (String ang, String radial, String curlgene) {
+            String horn = "";
+            int curl = curldegree(curlgene);
+            // char 1+2: Rr Pp - Rounded vs pointed edges
+            // char 3+4: Rr Oo Tt Cc Ii -- 1 epicenter(circle), 2 epicenters(oval/tear), 3 corners(triangle), cup shape, irregular
+            String shape = crossection(radial);	
+            // char 1+2: AaSsBb - whether horn curling is Angular, Smooth, or Both		
+            String sharp=ang.substring(0,2);
+            // char 3+4: Ww nN - wide/narrow
+            String width=ang.substring(2,4);
+            // char 5+6: SsZzOo  -- spiral clockwise, counterclockwise, neither, + severity of spin		
+            String spin=ang.substring(4,6);	
+            // Begin assembling text string
+        // angularity
+            if ((curl!=0)&&((sharp=="AA")||(sharp=="Aa")||(sharp=="aA")||(sharp=="sA")||(sharp=="As"))) {
+		horn = horn + "sharply-";}; // angular
+            if ((curl!=0)&&((sharp=="SS")||(sharp=="Ss")||(sharp=="sS")||(sharp=="aS")||(sharp=="Sa"))) {
+		horn = horn + "smoothly-";}; // smooth
+
+            // Curl
+            if (curl==0) {horn = horn + "straight";};
+            if ((curl>0)&&(curl<=90)) {horn = horn + "curved";};
+            if ((curl>90)&&(curl<=180)) {horn = horn + "curled";};
+            if ((curl>180)&&(curl<=270)) {horn = horn + "curling";};
+            if ((curl>270)&&(curl<=9000)) {horn = horn + "coiled";};
+
+            // spiralling
+            if (shape!="round") { // not pure round crossection
+    		int twist = 0;
+                    if (spin.startsWith("Z")) {twist=twist+3;};
+                    if (spin.startsWith("z")) {twist=twist+1;};
+                    if (spin.startsWith("s")) {twist=twist-1;};
+                    if (spin.startsWith("S")) {twist=twist-3;};
+                    if (spin.endsWith("Z")) {twist=twist+3;};
+                    if (spin.endsWith("z")) {twist=twist+1;};
+                    if (spin.endsWith("s")) {twist=twist-1;};
+                    if (spin.endsWith("S")) {twist=twist-3;};
+                    twist = Math.abs(twist);
+                    if (twist==6) {horn = horn + ", tightly-twisting";};
+                    if (twist==4) {horn = horn + ", twisting";};
+                    if (twist==2) {horn = horn + ", slightly-twisting";};
+                    }
+       	if ((width=="WW")||(width=="Ww")||(width=="wW")||(width=="ww")) {horn = horn + " and wide";};
+        return horn;
+        }
+        
+	public String crossection(String radial) {
 		String shape = "";
+                String rad1 = radial.substring(0,2);
+                String rad2 = radial.substring(2,4);
+                
 		boolean pointy = false;
-		if ((rad1=="PP")||(rad1=="Pp")||(rad1=="pP")||(rad1=="pp")) {pointy=true;};
-		if ((rad1=="Pr")||(rad1=="rP")) {pointy=true;};
+		if ((rad1.equals("PP"))||(rad1.equals("Pp"))) {pointy=true;};
+                if ((rad1.equals("pP"))||(rad1.equals("pp"))) {pointy=true;};
+		if ((rad1.equals("Pr"))||(rad1.equals("rP"))) {pointy=true;};
 		boolean rr = false; boolean oo = false; boolean tt = false;
 		boolean cc = false; boolean ii = false;
 		if ((rad2.startsWith("R")||rad2.endsWith("R"))) {rr=true;};
@@ -335,24 +379,27 @@ public class Horn {
 
 		String waggle = "";
 		if (w==0) {waggle="";};
-		if (w==1) {waggle="wiggly";};
-		if (w==2) {waggle="wig-waggly";};
-		if (w==3) {waggle="wig-wug-woogly";};
-		if (w>3)  {waggle="sqwoogly";};
+		if (w==1) {waggle="wiggles once";};
+		if (w==2) {waggle="wiggles twice";};
+		if (w==3) {waggle="wiggles thrice";};
+		if (w>3)  {waggle="wiggles a lot";};
 		
 		String dir = "";
-		if (uno!="") {dir=uno;};
-		if ((uno!="")&&((dos!="")||(trs!=""))) {dir = dir + ", ";};
-		if (dos!="") {dir=dir+dos;};
-		if (((uno!="")||(dos!=""))&&(trs!="")) {dir = dir + ", ";};
-		if (trs!="") {dir=dir+trs;};
-		if (waggle!="") {dir = dir + ", " + waggle;};
-		
+                if (!uno.equals("")) {dir = uno;};
+                if (!dos.equals("")) {
+                    if (!dir.equals("")) {dir = dir + ", and ";}; dir = dir + dos;};
+                if (!trs.equals("")) {
+                    if (!dir.equals("")) {dir = dir + ", and ";}; dir = dir + trs;};
+                if (!waggle.equals("")) {
+                    if (!dir.equals("")) {dir = dir + ", and ";}; dir = dir + waggle;};
+                
 		return dir;
 	}
 
 
-	
+        
+        
+
 // slurry
 	public String pickplace(String blood){
 		String var = new String();

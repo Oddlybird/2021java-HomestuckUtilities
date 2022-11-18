@@ -51,6 +51,8 @@ public class Horns {
 	public String Left;
 	public String Right;
 
+        // this is the final step of horn creation, which changes both horn genes
+        // it is not a descriptive function.
 	public void horncalc(String blood, Horn rgene, Horn lgene, String form) {
  		Gson gson = new Gson();
 		Random rand = new Random();
@@ -68,8 +70,8 @@ public class Horns {
 			// Placegene
 			gauge = "";
 			gauge = form.substring(0,2);
-			if (gauge.startsWith("HH")) {R.Placegene=rgene.Placegene;L.Placegene=rgene.Placegene;
-				if (rand.nextBoolean()) {R.Placegene=lgene.Placegene;L.Placegene=lgene.Placegene;};};
+			if (gauge.startsWith("HH")) {R.Placegene=Gene.mutiBlend(rgene.Placegene, lgene.Placegene, rgene.Placegene); L.Placegene=R.Placegene;
+				if (rand.nextBoolean()) {L.Placegene=Gene.mutiBlend(lgene.Placegene, rgene.Placegene, lgene.Placegene); R.Placegene=L.Placegene;};};
 			if (gauge.startsWith("Hh")) {L.Placegene = lgene.Placegene;R.Placegene = lgene.Placegene;};
 			if (gauge.startsWith("hH")) {L.Placegene = rgene.Placegene;R.Placegene = rgene.Placegene;};
 			if (gauge.startsWith("hh")) {L.Placegene = lgene.Placegene;R.Placegene = rgene.Placegene;};
@@ -78,39 +80,40 @@ public class Horns {
 			// Dirgene
 			gauge = "";
 			gauge = form.substring(2,4);
-			if (gauge.startsWith("HH")) {R.Dirgene=rgene.Dirgene;L.Dirgene=rgene.Dirgene;
-				if (rand.nextBoolean()) {R.Dirgene=lgene.Dirgene;L.Dirgene=lgene.Dirgene;};};
-			if (gauge.startsWith("Hh")) {L.Dirgene = lgene.Dirgene; R.Dirgene = lgene.Dirgene;};
-			if (gauge.startsWith("hH")) {L.Dirgene = rgene.Dirgene; R.Dirgene = rgene.Dirgene;};
-			if (gauge.startsWith("hh")) {L.Dirgene = lgene.Dirgene; R.Dirgene = rgene.Dirgene;};
+			if (gauge.startsWith("HH")) {R.Dirgene=Gene.mutiBlend(rgene.Dirgene, lgene.Dirgene, rgene.Dirgene); L.Dirgene=R.Dirgene;
+				if (rand.nextBoolean())   {L.Dirgene=Gene.mutiBlend(lgene.Dirgene, rgene.Dirgene, lgene.Dirgene); R.Dirgene=L.Dirgene;};};
+			if (gauge.startsWith("Hh")) {L.Dirgene = lgene.Dirgene;R.Dirgene = lgene.Dirgene;};
+			if (gauge.startsWith("hH")) {L.Dirgene = rgene.Dirgene;R.Dirgene = rgene.Dirgene;};
+			if (gauge.startsWith("hh")) {L.Dirgene = lgene.Dirgene;R.Dirgene = rgene.Dirgene;};
+                        // edit this so horns can point different directions and l.dirgene gets used at all
 			DirPoint = R.dirpoint(R.Dirgene);
 
 			// -------------------------------------------- // 		
 			// Curlengene
 			gauge = "";
 			gauge = form.substring(4,6);
-			if (gauge.startsWith("HH")) {R.Curlengene = Gene.mutiBlend(rgene.Curlengene, lgene.Curlengene, rgene.Curlengene);L.Curlengene=R.Curlengene;
-				if (rand.nextBoolean()) {L.Curlengene = Gene.mutiBlend(rgene.Curlengene, lgene.Curlengene, lgene.Curlengene);R.Curlengene=L.Curlengene;};};
-			if (gauge.startsWith("Hh")) {L.Curlengene = Gene.mutiBlend(rgene.Curlengene, lgene.Curlengene, lgene.Curlengene);R.Curlengene=L.Curlengene;};
-			if (gauge.startsWith("hH")) {R.Curlengene = Gene.mutiBlend(rgene.Curlengene, lgene.Curlengene, rgene.Curlengene);L.Curlengene=R.Curlengene;};
-			if (gauge.startsWith("hh")) {
+			if (gauge.startsWith("HH")) {R.Curlengene=Gene.mutiBlend(rgene.Curlengene, lgene.Curlengene, rgene.Curlengene); L.Curlengene=R.Curlengene;
+				if (rand.nextBoolean())   {L.Curlengene=Gene.mutiBlend(lgene.Curlengene, rgene.Curlengene, lgene.Curlengene); R.Curlengene=L.Curlengene;};};
+			if (gauge.startsWith("Hh")) {L.Curlengene = lgene.Curlengene;R.Curlengene = lgene.Curlengene;};
+			if (gauge.startsWith("hH")) {L.Curlengene = rgene.Curlengene;R.Curlengene = rgene.Curlengene;};
+			if (gauge.startsWith("hh")) {L.Curlengene = lgene.Curlengene;R.Curlengene = rgene.Curlengene;};
 				// set them
 				R.Curlengene = Gene.mutiBlend(rgene.Curlengene, lgene.Curlengene, rgene.Curlengene);
 				L.Curlengene = Gene.mutiBlend(rgene.Curlengene, lgene.Curlengene, lgene.Curlengene);
 				// average them again
 				R.Curlengene = Gene.mutiBlend(R.Curlengene, L.Curlengene, R.Curlengene);
 				L.Curlengene = Gene.mutiBlend(R.Curlengene, L.Curlengene, L.Curlengene);
-			};
+			
 
 			// -----------------RADIAL CROSSECTION---------------- // 		
 			// Radgene
 			gauge = "";
 			gauge = form.substring(6,8);
 			if (gauge.startsWith("HH")) {R.Radialgene=Gene.mutiBlend(rgene.Radialgene, lgene.Radialgene, rgene.Radialgene); L.Radialgene=R.Radialgene;
-				if (rand.nextBoolean()) {L.Radialgene=Gene.mutiBlend(lgene.Radialgene, rgene.Radialgene, lgene.Radialgene); R.Radialgene=L.Radialgene;};};
-			if (gauge.startsWith("Hh")) {L.Radialgene = lgene.Radialgene; R.Radialgene = lgene.Radialgene;};
-			if (gauge.startsWith("hH")) {L.Radialgene = rgene.Radialgene; R.Radialgene = rgene.Radialgene;};
-			if (gauge.startsWith("hh")) {L.Radialgene = lgene.Radialgene; R.Radialgene = rgene.Radialgene;};
+				if (rand.nextBoolean())   {L.Radialgene=Gene.mutiBlend(lgene.Radialgene, rgene.Radialgene, lgene.Radialgene); R.Radialgene=L.Radialgene;};};
+			if (gauge.startsWith("Hh")) {L.Radialgene = lgene.Radialgene;R.Radialgene = lgene.Radialgene;};
+			if (gauge.startsWith("hH")) {L.Radialgene = rgene.Radialgene;R.Radialgene = rgene.Radialgene;};
+			if (gauge.startsWith("hh")) {L.Radialgene = lgene.Radialgene;R.Radialgene = rgene.Radialgene;};
 
 			// -----------------------TIPS--------------------- // 		
 			// Tipgene
@@ -133,7 +136,7 @@ public class Horns {
 			if (gauge.startsWith("hH")) {R.Anggene=rgene.Anggene; L.Anggene=rgene.Anggene;};
 			if (gauge.startsWith("hh")) {R.Anggene=rgene.Anggene; L.Anggene=lgene.Anggene;}
 		}
- 		
+ 		// Here's the stuff that matters later.
  		// ------------------NUMERACY-------------------- // 		
 		// horn (DD Dd dD) doubling, (AA Aa aA) withering, (BB Bb bB)stunting/nubs
  		gauge = "";
@@ -242,10 +245,10 @@ public class Horns {
 	public String numeracy(String h) {
 		// horn (DD Dd dD) doubling, (AA Aa aA) withering, (BB Bb bB)stunting/nubs 
 		String a = "";
-		if ((h=="DD")||(h=="Dd")||(h=="dD")) {a="doubled";};
-		if ((h=="AA")||(h=="Aa")||(h=="aA")) {a="withered";};
-		if ((h=="BB")||(h=="Bb")||(h=="bB")) {a="stunted";};
-		if (a=="") {a="Normal";};
+		if ((h.equals("DD"))||(h.equals("Dd"))||(h.equals("dD"))) {a="doubled";};
+		if ((h.equals("AA"))||(h.equals("Aa"))||(h.equals("aA"))) {a="withered";};
+		if ((h.equals("BB"))||(h.equals("Bb"))||(h.equals("bB"))) {a="stunted";};
+		if (a.equals(""))     {a="normal";};
 		return a;
 	}
 
@@ -270,7 +273,8 @@ public class Horns {
 		if (e) {ht = ht + "electrosensory ";};  // e
 		// noun
 		if (a) {ht = ht + "sheddable antlers ";};
-		if (!a) {ht = ht + "keratin ";};
+		if (!a) {ht = ht + "keratin horns "
+                        + "";};
 		// regulatory
 		if (p||b||t)   {ht=ht + "that regulate ";};
 		if (p) 		   {ht=ht+ "powers";}

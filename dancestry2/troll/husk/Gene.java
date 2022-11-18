@@ -208,9 +208,8 @@ public class Gene {
 		c.body = bodyfuck(a.body, a.blood.code, b.body, b.blood.code, c.body, c.blood.code);
 		c.horns = new Horns(c.blood.code);
 		c.horns = hornfuck(a.horns, b.horns, c.horns, c.blood.code);
-		c.eye = new Eye(c.blood.code);
-		c.eye = eyefuck(a.eye, b.eye, c.eye, c.blood.code);
-
+		c.eyes = new Eye(c.blood.code);
+		c.eyes = eyefuck(a.eyes, b.eyes, c.eyes, c.blood.code);
 		
 		return c;
 	}
@@ -240,7 +239,8 @@ public class Gene {
 	
 	public static Stats statfuck(Stats a, Stats b, Stats c, String inblood) {
 		Random rand = new Random();
-		
+                
+                // Give these a single statfuck, because +/- 1 is a good amount for something with a max of 6.
 		c.clout       = statfucker(a.clout, b.clout, c.clout);
 		c.grit        = statfucker(a.grit, b.grit, c.grit);
 		c.alacrity    = statfucker(a.alacrity, b.alacrity, c.alacrity);
@@ -249,19 +249,18 @@ public class Gene {
 		c.resolve     = statfucker(a.resolve, b.resolve, c.resolve);
 		c.moxie       = statfucker(a.moxie, b.moxie, c.moxie);
 		c.psyche      = statfucker(a.psyche, b.psyche, c.psyche);
-		// secret 1
+		// statfuck these ones twice, so that they each get up to +/- 2, because their max is 10
+		c.faith       = statfucker(a.faith, b.faith, c.faith);
 		c.faith       = statfucker(a.faith, b.faith, c.faith);
 		c.order       = statfucker(a.order, b.order, c.order);
+		c.order       = statfucker(a.order, b.order, c.order);
+		c.entropy     = statfucker(a.entropy, b.entropy, c.entropy);
 		c.entropy     = statfucker(a.entropy, b.entropy, c.entropy);
 		c.connection  = statfucker(a.connection, b.connection, c.connection);
+		c.connection  = statfucker(a.connection, b.connection, c.connection);
+		c.self        = statfucker(a.self, b.self, c.self);
 		c.self        = statfucker(a.self, b.self, c.self);
 		c.opportunity = statfucker(a.opportunity, b.opportunity, c.opportunity);
-		// secret 2
-		c.faith       = statfucker(a.faith, b.faith, c.faith);
-		c.order       = statfucker(a.order, b.order, c.order);
-		c.entropy     = statfucker(a.entropy, b.entropy, c.entropy);
-		c.connection  = statfucker(a.connection, b.connection, c.connection);
-		c.self        = statfucker(a.self, b.self, c.self);
 		c.opportunity = statfucker(a.opportunity, b.opportunity, c.opportunity);
 		
 		c.exploit = c.exploit();
@@ -271,9 +270,10 @@ public class Gene {
 		c.create = c.create();
 		c.destroy = c.destroy();
 		
+                // pick a small number.  Trolls with a B/b get -1 psyche, trolls without an R/r get -1 psyche.
 		int z = rand.nextInt(3);
 		if ((z!=1)&&(!Gene.canhas(inblood, 'R'))) {c.psyche=c.psyche-1;};
-		if ((z!=1)&&(Gene.canhas(inblood, 'B'))) {c.psyche=c.psyche-1;};
+		if ((z!=1)&&(Gene.canhas(inblood, 'B')))  {c.psyche=c.psyche-1;};
 
 		c.aspect = c.getaspect();
 		c.role = c.getrole3();
@@ -282,6 +282,9 @@ public class Gene {
 	}
 
 	public static int statfucker(int a, int b, int c) {
+            // if either of the first two is higher, add one.
+            // if either of the first two is lower, subtract one.
+            // maximum change of +/- 1 per statfuck
 		if ((a>c)||(b>c)) {c++;};
 		if ((a<c)||(b<c)) {c--;};
 		return c;
@@ -296,14 +299,16 @@ public class Gene {
 		c.height = Desc.infeet(c.heightinches);
 
 		//genezone, from "inherited" to "personal variation"
-		c.limbgene = mutiBlend2(a.limbgene, b.limbgene, c.limbgene, 50, 50, 10);
+		c.feralgene = mutiBlend2(a.feralgene, b.feralgene, c.feralgene, 50, 50, 10);
 		c.tailgene = mutiBlend2(a.tailgene, b.tailgene, c.tailgene, 50, 50, 10);
 		c.pupation = mutiBlend2(a.pupation, b.pupation, c.pupation, 50, 50, 10);
 		c.skingene = mutiBlend2(a.skingene, b.skingene, c.skingene, 50, 50, 20);
 		c.buildgene = mutiBlend2(a.buildgene, b.buildgene, c.buildgene, 20, 20, 50);
 		c.fingene = mutiBlend2(a.fingene, b.fingene, c.fingene, 15, 15, 50);
 		c.respiratorygene = mutiBlend2(a.respiratorygene, b.respiratorygene, c.respiratorygene, 10, 10, 50);
-		
+		c.pigmentgene = mutiBlend2(a.pigmentgene, b.pigmentgene, c.pigmentgene, 50, 50, 10);
+                c.syndromegene = mutiBlend2(a.syndromegene, b.syndromegene, c.syndromegene, 10, 10, 50);
+                
 		return c;
 	}
 	
@@ -352,7 +357,7 @@ public class Gene {
 	public static boolean canhas(String instr, char letter) {
 		// checks Just the first two letters of instr
 		// to see if either of them is the given letter
-		// case insensitive
+		// case insensitive.  This is for blood work
 		boolean flag = false;
 		
 		if (instr.length()>0) {  // if there is a first letter
@@ -370,6 +375,13 @@ public class Gene {
 		return flag;
 	}
 	
+        public static int counthas(String instr, char letter) {
+            int c = 0;
+            for (int x = 0; x<instr.length(); x++) {
+                if (instr.charAt(x)==letter) {c++;};};
+            return c;
+        }
+        
 	public static String hemospectrum(String inblood, int direction) {
 		// direction is an integer between -15ish and +15ish
 		Random rand = new Random();
