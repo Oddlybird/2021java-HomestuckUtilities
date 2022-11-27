@@ -12,7 +12,7 @@ public class Troll {
 	public Gene gene;  // This is only here so we can use methods from it.	
 	public Body body;
 	public Horns horns;
-	public Eye eye;
+	public Eye eyes;
 	// fluff
 	public Name name;	
 	public Stats stats;
@@ -40,12 +40,12 @@ public class Troll {
 			stats = new Stats(incode);	// stats based on bloodcode
 			body  = new Body(incode);   // bodyshape...
 			horns = new Horns(incode);  // rack of horns
-			eye = new Eye(incode);
+			eyes = new Eye(incode);
 			} else {
 			stats = new Stats(blood.code);	// stats based on bloodcode
 			body  = new Body(blood.code);   // bodyshape...
 			horns = new Horns(blood.code);  // rack of horns
-			eye = new Eye(blood.code);	
+			eyes = new Eye(blood.code);	
 			}
 		
 		element =    ella.getelement("any");
@@ -53,11 +53,18 @@ public class Troll {
 		specibus = speccy.getstrifespecial(interests, stats);
 		weapon = speccy.getweapon(specibus);
                 // fill out the description...
-                desc = new Desc(body);
+                desc = describe(body, horns, eyes, stats);
                 
 	}
 
-	
+        // the place to update when you want to redescribe things
+        public troll.fluff.Desc describe(troll.husk.Body body, troll.husk.Horns horns, troll.husk.Eye eyes, troll.fluff.Stats stats) {
+            Desc description = new Desc(body, horns, eyes, stats);
+            return description;
+        }
+
+        // can I move horn and eye descriptions into Desc?
+        
 }
 
 // things to add: 
