@@ -1,4 +1,13 @@
-package genome;
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package Dancestry;
+
+/**
+ *
+ * @author wirri
+ */
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -38,17 +47,17 @@ public class DisplayTroll extends JPanel {
         String intereststr = troll.interests[0] + ", " + troll.interests[1] + ", " + troll.interests[2];
         String bodystr = "build: " + troll.body.buildgene + ", " + troll.body.sex;
         String pupastr = "pupa: " + troll.body.pupation;
-        String limbstr = "limbs: " + troll.body.limbgene + "-" + troll.body.tailgene;
+        String limbstr = "limbs: " + troll.body.feralgene + "-" + troll.body.tailgene;
         String skinstr = "skin: " + troll.body.skingene;
         String seastr = "sea: " + troll.body.respiratorygene;
         String finstr = "fin: " + troll.body.fingene;
         String hr = troll.horns.rgene.shortform();
         String hl = troll.horns.lgene.shortform();
-        String eyestuff = troll.eye.control + "-" + troll.eye.sight;
-        String er = troll.eye.righteye + " " + troll.eye.rightcolor;
-        String el = troll.eye.lefteye  + " " + troll.eye.leftcolor;
-        String es = troll.eye.strayeye + " " + troll.eye.straycolor;
-        String eyesum = troll.eye.desc;
+        String eyestuff = troll.eyes.control + "-" + troll.eyes.sight;
+        String er = troll.eyes.righteye + " " + troll.eyes.rightcolor;
+        String el = troll.eyes.lefteye  + " " + troll.eyes.leftcolor;
+        String es = troll.eyes.strayeye + " " + troll.eyes.straycolor;
+        String eyesum = troll.eyes.desc;
         
         int column1 = 10;
         int rowstart = 15;
