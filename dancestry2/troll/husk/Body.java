@@ -80,26 +80,42 @@ public class Body {
 	// 1char: 3  : cheekfin number of tines
 	// 1char: 5  : cheekfin size, 5 = average seadweller. 
 	// 2char: BB : cheekfin bioluminescence, BB voluntary, Bb bloodflow, bB constant, bb none.
-        public String pigmentgene = "aaaa";
-        // :: add PIGMENT gene
-        // common options for everything: Aa (albino colorless), Ll (leucism white), Mm (melanism black)
+        public String pigmentgene = "";
+        // -- Options: Aa (albino colorless), Ll (leucistic white), Mm (melanism black) Gg (grey: GG = LM or ML)
         // --(contd) Ee (Erythrism red/orange), Xx (Xanthism yellow / lack of non-yellow), Bb (axanthism, lack of yellow)
-        // 4char: T/F Control (true=on, false=off)
-        // 4char: Hair (primary color, streaking)
-        // 2char: blood (specific col, col invert, other)
-        // 4char: skin (grey, black, white, earthtone, etc, plus above options.  need 2+ capitals to express, 2 lowercase = 1 capital)
-        // if 2 things both express, blend or check skin patterning + second character of feral control gene
-        // 2char: mucous membranes / lips / accent color : bloodtone vs above options. 
-        //          humans use bloodtone as accent color, trolls use black as accent color, fae use erythrism
-        public String syndromegene = "aaaa";
-        // :: add SYNDROMES / TEMPLATES gene
-        // -- rainbow drinker undeath, ghoul undeath, mindless zombie undeath, undying, weak spark vampirism, etc
-        // -- activate psychic powers, voodoo powers, eldritch shit, magic power, Being Null, etc
-        // -- osteoporosis, bone spurs, arthritis, bone Things
-        // -- fae iron weakness
+        // --(contd) Cc (caste color) Ii (inverted caste color) Tt (earthtone)
+        // -- lowercase = 1 pt, upper = 2 pt.  you need 3 points for a trait to express.
+        // 2char: Hair Streaking - Pp (plain) Kk (streaking)
+        // 4char: Hair - Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt
+        // 2char: blood - Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt
+        // 4char: skin - Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt
+        // -- if multiple things express, either blend them or check skin patterning + second character of feral control gene
+        // 2char: lips / accent color : Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt
+        // -- humans use TC, trolls MC, fae TE
+        public String syndromegene = "";
+        // need 2 letters of a gene for it to express usually - but Undying and Weak Spark stack with everything
+        // 2char: undeath - N(nothing), V(vampire/Drinker), G(ghoul), Z(mindless zombie), 
+        // ------ U(fae undying), W(weak spark)
+        // 6char: supernatural - v(voodoo), e(eldritch), m(magic), n(null)
+        // ------ p(physical psychic), o(oracular psychic), q(mental psychic)
+        // 4char: substance allergy - N (none), I(iron), S(silver), G(gold), W(water), 
+
+        
+        //public String fertgene = "aaaa";
+        // :: add FERTILITY gene
+        // 2char: egglaying, live young, oviposition, other
+        // 2char: mother grub only vs individual fertility vs wing or pupation dependant fertility
+        // 2char: level of fertility : A (elf) B (wildfae) C(human) D (human+) E (Troll)
+        // 2char: litter size (number, average them), ...
+        // -- bulge Y/N, canDad
+        // -- nook Y/N, canMom
+        // -- testes internal/external,
+        // -- sheath y/n
+        // -- knots
+        
+        // :: add INTERNALS gene
         // -- organ doubling, mirroring, rearrangement, glitches/flaws, glandular/hormone/growth problems
-        // -- fertility problems, litter size, Egg, needs mother grub, individually fertile, live young ...
-        // -- bulge+/- external testes, vs nook +/- ovaries, sheath Y/N, enhance gender logic in Build function with this
+        // -- osteoporosis, bone spurs, arthritis, bone Things
 	
 	
 	public Body(String blood) {
@@ -118,6 +134,8 @@ public class Body {
 		pupation = pupation(blood);
 		tailgene = tail(blood);
 		feralgene = feral(blood);
+                pigmentgene = pigment(blood);
+                syndromegene = syndrome(blood);
 			
 		// TODO Auto-generated constructor stub
 	}
@@ -787,14 +805,222 @@ public class Body {
 	return var;
 	}
 
+        public String pigment(String blood) {
+		Random rand = new Random();
+		String var = new String("PPMMMMCCGGGG");
+                if (blood.startsWith("blank")) {var = "PPMMMMCCGGGG";return var;};
+		if (blood=="truerand") {
+                        String[] col = {"A", "a", "L", "l", "M", "m", "G", "g", "E", "e", "X", "x", "B", "b", "C", "c", "I", "i", "T", "t"};
+			String[] streak = {"P", "p", "K", "k"};
+                        var = Gene.randopt(streak, 2);
+			var = var + Gene.randopt(col, 12);
+			return var;}
+		var = Gene.mutiBlend(pickpigment(blood), pickpigment(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickpigment("rand"));
+		return var;		
+	}
+	
+	public String pickpigment(String blood) {
+		Blood b = new Blood(blood);
+ 		Random rand = new Random();
+		String var = new String();
+		var = "PPMMMMCCGGGG"; // default
+        // -- Options: Aa (albino colorless), Ll (leucistic white), Mm (melanism black) Gg (grey: GG = LM or ML)
+        // --(contd) Ee (Erythrism red/orange), Xx (Xanthism yellow / lack of non-yellow), Bb (axanthism, lack of yellow)
+        // --(contd) Cc (caste color) Ii (inverted caste color) Tt (earthtone)
+        // -- lowercase = 1 pt, upper = 2 pt.  you need 3 points for a trait to express.
+        // 2char: Hair Streaking - Pp (plain) Kk (streaking)
+        // 4char: Hair - Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt
+        // 2char: blood - Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt
+        // 4char: skin - Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt
+        // -- if multiple things express, either blend them or check skin patterning + second character of feral control gene
+        // 2char: lips / accent color : Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt
+        // -- humans use TC, trolls MC, fae TE
+		if (blood=="rand") {
+			String[] options = {
+                            "RR", "rr", "RG", "GG", "gg", "GB", "gb", "BB", "bb", "RB", "rb",
+                            "RR", "rr", "RG", "GG", "gg", "GB", "gb", "BB", "bb", "RB", "rb",
+                            "RR", "rr", "RG", "GG", "gg", "GB", "gb", "BB", "bb", "RB", "rb",
+                            "RR", "rr", "RG", "GG", "gg", "GB", "gb", "BB", "bb", "RB", "rb",
+                            "streak2", "albino2", "leucism2", "melanism2", "grey2", "erythrism2",
+                            "xanthism2", "axanthism2", "caste2", "inverted2", "earthtone2", "pale",
+                        };
+			blood = options[rand.nextInt(options.length)];
+		} // end rand
+      		if (blood=="human") {
+			String[] humopt = {"human", "humanred", "humanyel", "humanbla", "humanbla", "humanalb"};
+			blood = humopt[rand.nextInt(humopt.length)];
+		} // end human
+      		if (blood=="fae") {
+			String[] faeopt = {"fae", "faewild", "seleighe", "unseleighe"};
+			blood = faeopt[rand.nextInt(faeopt.length)];
+		} // end fae
+                        
+		if (blood=="truerand") {
+                        String[] col = {"A", "a", "L", "l", "M", "m", "G", "g", "E", "e", "X", "x", "B", "b", "C", "c", "I", "i", "T", "t"};
+			String[] streak = {"P", "p", "K", "k"};
+                        var = Gene.randopt(streak, 2);
+			var = var + Gene.randopt(col, 12);
+			return var;}
 
-        
-        
+		// caste presets
+            if (blood.startsWith("RR")) {var="PPMMMMCCGGCcMC";}; //Maroon
+            if (blood.startsWith("Rr")) {var="pPeMMMCCGcCMMC";};
+            if (blood.startsWith("rr")) {var="PPMMMMCCGGCcMC";}; // Bronze
+            if (blood.startsWith("Rg")) {var="pPMeMMCCGcCMMC";};
+            if (blood.startsWith("RG")) {var="PPMMMMCCGGCcMC";}; // Gold
+            if (blood.startsWith("Gr")) {var="PpMlMMCCcGCmlM";};
+            if (blood.startsWith("rg")) {var="PpLMIMCCGGCcMC";}; // Lime
+            if (blood.startsWith("GG")) {var="PPMMMMCCGGCcMC";}; // Olive
+            if (blood.startsWith("Gg")) {var="PpgMMMCCcGCcMc";};
+            if (blood.startsWith("gg")) {var="PPMMMMCCGGCcMC";}; // Jade
+            if (blood.startsWith("Gb")) {var="PpMLMMCCGcCcMc";};
+            if (blood.startsWith("GB")) {var="PPMMMMCCGGCcMC";}; // Teal
+            if (blood.startsWith("Bg")) {var="pPMMMMCCcGCcMM";};
+            if (blood.startsWith("gb")) {var="PPMMMMCCGGCcMC";}; // Ceru
+            if (blood.startsWith("BB")) {var="PpMMMMCCGGCcMC";}; // Bloo
+            if (blood.startsWith("Bb")) {var="pPMCMMCCGcCccM";};
+            if (blood.startsWith("bb")) {var="PPMMMMCCGGCcMC";}; //Indigo
+            if (blood.startsWith("Br")) {var="PSMMMCCCcGCcMc";};
+            if (blood.startsWith("RB")) {var="SSMMCMCCGGCcMC";}; //Violet
+            if (blood.startsWith("Rb")) {var="SPCMMMCCGcCcCM";};
+            if (blood.startsWith("rb")) {var="PpMMMCCCGGCcMC";}; //Tyrian
+       
+	// other presets that overwrite the previous
+            // human
+            if (blood.startsWith("human"))        {var="PPMTTEEETTTTTC";};
+            if (blood.startsWith("humanred"))     {var="PPEEEEEETLTTTC";};
+            if (blood.startsWith("humanyel"))     {var="PPXXXEEETTLTTC";};
+            if (blood.startsWith("humanalb"))     {var="PPAAAAEEAAAATC";};
+            if (blood.startsWith("humanbla"))     {var="PPMMMMEEMTTMTC";};
+            // fae
+            if (blood.startsWith("fae"))        {var="PPMTTXEEEXBGTE";};
+            if (blood.startsWith("faewild"))    {var="PPXTTMEETTTTTE";};
+            if (blood.startsWith("seleighe"))   {var="PPTTXXBBTLTLTE";};
+            if (blood.startsWith("unseleighe")) {var="PPMMTTBBTMTMTE";};
+            // troll
+            if (blood.startsWith("streak2"))    {var="KKMMCCCCGGGCMM";};
+            if (blood.startsWith("albino2"))    {var="PPAAAACCAAAAAA";};
+            if (blood.startsWith("leucism2"))   {var="PPLLLLCCLLLLLL";};
+            if (blood.startsWith("melanism2"))  {var="PPMMMMCCMMMMMM";};
+            if (blood.startsWith("grey2"))      {var="PPGGGGCCGGGGGG";};
+            if (blood.startsWith("erythrism2")) {var="PPEEEECCEEEEEE";};
+            if (blood.startsWith("xanthism2"))  {var="PPXXXXCCXXXXXX";};
+            if (blood.startsWith("axanthism2")) {var="PPBBBBCCBBBBBB";};
+            if (blood.startsWith("caste2"))     {var="PPCCCCCCCCCCCC";};
+            if (blood.startsWith("inverted2"))  {var="PPIIIICCIIIIII";};
+            if (blood.startsWith("earthtone2")) {var="PPTTTTCCTTTTTT";};
+            if (blood.startsWith("pale"))       {var="PPLLLLCCLMCCCM";};
+		return var;
+	}
+       
+        public String syndrome(String blood) {
+		Random rand = new Random();
+		String var = new String("");
+                if (blood.startsWith("blank")) {var = "NNnnnnnnNNNN";return var;};
+		if (blood=="truerand") {
+                        String[] A2 = {"N", "V", "G", "Z", "U", "W"};
+                        String[] B6 = {"v", "e", "m", "n", "p", "o", "q"};
+                        String[] C4 = {"N", "N", "N", "N", "I", "S", "G", "W"};
+                        var = Gene.randopt(A2, 2);
+			var = var + Gene.randopt(B6, 6);
+			var = var + Gene.randopt(C4, 4);
+			return var;}
+		var = Gene.mutiBlend(picksyndrome(blood), picksyndrome(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), picksyndrome("rand"));
+		return var;		
+	}
+	
+	public String picksyndrome(String blood) {
+		Blood b = new Blood(blood);
+ 		Random rand = new Random();
+		String var = new String();
+		var = "NNnnnnnnNNNN"; // default
+                // need 2 letters of a gene for it to express
+                // 2char: undeath - N(nothing), V(vampire/Drinker), G(ghoul), Z(mindless zombie), 
+                // ------ U(fae undying), W(weak spark)
+                // 6char: supernatural - v(voodoo), e(eldritch), m(magic), n(null)
+                // ------ p(physical psychic), o(oracular psychic), q(mental psychic)
+                // 4char: substance allergy - N (none), I(iron), S(silver), G(gold), W(water), 
+		if (blood=="rand") {
+			String[] options = {"RR", "rr", "RG", "GG", "gg", "GB", "gb", "BB", "bb", "RB", "rb",
+                            "null", "eldritch", "psiphys", "psyment", "psysens", "voodoo", "magic", "rainbow"};
+			blood = options[rand.nextInt(options.length)];
+		} // end rand
+		if (blood=="truerand") {
+                        String[] A2 = {"N", "V", "G", "Z", "U", "W"};
+                        String[] B6 = {"v", "e", "m", "n", "p", "o", "q"};
+                        String[] C4 = {"N", "I", "S", "G", "W"};
+                        var = Gene.randopt(A2, 2);
+			var = var + Gene.randopt(B6, 6);
+			var = var + Gene.randopt(C4, 4);
+			return var;}
+                // end truerand
+      		if (blood=="human") {
+			String[] humopt = {
+                            "null", "null", "null", "null", "null", "null", "null", "null", "null", 
+                            "null", "null", "null", "null", "null", "null", "null", "null", "null", 
+                            "vampire", "eldritch", "psiphys", "psyment", "psysens", "voodoo", "magic"};
+			blood = humopt[rand.nextInt(humopt.length)];
+		} // end human
+      		if (blood=="fae") {
+			String[] faeopt = {
+                            "fae", "faewild", "seleighe", "unseleighe", "faevamp", "faeghoul",
+                            "fae", "faewild", "seleighe", "unseleighe", "faevamp", "faeghoul",
+                            "vampire", "eldritch", "psiphys", "psyment", "psysens", "voodoo", "magic"};
+			blood = faeopt[rand.nextInt(faeopt.length)];
+		} // end fae
+
+                
+		// caste presets
+            if (blood.startsWith("RR")) {var="NNppnnonNNNN";}; //Maroon
+            if (blood.startsWith("Rr")) {var="NNpnoonnNNNN";};
+            if (blood.startsWith("rr")) {var="NNnnnnqqNNNN";}; // Bronze
+            if (blood.startsWith("Rg")) {var="NNnpononNNNN";};
+            if (blood.startsWith("RG")) {var="NNppppppNNNN";}; // Gold
+            if (blood.startsWith("Gr")) {var="NNpqpqpqNNNN";};
+            if (blood.startsWith("rg")) {var="NNqqqqqqNNNN";}; // Lime
+            if (blood.startsWith("GG")) {var="NNnnnnnnNNNN";}; // Olive
+            if (blood.startsWith("Gg")) {var="VNonononNNNN";};
+            if (blood.startsWith("gg")) {var="NVnnnnnnNNNN";}; // Jade
+            if (blood.startsWith("Gb")) {var="VNnqnnonNNNN";};
+            if (blood.startsWith("GB")) {var="NNnnnnnnNNNN";}; // Teal
+            if (blood.startsWith("Bg")) {var="NNnqnnnnNNNN";};
+            if (blood.startsWith("gb")) {var="NNnnnnqnNNNN";}; // Ceru
+            if (blood.startsWith("BB")) {var="NNnnpnnnNNNN";}; // Bloo
+            if (blood.startsWith("Bb")) {var="NGnvnvnvNNNN";};
+            if (blood.startsWith("bb")) {var="NNvnvnvnNNNN";}; //Indigo
+            if (blood.startsWith("Br")) {var="GNmvmvmvNNNN";};
+            if (blood.startsWith("RB")) {var="NNnennenNNNN";}; //Violet
+            if (blood.startsWith("Rb")) {var="NNenenneNNNN";};
+            if (blood.startsWith("rb")) {var="NNneeeenNNNN";}; //Tyrian
+            
+	// other presets that overwrite the previous
+            // human
+            if (blood.startsWith("vampire")) {var="VVmmmqqqNNSS";}; // human vampire
+            // fae
+            if (blood.startsWith("fae"))        {var="UUnmnnmnIIII";}; // undying
+            if (blood.startsWith("faevamp"))    {var="VWnmnnmnIIII";}; // weak spark vampire
+            if (blood.startsWith("faeghoul"))   {var="GWnmnnmnIIII";}; // weak spark ghoul
+            if (blood.startsWith("faewild"))    {var="NNnmnmnnIIII";}; // wild
+            if (blood.startsWith("seleighe"))   {var="NNmnmnmeIIII";}; // seleighe
+            if (blood.startsWith("unseleighe")) {var="NNemnmnmIIII";}; // unseleighe
+            // troll 
+            if (blood.startsWith("rainbow"))  {var="UVnnnnnnNNNN";}; // rainbowdrinker
+            // misc
+            if (blood.startsWith("null"))     {var="NNnnnnnnNNNN";}; // null
+            if (blood.startsWith("eldritch")) {var="NNeeeeeeNNNN";}; // eldritch
+            if (blood.startsWith("magic"))    {var="NNmmmmmmNNNN";}; // wizard
+            if (blood.startsWith("psiphys"))  {var="NNppppppNNNN";}; // psychic1 : physical
+            if (blood.startsWith("psiment"))  {var="NNqqqqqqNNNN";}; // psychic2 : mental
+            if (blood.startsWith("psisens"))  {var="NNooooooNNNN";}; // psychic3 : sensory
+            if (blood.startsWith("voodoo"))   {var="NNvvvvvvNNNN";}; // voodoo
+
+		return var;
+	}
         
         
 // The blank ones to copy-paste when adding new genes
 
-	public String blank(String blood) {
+	public String trait(String blood) {
 		Random rand = new Random();
 		String var = new String("");
                 if (blood.startsWith("blank")) {var = "AA11";return var;};
@@ -804,11 +1030,11 @@ public class Body {
                         var = Gene.randopt(A2, 2);
 			var = var + Gene.randopt(num, 2);
 			return var;}
-		var = Gene.mutiBlend(pickblank(blood), pickblank(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickblank("rand"));
+		var = Gene.mutiBlend(picktrait(blood), picktrait(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), picktrait("rand"));
 		return var;		
 	}
 	
-	public String pickblank(String blood) {
+	public String picktrait(String blood) {
 		Blood b = new Blood(blood);
  		Random rand = new Random();
 		String var = new String();
@@ -820,7 +1046,6 @@ public class Body {
 			String[] options = {"RR", "rr", "RG", "GG", "gg", "GB", "gb", "BB", "bb", "RB", "rb",
                             "preset0", "preset1", "preset2", "preset3", "preset4"};
 			blood = options[rand.nextInt(options.length)];
-			// This is very biased towards either single or double pupation.  Intentionally.
 		} // end rand
 		if (blood=="truerand") {
                  	String[] f2 = {"F", "f", "S", "s", "T", "t", "N", "n"};
@@ -828,36 +1053,56 @@ public class Body {
 			var = Gene.randopt(num, 11);
 			var = var + Gene.randopt(f2, 2);
 			return var;}
+                // end truerand
+      		if (blood=="human") {
+			String[] humopt = {"human", "human1", "human2", "human3"};
+			blood = humopt[rand.nextInt(humopt.length)];
+		} // end human
+      		if (blood=="fae") {
+			String[] faeopt = {"fae", "faewild", "seleighe", "unseleighe"};
+			blood = faeopt[rand.nextInt(faeopt.length)];
+		} // end fae
                 
 		// caste presets
-            if (blood.startsWith("RR")) {var="AA11";}; //Maroon
-            if (blood.startsWith("Rr")) {var="AA11";};
-            if (blood.startsWith("rr")) {var="AA11";}; // Bronze
-            if (blood.startsWith("Rg")) {var="AA11";};
-            if (blood.startsWith("RG")) {var="AA11";}; // Gold
-            if (blood.startsWith("Gr")) {var="AA11";};
-            if (blood.startsWith("rg")) {var="AA11";}; // Lime
-            if (blood.startsWith("GG")) {var="AA11";}; // Olive
-            if (blood.startsWith("Gg")) {var="AA11";};
-            if (blood.startsWith("gg")) {var="AA11";}; // Jade
-            if (blood.startsWith("Gb")) {var="AA11";};
-            if (blood.startsWith("GB")) {var="AA11";}; // Teal
-            if (blood.startsWith("Bg")) {var="AA11";};
-            if (blood.startsWith("gb")) {var="AA11";}; // Ceru
-            if (blood.startsWith("BB")) {var="AA11";}; // Bloo
-            if (blood.startsWith("Bb")) {var="AA11";};
-            if (blood.startsWith("bb")) {var="AA11";}; //Indigo
-            if (blood.startsWith("Br")) {var="AA11";};
-            if (blood.startsWith("RB")) {var="AA11";}; //Violet
-            if (blood.startsWith("Rb")) {var="AA11";};
-            if (blood.startsWith("rb")) {var="AA11";}; //Tyrian
+            if (blood.startsWith("RR")) {var="";}; //Maroon
+            if (blood.startsWith("Rr")) {var="";};
+            if (blood.startsWith("rr")) {var="";}; // Bronze
+            if (blood.startsWith("Rg")) {var="";};
+            if (blood.startsWith("RG")) {var="";}; // Gold
+            if (blood.startsWith("Gr")) {var="";};
+            if (blood.startsWith("rg")) {var="";}; // Lime
+            if (blood.startsWith("GG")) {var="";}; // Olive
+            if (blood.startsWith("Gg")) {var="";};
+            if (blood.startsWith("gg")) {var="";}; // Jade
+            if (blood.startsWith("Gb")) {var="";};
+            if (blood.startsWith("GB")) {var="";}; // Teal
+            if (blood.startsWith("Bg")) {var="";};
+            if (blood.startsWith("gb")) {var="";}; // Ceru
+            if (blood.startsWith("BB")) {var="";}; // Bloo
+            if (blood.startsWith("Bb")) {var="";};
+            if (blood.startsWith("bb")) {var="";}; //Indigo
+            if (blood.startsWith("Br")) {var="";};
+            if (blood.startsWith("RB")) {var="";}; //Violet
+            if (blood.startsWith("Rb")) {var="";};
+            if (blood.startsWith("rb")) {var="";}; //Tyrian
 
 	// other presets that overwrite the previous
-            if (blood.startsWith("preset0")) {var="AA11";};
-            if (blood.startsWith("preset1")) {var="AA11";};
-            if (blood.startsWith("preset2")) {var="AA11";};
-            if (blood.startsWith("preset3")) {var="AA11";};
-            if (blood.startsWith("preset4")) {var="AA11";};
+            // human
+            if (blood.startsWith("human"))  {var="";};
+            if (blood.startsWith("human1")) {var="";};
+            if (blood.startsWith("human2")) {var="";};
+            if (blood.startsWith("human3")) {var="";};
+            // fae
+            if (blood.startsWith("fae"))        {var="";};
+            if (blood.startsWith("faewild"))    {var="";};
+            if (blood.startsWith("seleighe"))   {var="";};
+            if (blood.startsWith("unseleighe")) {var="";};
+            // troll
+            if (blood.startsWith("preset0")) {var="";};
+            if (blood.startsWith("preset1")) {var="";};
+            if (blood.startsWith("preset2")) {var="";};
+            if (blood.startsWith("preset3")) {var="";};
+            if (blood.startsWith("preset4")) {var="";};
 
 		return var;
 	}

@@ -23,9 +23,10 @@ public class Horns {
 	
 	// 4char: Dd Nn Xx - horn doubling, normal horn, forcing a horn to be recessive / unexpressed
 	//        to interpret: starts with DD Dd dD = double left, ends with DD Dd dD= double right.
-	// end-of-alphabet letters are all fine
+	// end-of-alphabet letters are all fine except X
 	// Aa: withered
 	// Bb: stunted/nubs
+        // Dd: doubled
 	
 	// 4char: Kk Ee Aa Pp Bb Tt - keratin, electrosensory, sheddable antler, power-regulating, balance, temperature regulating
 
@@ -47,9 +48,6 @@ public class Horns {
 	// Use these as a middle stage, to convert to a text description.
 	// Eventually move them inside the Horns method / non-public.
 	public String DirPoint;   // direction/waggle
-	public String Type;       // electrosensory, power-regulation, etc
-	public String Left;
-	public String Right;
 
         // this is the final step of horn creation, which changes both horn genes
         // it is not a descriptive function.
@@ -70,8 +68,10 @@ public class Horns {
 			// Placegene
 			gauge = "";
 			gauge = form.substring(0,2);
-			if (gauge.startsWith("HH")) {R.Placegene=Gene.mutiBlend(rgene.Placegene, lgene.Placegene, rgene.Placegene); L.Placegene=R.Placegene;
-				if (rand.nextBoolean()) {L.Placegene=Gene.mutiBlend(lgene.Placegene, rgene.Placegene, lgene.Placegene); R.Placegene=L.Placegene;};};
+			if (gauge.startsWith("HH")) {
+                            R.Placegene=Gene.mutiBlend(rgene.Placegene, lgene.Placegene, rgene.Placegene); L.Placegene=R.Placegene;
+                            if (rand.nextBoolean()) {L.Placegene=Gene.mutiBlend(lgene.Placegene, rgene.Placegene, lgene.Placegene); R.Placegene=L.Placegene;};
+                            };
 			if (gauge.startsWith("Hh")) {L.Placegene = lgene.Placegene;R.Placegene = lgene.Placegene;};
 			if (gauge.startsWith("hH")) {L.Placegene = rgene.Placegene;R.Placegene = rgene.Placegene;};
 			if (gauge.startsWith("hh")) {L.Placegene = lgene.Placegene;R.Placegene = rgene.Placegene;};
@@ -144,24 +144,6 @@ public class Horns {
 		String numeracyRight = numeracy(form.substring(12,14));
 		String numeracyLeft = numeracy(form.substring(14,16));
 		
- 		// -------------------TYPE--------------------- // 		
-		// 4char: KEA - keratin, electrosensory, (sheddable) antler,
-		//        PBT - power-regulating, balance-regulating, temperature regulating
- 		gauge = "";
-		gauge = form.substring(16,20);
-		Type = htype(form.substring(16,20));
-		
-		// Wholistic Assymetrical area -- Length, curl, Radial, Tip, Angularity.
-		Right = R.wholistic(R);
-		Left  = L.wholistic(L);
-
-		// Add numeracy
-		if (numeracyRight!="Normal") {Right = numeracyRight + " " + Right;};
-		if (numeracyLeft!="Normal")  {Left = numeracyLeft   + " " + Left;};
-		// mtpt		
-		Right = R.mountpoint(R.Placegene) + " " + Right;
-		Left  = L.mountpoint(L.Placegene) + " " + Left;
-		
 	}
 	
 	public Horns(String blood) {
@@ -206,12 +188,12 @@ public class Horns {
 
 	// caste presets
 	if (blood.startsWith("RR"))   {var="HHhHHHHHHhHHIIIIKEPB";}; //Maroon
-	if (blood.startsWith("Rr"))   {var="HhHhHhHHhHHHJjjJPBPE";};
+	if (blood.startsWith("Rr"))   {var="HHHhHhHHhHHHJjjJPBPE";};
 	if (blood.startsWith("rr"))   {var="HHhHHHHHHhHHKKKKKEPB";}; // Bronze
-	if (blood.startsWith("Rg"))   {var="HhHhHhHHhHHHddddPBPE";};
+	if (blood.startsWith("Rg"))   {var="HHHhHhHHhHHHddddPBPE";};
 	if (blood.startsWith("RG"))   {var="HHhHHHHHHhHHDDDDKEPB";}; // Gold
-	if (blood.startsWith("Gr"))   {var="HhHhHhHHhHHHddddPEPB";};
-	if (blood.startsWith("rg"))   {var="hHhHhHHHHhHHlLLlKEPB";}; // Lime
+	if (blood.startsWith("Gr"))   {var="HHHhHhHHhHHHddddPEPB";};
+	if (blood.startsWith("rg"))   {var="HHhHhHHHHhHHlLLlKEPB";}; // Lime
 	if (blood.startsWith("GG"))   {var="HHHHHHHHhHHHMMMMKEPB";}; // Olive
 	if (blood.startsWith("Gg"))   {var="HHHhHHHHHhHHNnnNKEPB";};
 	if (blood.startsWith("gg"))   {var="HHHHHHHHhHHHOOOOKEPB";}; // Jade
@@ -220,19 +202,19 @@ public class Horns {
 	if (blood.startsWith("Bg"))   {var="HHhHHHHHHhHHRrrRBEPK";};
 	if (blood.startsWith("gb"))   {var="HHHHHHHHhHHHSSSSKEPB";}; // Ceru
 	if (blood.startsWith("BB"))   {var="HHHHhHHHHhHHTTTTKEPB";}; // Bloo
-	if (blood.startsWith("Bb"))   {var="hHhHHHHHhHHHUuuUPEKB";};
-	if (blood.startsWith("bb"))   {var="HhHHHHHHHhHHVVVVPEKB";}; //Indigo
-	if (blood.startsWith("Br"))   {var="hHHhHHHHhHHHWwwWPEKB";};
+	if (blood.startsWith("Bb"))   {var="HHhHHHHHhHHHUuuUPEKB";};
+	if (blood.startsWith("bb"))   {var="HHHHHHHHHhHHVVVVPEKB";}; //Indigo
+	if (blood.startsWith("Br"))   {var="HHHhHHHHhHHHWwwWPEKB";};
 	if (blood.startsWith("RB"))   {var="HHHHHHHHHhHHXXXXEEKB";}; //Violet
 	if (blood.startsWith("Rb"))   {var="HHHHHHHHhHHHYyyYKEKB";};
 	if (blood.startsWith("rb"))   {var="HHHHHHHHHhHHZZZZEEKB";}; //Tyrian
 	
 // 	other presets
-	if (blood.startsWith("mut1")) {var="hhhhhhhhhHHHDDDDPPPP";};
-	if (blood.startsWith("mut2")) {var="hhhhhHhhHhHHDDhhEEEE";};
-	if (blood.startsWith("mut3")) {var="hhhhHhhhhHHHhhDDPPPP";};
-	if (blood.startsWith("mut4")) {var="hhHhHhhhHhHHABABKKKK";};
-	if (blood.startsWith("mut5")) {var="hhhHhHhhhHHHBbBbBBBB";};
+	if (blood.startsWith("mut1")) {var="hHhhhhhhhHHHDDDDPPPP";};
+	if (blood.startsWith("mut2")) {var="HhhhhHhhHhHHDDhhEEEE";};
+	if (blood.startsWith("mut3")) {var="hHhhHhhhhHHHhhDDPPPP";};
+	if (blood.startsWith("mut4")) {var="HhHhHhhhHhHHABABKKKK";};
+	if (blood.startsWith("mut5")) {var="hHhHhHhhhHHHBbBbBBBB";};
 	if (blood.startsWith("mut6")) {var="HhHhHhhhHhHHDdddTTTT";};
 	if (blood.startsWith("mut7")) {var="HhhhhHhhhHHHdddDKAKA";};
 	if (blood.startsWith("mut8")) {var="hHhhhHhhHhHHbdbdAKAK";};

@@ -10,13 +10,11 @@ public class Horn {
 	// char3+4: Ll Mm Hh - Low-mid-high	
 	public String Dirgene;
 	// char1+2: Ff Bb Uu Dd - Forward-Back-up-down
-    // char3+4: Oo Ss Ii w--  Outward-straight-Inward : w = waggles once.  ww = ampora.
+        // char3+4: Oo Ss Ii w--  Outward-straight-Inward : w = waggles once.  ww = ampora.
 	public String Curlengene;
 	// 4 characters:
 	// - sum the number of capitals to find how many handspans long it is
 	// - add number of degrees to the curl for each letter :  Aa=0, Bb=45, Cc=90, 
-//	public int LengthInHandspans;
-//	public int DegreesOfCurl;
 	public String Radialgene;
 	// char 1+2: Rr Pp - Rounded vs pointed edges
 	// char 3+4: Rr Oo Tt Cc Ii -- 1 epicenter(circle), 2 epicenters(oval/tear), 3 corners(triangle), cup shape, irregular
@@ -27,7 +25,6 @@ public class Horn {
         // P? split, ?P point, S? cone, ?S pincher, H? bolt, ?H bump (? = lowercase p, s, or h)
         // PP point, PS split, PH L-hook, SP antler, SS spade, SH hook, HP, thorny, HS can-opener, HH hook
         // pp jagged, ps cone, ph hook, sp pincher, ss sphere, sh cone, hp bolt, hs flat, hh flat
-//	public String Tip;	
 	public String Anggene; //+width+spin
 	// char 1+2: AaSsBb - whether horn curling is Angular, Smooth, or Both
 	// char 3+4: Ww nN - wide/narrow
@@ -49,11 +46,8 @@ public class Horn {
 		Placegene = Gene.mutiBlend(pickplace(blood), pickplace(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickplace("rand"));
 		Dirgene = Gene.mutiBlend(pickdir(blood), pickdir(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickdir("rand"));
 		Curlengene = Gene.mutiBlend(pickcurlen(blood), pickcurlen(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickcurlen("rand"));
-//		DegreesOfCurl = curldegree(Curlengene);
-//		LengthInHandspans = handspans(Curlengene);
 		Radialgene = Gene.mutiBlend(pickrad(blood), pickrad(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickrad("rand"));
 		Tipgene = Gene.mutiBlend(picktip(blood), picktip(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), picktip("rand"));
-//		Tip = tipname(Tipgene);
 		Anggene = Gene.mutiBlend(pickang(blood), pickang(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickang("rand"));
 	}
 
