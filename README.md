@@ -5,6 +5,8 @@ Each subfolder is for a different utility, and should contain some sourcecode an
 
 Changelog:
 
+2022-11-26 :: -18:13- (V0.22) -- I don't remember what I've changed at all and I think my version numbering got confused.  Pigment Gene and Syndrome gene are done though, and there's a bit of new things in the strife, stats, and interests files.  Working on Description zone.
+
 2022-11-18 :: -06:33- (no jar) changed "limbgene" to "feralgene", added "pigmentgene" and "syndromegene" (currently vacuous), added feral teeth (normal, fang, barracuda, shark, rodent, tongue barbs, beak), added blank gene template to husk.body.  Save compatibility has been broken.
 
 2022-11-16 :: -06:45- V0.2.1 (no jar) Added to-do lists to troll.husk.body, moved grubscars to pupation gene, moved skin coverings to feral gene and adjusted phrasings, added when stance goes from quad -> biped to pupation gene
