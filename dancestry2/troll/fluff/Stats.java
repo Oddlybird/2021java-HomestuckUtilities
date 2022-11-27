@@ -15,6 +15,7 @@ public class Stats {
 	//special
 	public int moxie = 0;
 	public int psyche = 0;
+        public String moon = "";
 	//secret1
 	public int faith = 0;       // +rage -hope
 	public int order = 0;       // +life -doom
@@ -102,8 +103,8 @@ public class Stats {
 		if (inputblood.startsWith("bb")) {clout=clout+1;acumen=acumen-1;grit=grit+1;resolve=resolve+1;pts=pts+2;};
 		if (inputblood.startsWith("Br")) {clout=clout+1;grit=grit+1;resolve=resolve+1;moxie=moxie-1;psyche=psyche-1;pts=pts+2;};
 		if (inputblood.startsWith("RB")) {clout=clout+1;grit=grit+1;resolve=resolve+1;psyche=psyche-2;pts=pts+2;};
-		if (inputblood.startsWith("Rb")) {clout=clout+1;grit=grit+1;resolve=resolve+1;psyche=psyche-4;pts=pts+2;};
-		if (inputblood.startsWith("rb")) {clout=clout+1;grit=grit+1;resolve=resolve+1;psyche=psyche-6;pts=pts+2;};
+		if (inputblood.startsWith("Rb")) {clout=clout+1;grit=grit+1;resolve=resolve+1;psyche=psyche-2;pts=pts+2;};
+		if (inputblood.startsWith("rb")) {clout=clout+1;grit=grit+1;resolve=resolve+1;psyche=psyche-2;pts=pts+2;};
 		
 		while (pts>0) {
 			int y = rand.nextInt(8);
@@ -127,7 +128,8 @@ public class Stats {
 		// use the above to assign the aspect and class
 		aspect = getaspect();
 		role = getrole3();
-
+                // coinflip the moon
+                moon = "Prospit"; if (rand.nextBoolean()) {moon="Derse";};
 		}
 		
 		// TODO Auto-generated constructor stub
@@ -235,7 +237,78 @@ public class Stats {
 	}
 	
 	
-	
+        public String zodiac(String blood, String moon, String aspect) {
+          troll.husk.Blood bloodcaste = new troll.husk.Blood(blood); // initalize some blood
+          String caste = bloodcaste.castefromcode(blood); // set caste string based on that
+          boolean dual = false; String c2 = "";  // check for doubles
+          if (caste.equals("Maroon/Bronze")) {dual=true; caste="Maroon";   c2 = "Bronze";};
+          if (caste.equals("Bronze/Gold"))   {dual=true; caste="Bronze";   c2 = "Gold";};
+          if (caste.equals("Gold/Lime"))     {dual=true; caste="Gold";     c2 = "Lime";};
+          if (caste.equals("Lime/Olive"))    {dual=true; caste="Lime";     c2 = "Olive";};
+          if (caste.equals("Olive/Jade"))    {dual=true; caste="Olive";    c2 = "Jade";};
+          if (caste.equals("Jade/Teal"))     {dual=true; caste="Jade";     c2 = "Teal";};
+          if (caste.equals("Teal/Cerulean")) {dual=true; caste="Teal";     c2 = "Cerulean";};
+          if (caste.equals("Cerulean/Blue")) {dual=true; caste="Cerulean"; c2 = "Blue";};
+          if (caste.equals("Blue/Indigo"))   {dual=true; caste="Blue";     c2 = "Indigo";};
+          if (caste.equals("Indigo/Violet")) {dual=true; caste="Indigo";   c2 = "Violet";};
+          if (caste.equals("Violet/Tyrian")) {dual=true; caste="Violet";   c2 = "Tyrian";};
+          if (caste.equals("Tyrian/Maroon")) {dual=true; caste="Tyrian";   c2 = "Maroon";};
+          // caste = done, if (dual) {c2=done}
+          String txt = "";
+          txt = internalzodiac(caste, moon, aspect);
+          if (dual)  {txt = txt + "/" + internalzodiac(c2, moon, aspect);};          
+          return txt;
+        };
+        
+        public String internalzodiac(String caste, String moon, String aspect) {
+            String txt = "";
+          // firstchunk
+          if (caste.equals("Maroon"))   {txt = txt + "Ar";};
+          if (caste.equals("Bronze"))   {txt = txt + "Taur";};
+          if (caste.equals("Gold"))     {txt = txt + "Gem";};
+          if (caste.equals("Lime"))     {txt = txt + "Can";};
+          if (caste.equals("Olive"))    {txt = txt + "Le";};
+          if (caste.equals("Jade"))     {txt = txt + "Vir";};
+          if (caste.equals("Teal"))     {txt = txt + "Lib";};
+          if (caste.equals("Cerulean")) {txt = txt + "Scor";};
+          if (caste.equals("Blue"))     {txt = txt + "Sag";};
+          if (caste.equals("Indigo"))   {txt = txt + "Capri";};
+          if (caste.equals("Violet"))   {txt = txt + "Aqua";};
+          if (caste.equals("Tyrian"))   {txt = txt + "Pi";};
+          // second chunk
+          if (moon.equals("Derse")) {
+            if (aspect.equals("Time"))   {txt = txt + "ries";};
+            if (aspect.equals("Life"))   {txt = txt + "sces";};
+            if (aspect.equals("Hope"))   {txt = txt + "rius";};
+            if (aspect.equals("Rage"))   {txt = txt + "iborn";};
+            if (aspect.equals("Void"))   {txt = txt + "ittarius";};
+            if (aspect.equals("Light"))  {txt = txt + "pia";};
+            if (aspect.equals("Mind"))   {txt = txt + "za";};
+            if (aspect.equals("Space"))  {txt = txt + "ga";};
+            if (aspect.equals("Heart"))  {txt = txt + "o";};
+            if (aspect.equals("Blood"))  {txt = txt + "cen";};
+            if (aspect.equals("Doom"))   {txt = txt + "mini";};
+            if (aspect.equals("Breath")) {txt = txt + "un";};
+            }; // end derse
+          if (moon.equals("Prospit")) {
+            if (aspect.equals("Time"))   {txt = txt + "ist";};
+            if (aspect.equals("Life"))   {txt = txt + "sci";};
+            if (aspect.equals("Hope"))   {txt = txt + "nius";};
+            if (aspect.equals("Rage"))   {txt = txt + "icorn";};
+            if (aspect.equals("Void"))   {txt = txt + "ittanius";};
+            if (aspect.equals("Light"))  {txt = txt + "pio";};
+            if (aspect.equals("Mind"))   {txt = txt + "ra";};
+            if (aspect.equals("Space"))  {txt = txt + "go";};
+            if (aspect.equals("Heart"))  {txt = txt + "lo";};
+            if (aspect.equals("Blood"))  {txt = txt + "cer";};
+            if (aspect.equals("Doom"))   {txt = txt + "mino";};
+            if (aspect.equals("Breath")) {txt = txt + "us";};
+            }; // end prospit            
+            return txt;
+        };
+        
+        
+        
 // calculated values section
 	// number between -60(PASSIVE) and +60(active)
 	public int activity() {int act = faith + order + connection + self + opportunity + entropy;	return act;}

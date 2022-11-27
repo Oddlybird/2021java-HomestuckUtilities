@@ -4,12 +4,13 @@ import java.awt.Color;
 @SuppressWarnings("unused")
 
 public class Desc {
-        String build = "";
-        String respirate = "";
-        String fins = "";
-        String rack = "";
+        String build = "";      // redo?
+        String respirate = "";  // works well
+        String fins = "";       // works well
+        String rack = "";       // redo entirely
 
-        // If you want to feed more data, remember to update both here and the place
+        // If you want to feed more data into the function,
+        // remember to update both here and the place
         // in troll.Troll() where info is fed over here
         
 	public Desc(troll.husk.Body body, troll.husk.Horns horns, troll.husk.Eye eyes, troll.fluff.Stats stats) {
@@ -18,7 +19,7 @@ public class Desc {
             respirate = respirate(body.respiratorygene);
             fins = fins(body.fingene);
             
-            // horns
+            // horns 
             rack = horns(horns);
 
             // eyes
@@ -106,74 +107,58 @@ public class Desc {
 		boolean skiptodone = false;
 		                
 		// new segment.  Bladders.
-		cont = true;
-		while ((!skiptodone)&&(cont)) {
-                        txt = txt + Gene.permute(bladders, "B", "b", "many air bladders, ", "several air bladders, ", "one air bladder, ", "no air bladders, ");
-                        cont=false;
-                        };
-
+                cont=true;
+                txt = txt + Gene.permute(bladders, "B", "b", "many air bladders, ", "several air bladders, ", "one air bladder, ", "no air bladders, ");
 		// new segment.  gills.
-		cont = true;
-		while ((!skiptodone)&&(cont)) {
-			String gill1 = "";
-			gill1 = Gene.permute(gilleyes.substring(0,2), "G", "g", "full ", "partial ", "partial ", "no ");
-			gill1 = gill1 + Gene.permute(gilleyes.substring(2,4), "i", "e", "", "", "", "external ");
-			
-			String gill2 = "";
-			gill2 = Gene.permute(gillneck.substring(0,2), "G", "g", "full ", "partial ", "partial ", "no ");
-			gill2 = gill2 + Gene.permute(gillneck.substring(2,4), "i", "e", "", "", "", "external ");
-
-			String gill3 = "";
-			gill3 = Gene.permute(gillribs.substring(0,2), "G", "g", "full ", "partial ", "partial ", "no ");
-			gill3 = gill3 + Gene.permute(gillribs.substring(2,4), "i", "e", "", "", "", "external ");
-			
-			if ((gill1.startsWith("no"))&&(gill2.startsWith("no"))&&(gill3.startsWith("no"))) {
-				txt = txt + "entirely lacks gills, "; cont=false;}
-			
-			if (cont==true) {txt = txt + gill1 + "eye gills, ";};
-			if (cont==true) {txt = txt + gill2 + "neck gills, ";};
-			if (cont==true) {txt = txt + gill3 + "rib gills, ";};
-			cont=false;
-			};	
-			
+                cont=true;
+		String gill1 = "";
+		gill1 = Gene.permute(gilleyes.substring(0,2), "G", "g", "full ", "partial ", "partial ", "no ");
+		gill1 = gill1 + Gene.permute(gilleyes.substring(2,4), "i", "e", "", "", "", "external ");
+		String gill2 = "";
+		gill2 = Gene.permute(gillneck.substring(0,2), "G", "g", "full ", "partial ", "partial ", "no ");
+		gill2 = gill2 + Gene.permute(gillneck.substring(2,4), "i", "e", "", "", "", "external ");
+		String gill3 = "";
+		gill3 = Gene.permute(gillribs.substring(0,2), "G", "g", "full ", "partial ", "partial ", "no ");
+		gill3 = gill3 + Gene.permute(gillribs.substring(2,4), "i", "e", "", "", "", "external ");
+                // missing gill section
+                if ((gill1.startsWith("no"))&&(gill2.startsWith("no"))&&(gill3.startsWith("no"))) {
+			txt = txt + "entirely lacks gills, "; cont=false;}
+		if ((!gill1.startsWith("no"))&&(gill2.startsWith("no"))&&(gill3.startsWith("no"))) {
+			txt = txt + "only " + gill1 + "eye gills, "; cont=false;}
+		if ((gill1.startsWith("no"))&&(!gill2.startsWith("no"))&&(gill3.startsWith("no"))) {
+			txt = txt + "only " + gill2 + "neck gills, "; cont=false;}
+		if ((gill1.startsWith("no"))&&(gill2.startsWith("no"))&&(!gill3.startsWith("no"))) {
+			txt = txt + "only " + gill3 + "rib gills, "; cont=false;}
+                // expressed gill section
+		if (cont==true) {txt = txt + gill1 + "eye gills, ";};
+		if (cont==true) {txt = txt + gill2 + "neck gills, ";};
+		if (cont==true) {txt = txt + gill3 + "rib gills, ";};
+                
 		// new segment.  Breathing.
 		cont = true;
-		while ((!skiptodone)&&(cont)) {
-			txt = txt + "breathes ";
-			txt = txt + Gene.permute(water.substring(0,2), "S", "s", "saltwater, ", "salt, ", "salt, ", "");
-			txt = txt + Gene.permute(water.substring(2,4), "B", "b", "brackwater, ", "brack, ", "brack, ", "");
-			txt = txt + Gene.permute(water.substring(4,6), "F", "f", "freshwater, ", "fresh, ", "fresh, ", "");
+		txt = txt + "breathes ";
+		txt = txt + Gene.permute(water.substring(0,2), "S", "s", "saltwater, ", "salt, ", "salt, ", "");
+		txt = txt + Gene.permute(water.substring(2,4), "B", "b", "brackwater, ", "brack, ", "brack, ", "");
+		txt = txt + Gene.permute(water.substring(4,6), "F", "f", "freshwater, ", "fresh, ", "fresh, ", "");
 			
-                        int numtot = 0;
-			String temp = Gene.permute(air.substring(0,2), "A", "a", "2", "1", "1", "0");
-                        if (temp.equals("2")) {numtot=numtot+2;};
-                        if (temp.equals("1")) {numtot=numtot+1;};
-			temp = Gene.permute(air.substring(2,4), "A", "a", "2", "1", "1", "0");
-                        if (temp.equals("2")) {numtot=numtot+2;};
-                        if (temp.equals("1")) {numtot=numtot+1;};
+                int numtot = 0;
+		String temp = Gene.permute(air.substring(0,2), "A", "a", "2", "1", "1", "0");
+                if (temp.equals("2")) {numtot=numtot+2;};
+                if (temp.equals("1")) {numtot=numtot+1;};
+		temp = Gene.permute(air.substring(2,4), "A", "a", "2", "1", "1", "0");
+                if (temp.equals("2")) {numtot=numtot+2;};
+                if (temp.equals("1")) {numtot=numtot+1;};
                                                
-                        if (numtot>1)  {txt = txt + "air";}; //AAAa, AAaa
-                        if (numtot==1) {txt = txt + "some air";}; //Aaaa
-                        if (numtot==0) {txt = txt + "no air";}; //aaaa
-			cont=false;
-			};			
+                if (numtot>1)  {txt = txt + "air";}; //AAAa, AAaa
+                if (numtot==1) {txt = txt + "some air";}; //Aaaa
+                if (numtot==0) {txt = txt + "no air";}; //aaaa
 			
 		// Control + Severe Asthma zone.
 		cont = true;
-                int sumsea = 0;
-                if (control.substring(0,0).equals("S")) {sumsea=sumsea+1;};
-                if (control.substring(1,1).equals("S")) {sumsea=sumsea+1;};
-                if (control.substring(2,2).equals("S")) {sumsea=sumsea+1;};
-                if (control.substring(3,3).equals("S")) {sumsea=sumsea+1;};
-                int sumair = 0;
-                if (air.substring(0,0).equals("S")) {sumair=sumair+1;};
-                if (air.substring(1,1).equals("S")) {sumair=sumair+1;};
-                if (air.substring(2,2).equals("S")) {sumair=sumair+1;};
-                if (air.substring(3,3).equals("S")) {sumair=sumair+1;};
 
-		if (sumsea==4) {txt="normal sea respiration";};
-		if (sumsea==0) {txt="normal land respiration";};
-                
+		if (control.substring(0,4).equals("SSSS")) {txt="normal sea respiration";};
+		if (control.substring(0,4).equals("ssss")) {txt="normal land respiration";};
+                if (txt.equals("no air bladders, entirely lacks gills, breathes air")) {txt = "normal land respiration";};
 		return txt;
 	}
 
@@ -263,16 +248,16 @@ public class Desc {
                 // This involves HEAVY usage of description functions found in Horn and Horns
                 // check which things match
                 boolean matchMount = false;
-                boolean matchDir = false;
-                boolean matchCross = false;
-                boolean matchTip = false;
-                boolean matchLength = false;
-                boolean matchCurl = false;
                 if (horns.rgene.mountpoint(horns.rgene.Placegene).equals(horns.lgene.mountpoint(horns.lgene.Placegene))) {matchMount = true;};
+                boolean matchDir = false;
                 if (horns.rgene.dirpoint(horns.rgene.Dirgene).equals(horns.lgene.dirpoint(horns.lgene.Dirgene))) {matchDir = true;};
+                boolean matchCross = false;
                 if (horns.rgene.crossection(horns.rgene.Radialgene).equals(horns.lgene.crossection(horns.lgene.Radialgene))) {matchCross = true;};
+                boolean matchTip = false;
                 if (horns.rgene.tipname(horns.rgene.Tipgene).equals(horns.lgene.tipname(horns.lgene.Tipgene))) {matchTip = true;};
+                boolean matchLength = false;
                 if (horns.rgene.handspans(horns.rgene.Curlengene).equals(horns.rgene.handspans(horns.rgene.Curlengene))) {matchLength = true;};
+                boolean matchCurl = false;
                 String lcurl = horns.lgene.curly(horns.lgene.Anggene, horns.lgene.Radialgene, horns.lgene.Curlengene);
                 String rcurl = horns.rgene.curly(horns.rgene.Anggene, horns.rgene.Radialgene, horns.rgene.Curlengene);
                 if (lcurl.equals(rcurl)) {matchCurl=true;};
@@ -283,20 +268,22 @@ public class Desc {
                 int numdub = 2; // two by default
                 if (numeracyRight.equals("doubled")) {numdub++;}; // double right
                 if (numeracyLeft.equals("doubled")) {numdub++;};  // double left                
-                // figure the type                
+                // figure the type
 		String type = horns.htype(horns.form.substring(16,20));
+                
                 // declare the basics.               
                 txt = numdub + " ";
                 if (matchLength) {txt = txt + horns.rgene.handspans(horns.rgene.Curlengene);};
                 if (matchCurl)   {txt = txt + rcurl;};
+                if (!txt.endsWith(" ")) {txt = txt + " ";};
                 txt = txt + type;
                 
                 // describe the parts that do match
                 if (matchMount) {txt = txt + ", " + horns.rgene.mountpoint(horns.rgene.Placegene);};
-                if (matchDir)   {txt = txt + ", that point " + horns.rgene.dirpoint(horns.rgene.Dirgene);};
+                if (matchDir)   {txt = txt + ", pointing " + horns.rgene.dirpoint(horns.rgene.Dirgene);};
                 // curl in degrees, whether it's sharp or smooth or both
-                if (matchCross) {txt = txt + ", with a " + horns.rgene.crossection(horns.rgene.Radialgene) + "-shaped base";};
-                if (matchTip) {txt = txt + ", and have " + horns.rgene.tipname(horns.rgene.Tipgene) + "tips";};
+                if (matchCross) {txt = txt + ", a " + horns.rgene.crossection(horns.rgene.Radialgene) + "-shaped base";};
+                if (matchTip) {txt = txt + ", with " + horns.rgene.tipname(horns.rgene.Tipgene) + "tips";};
                 
                 // end combined chunk.
                 txt = txt + ".";
@@ -308,9 +295,9 @@ public class Desc {
                     if (!matchLength) {txt = txt + " is " + horns.lgene.handspans(horns.lgene.Curlengene);};
                     if (!matchCurl)   {txt = txt + " is " + lcurl;};
                     if (!matchMount)  {txt = txt + " is " + horns.lgene.mountpoint(horns.lgene.Placegene);};
-                    if (!matchDir)    {txt = txt + " points " + horns.lgene.dirpoint(horns.lgene.Dirgene);};
-                    if (!matchCross)  {txt = txt + " with a " + horns.lgene.crossection(horns.lgene.Radialgene) + "-shaped base";};
-                    if (!matchTip)    {txt = txt + " and has a " + horns.lgene.tipname(horns.lgene.Tipgene) + "-tip";};
+                    if (!matchDir)    {txt = txt + " pointing " + horns.lgene.dirpoint(horns.lgene.Dirgene);};
+                    if (!matchCross)  {txt = txt + " with " + horns.lgene.crossection(horns.lgene.Radialgene) + "-shaped base";};
+                    if (!matchTip)    {txt = txt + " with " + horns.lgene.tipname(horns.lgene.Tipgene) + "-tip";};
                     
                    txt = txt + ".  The right horn";
                     
@@ -319,9 +306,9 @@ public class Desc {
                     if (!matchLength) {txt = txt + " is " + horns.rgene.handspans(horns.rgene.Curlengene);};
                     if (!matchCurl)   {txt = txt + " is " + rcurl;};
                     if (!matchMount)  {txt = txt + " is " + horns.rgene.mountpoint(horns.rgene.Placegene);};
-                    if (!matchDir)    {txt = txt + " points " + horns.rgene.dirpoint(horns.rgene.Dirgene);};
-                    if (!matchCross)  {txt = txt + " with a " + horns.rgene.crossection(horns.rgene.Radialgene) + "-shaped base";};
-                    if (!matchTip)    {txt = txt + " and has a " + horns.rgene.tipname(horns.rgene.Tipgene) + "-tip";};
+                    if (!matchDir)    {txt = txt + " pointing " + horns.rgene.dirpoint(horns.rgene.Dirgene);};
+                    if (!matchCross)  {txt = txt + " with " + horns.rgene.crossection(horns.rgene.Radialgene) + "-shaped base";};
+                    if (!matchTip)    {txt = txt + " with " + horns.rgene.tipname(horns.rgene.Tipgene) + "-tip";};
                };
                 
 		return txt;

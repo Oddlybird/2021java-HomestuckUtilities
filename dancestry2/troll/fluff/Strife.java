@@ -1,4 +1,7 @@
 package troll.fluff;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 @SuppressWarnings("unused")
 
@@ -15,13 +18,21 @@ public class Strife {
 			"aerosolKind", "fireextKind", "scissorKind", "sawKind", "chiselKind", "wrenchKind", "screwdriverKind",
 			"crowbarKind", "pipeKind", "plierKind", "broomKind", "pokerKind", "shovelKind", "rakeKind", "vacuumKind",
 			"mopKind", "plankKind", "golfclubKind", "hckystckKind", "bowlngpinKind", "woodwindKind", "brassKind",
-			"guitarKind", "rockKind", "lampKind", "candlstckKind", "fncysntaKind",
+			"guitarKind", "rockKind", "lampKind", "candlstckKind", "fncysntaKind", "fistKind",
 			};
-	// blunt, sharp, heavy, pun, tool
+	// blunt, sharp, heavy, tool,
+	String[] nerd = {"knifeKind", "hammerKind", "staffKind", "needleKind", "grenadeKind", "explosivesKind",
+                        "fanKind", "diceKind", "yoyoKind", "gloveKind", "cordKind", "offcespplyKind", "bookKind", 
+			"scissorKind", "wrenchKind", "screwdriverKind",	"crowbarKind", "pipeKind", "plierKind",
+                        "pokerKind", "woodwindKind", "brassKind", "guitarKind", "lampKind", "candlstckKind",
+                        "fncysntaKind",};
+	String[] pun = {"axeKind", "bowKind", "staffKind", "needleKind", "batKind", "ballKind", "fanKind", "cordKind",
+                        "offcespplyKind", "trophyKind", "bustKind", "aerosolKind", "pipeKind", "pokerKind", "brassKind",
+                        "rockKind",};
 	String[] melee = {
 			"bladeKind", "axeKind", "clawKind", "scytheKind", "knifeKind", "cleaverKind", "spearKind",
 			"2x3dentKind", "whipKind", "hammerKind", "clubKind", "staffKind", "maceKind", "icepickKind",
-			"chainsawKind", "batKind", "fanKind", "caneKind"};
+			"chainsawKind", "batKind", "fanKind", "caneKind", "fistKind"};
 	String[] ranged = {"knifeKind", "bowKind", "needleKind", "projectileKind", "dartKind", "pistolKind", "rifleKind", 
 			 "grenadeKind", "ballKind", "peprspryKind", "aerosolKind", "fireextKind", "rockKind"};
 	String[] pole = {"scytheKind", "spearKind", "2x3dentKind", "staffKind", "broomKind", "shovelKind",
@@ -32,7 +43,7 @@ public class Strife {
 			"ropeKind", "chainKind", "cordKind", "trophyKind", "puppetKind", "tongsKind", "pokerKind", 
 			"golfclubKind", "hckystckKind", "bowlngpinKind", };
 	String[] wearable = {"clawKind", "dartKind", "ballKind", "gloveKind", "makeupKind", "iceskateKind", "shoeKind",
-			"coatKind", "chainKind", "bustKind", "brassKind", "lampKind"};
+			"coatKind", "chainKind", "bustKind", "brassKind", "lampKind", "fistKind"};
 	String[] office = {"whipKind", "fanKind", "umbrellaKind", "caneKind", "shoeKind", "coatKind", "cordKind", 
 			"offcespplyKind", "tablelegKind", "bookKind", "trophyKind", "bustKind", "peprspryKind",
 			"aerosolKind", "fireextKind", "scissorKind", "screwdriverKind", "pipeKind", "plierKind", 
@@ -56,15 +67,51 @@ public class Strife {
  		Random rand = new Random();
 		String var = new String("");
 		String spec = new String("");
+
+                if ((stats.create>12)&&(rand.nextBoolean()))   {spec="cook";};     // sylph/maid/muse
+                if ((stats.create>12)&&(rand.nextBoolean()))   {spec="music";};    // sylph/maid/muse
+		if ((stats.destroy>12)&&(rand.nextBoolean()))  {spec="ranged";};   // prince/bard/lord
+		if ((stats.destroy>12)&&(rand.nextBoolean()))  {spec="melee";};    // prince/bard/lord
+                if ((stats.manip>12)&&(rand.nextBoolean()))    {spec="game";};     // knight/page
+                if ((stats.manip>12)&&(rand.nextBoolean()))    {spec="pun";};      // knight/page
+		if ((stats.move>12)&&(rand.nextBoolean()))     {spec="wearable";}; // thief/rogue
+		if ((stats.move>12)&&(rand.nextBoolean()))     {spec="chain";};    // thief/rogue
+                if ((stats.exploit>12)&&(rand.nextBoolean()))  {spec="office";};   // witch/heir
+                if ((stats.exploit>12)&&(rand.nextBoolean()))  {spec="furnish";};  // witch/heir
+		if ((stats.know>12)&&(rand.nextBoolean()))     {spec="ranged";};   // seer/mage
+		if ((stats.know>12)&&(rand.nextBoolean()))     {spec="pun";};      // seer/mage
 		
-		if ((likes(hobby, "cooking"))&&(rand.nextBoolean()))  {spec="cook";};
-		if ((likes(hobby, "weaponry"))&&(rand.nextBoolean())) {spec="melee";};
-		if ((likes(hobby, "weaponry"))&&(rand.nextBoolean())) {spec="melee";};
-		if ((likes(hobby, "armor"))&&(rand.nextBoolean()))    {spec="wearable";};
+		if ((likes(hobby, "cooking"))&&(rand.nextBoolean()))      {spec="cook";};
+		if ((likes(hobby, "weaponry"))&&(rand.nextBoolean()))     {spec="melee";};
+		if ((likes(hobby, "weaponry"))&&(rand.nextBoolean()))     {spec="melee";};
+		if ((likes(hobby, "armor"))&&(rand.nextBoolean()))        {spec="wearable";};
+		if ((likes(hobby, "fashion"))&&(rand.nextBoolean()))      {spec="wearable";};
+		if ((likes(hobby, "games"))&&(rand.nextBoolean()))        {spec="game";};
+		if ((likes(hobby, "sports"))&&(rand.nextBoolean()))       {spec="game";};
+		if ((likes(hobby, "science"))&&(rand.nextBoolean()))      {spec="nerd";};
+		if ((likes(hobby, "engineering"))&&(rand.nextBoolean()))  {spec="nerd";};
+		if ((likes(hobby, "robotics"))&&(rand.nextBoolean()))     {spec="nerd";};
+		if ((likes(hobby, "crafting"))&&(rand.nextBoolean()))     {spec="nerd";};
+		if ((likes(hobby, "programming"))&&(rand.nextBoolean()))  {spec="nerd";};
+		if ((likes(hobby, "literature"))&&(rand.nextBoolean()))   {spec="pun";};
+		if ((likes(hobby, "knickknacks"))&&(rand.nextBoolean()))  {spec="furnish";};
+		if ((likes(hobby, "life"))&&(rand.nextBoolean()))         {spec="cook";};
+		if ((likes(hobby, "physicality"))&&(rand.nextBoolean()))  {spec="game";};
+		if ((likes(hobby, "war"))&&(rand.nextBoolean()))          {spec="melee";};
+		if ((likes(hobby, "frivolity"))&&(rand.nextBoolean()))    {spec="pun";};
+		if ((likes(hobby, "chaos"))&&(rand.nextBoolean()))        {spec="pun";};
+		if ((likes(hobby, "fungi"))&&(rand.nextBoolean()))        {spec="clean";};
+		if ((likes(hobby, "costuming"))&&(rand.nextBoolean()))    {spec="wearable";};                
+		if ((likes(hobby, "psychic"))&&(rand.nextBoolean()))      {spec="ranged";};
 		
-		if ((stats.manip>12)&&(rand.nextBoolean())) {spec="game";};
-		if ((stats.move>12)&&(rand.nextBoolean()))  {spec="wearable";};
-		
+                if ((likes(hobby, "sewing"))&&(rand.nextBoolean())&&(rand.nextBoolean()))         {spec="needleKind";};
+                if ((likes(hobby, "needlecraft"))&&(rand.nextBoolean())&&(rand.nextBoolean()))    {spec="needleKind";};                
+		if ((likes(hobby, "grimdark arts"))&&(rand.nextBoolean())&&(rand.nextBoolean()))  {spec="needleKind";};
+		if ((likes(hobby, "the esoteric"))&&(rand.nextBoolean())&&(rand.nextBoolean()))   {spec="needleKind";};
+		if ((likes(hobby, "slight of hand"))&&(rand.nextBoolean())&&(rand.nextBoolean())) {spec="fistKind";};	
+		if ((likes(hobby, "puppets"))&&(rand.nextBoolean())&&(rand.nextBoolean()))        {spec="puppetKind";};
+                
+                // nerd pun melee ranged pole game wearable office chain cook clean music furnish               
 		var = fromkey(spec);
 
 		return var;
@@ -81,6 +128,7 @@ public class Strife {
 
 	public String fromkey(String spec) {
 		Random rand = new Random();
+                
 		String var = new String("");
 		var = all[rand.nextInt(all.length)];
 		if (spec=="wearable") {var = wearable[rand.nextInt(wearable.length)];};
@@ -94,6 +142,12 @@ public class Strife {
 		if (spec=="melee")       {var = melee[rand.nextInt(melee.length)];};
 		if (spec=="ranged")     {var = ranged[rand.nextInt(ranged.length)];};
 		if (spec=="furnish")   {var = furnish[rand.nextInt(furnish.length)];};
+		if (spec=="pun")           {var = pun[rand.nextInt(pun.length)];};
+		if (spec=="nerd")         {var = nerd[rand.nextInt(nerd.length)];};
+                
+                // and if it's just a -Kind, set it directly to that -Kind
+                List allyall = Arrays.asList(all);
+                if (allyall.contains(spec)) {var = spec;};
 		return var;
 	}
 	
@@ -107,16 +161,16 @@ public class Strife {
 				"Bastard Sword", "Model Lightsaber", "Two-Handed Sword", 
 				"Katana", "Short Sword", "Helicopter Blade", 
 				"Roller Blades", "1/2 Scissors", "Bread Knife",
+                                "Sandwich Skewer", "Ancient Blade", "Shitty Mall Sword", 
+                                "Fantasy Sword (merchandise tie-in)", "Sharpened Sheetmetal Cutout",
+                                "Wooden sword", "Bokken", "Rapier", "Claymore", "Letter Opener",
+                                "X-acto Knife", "Boxcutter", "Machete", "Hooked Sword", "Saber", 
 				};
 
 		String[] pistolKind = {
-				"Squirt Gun", 
-				"Nerf Gun", 
-				"Uzi", 
-				"Flare Gun", 
-				"9mm", 
-				"Tattoo Gun", 
-				"Revolver", 
+				"Tattoo Gun", "Squirt Gun", "Nerf Gun", "Flare Gun", 
+                                "Peashooter", "9mm", "Revolver", "357 Magnum",
+				"Uzi", "Novelty Lighter",
 				};
 
 		String[] offcespplyKind = {
@@ -167,6 +221,7 @@ public class Strife {
 				"Santa Figurine", 
 				"Christmas Ornament", 
 				"Garden Gnome", 
+                                "Novelty Mug",
 		};
 
 		String[] whipKind = {
@@ -174,11 +229,14 @@ public class Strife {
 				"1/2 Bow", 
 				"Lasso", 
 				"Whip", 
-				"Leather Belt", 
 				"Bullwhip", 
 				"Jump Rope", 
 				"Steel Cable", 
 				"Dog Leash", 
+                                "Cord",
+                                "Electrical Cable",
+                                "Chainwhip",
+                                "Long scarf", 
 		};
 
 		String[] hammerKind = {
@@ -195,6 +253,7 @@ public class Strife {
 				"Rubber Mallet", 
 				"Reflex Hammer", 
 				"Peanut Brittle Hammer", 
+                                "Bell clapper", 
 		};
 
 		String[] clubKind = {
@@ -205,12 +264,18 @@ public class Strife {
 				"Juggling Clubs", 
 				"Hockey Stick", 
 				"Large Stick", 
+                                "Cards",
+                                "Dance party lego set",
 		};
 
 		String[] clawKind = {
 				"Wolverine Claws", 
 				"Bagh Nakh", 
 				"Fake Fingernails", 
+                                "Demigauntlets", 
+                                "Bare claws", 
+                                "Claw & Fang Necklace", 
+                                "Shed Megafauna Claw", 
 		};
 
 		String[] chainsawKind = {
@@ -218,6 +283,7 @@ public class Strife {
 				"Chainaxe", 
 				"Chainstaff", 
 				"Chainsaw", 
+                                "Chainwhip (bladed)", 
 		};
 
 		String[] makeupKind = {
@@ -234,16 +300,22 @@ public class Strife {
 
 		String[] umbrellaKind = {
 				"Umbrella Sword", 
-				"Parasol", 
+				"Personal Parasol", 
+                                "Beach Parasol", 
 				"Drink Accessory", 
-				"Umbrella", 
+				"Black Umbrella", 
+                                "Travel Umbrella", 
+                                "Doorman Umbrella",
+                                "Bubble Umbrella", 
+                                "Fashion Umbrella"
 		};
 
 		String[] scytheKind = {
 				"Farming Scythe", 
-				"Hand-Scythe", 
+				"Miniature Novelty Scythe", 
 				"Sickle", 
 				"Scythe", 
+                                "Lawnmower",
 		};
 
 		String[] spearKind = {
@@ -257,6 +329,8 @@ public class Strife {
 				"Large Silverware", 
 				"Lance", 
 				"Pointy Stick", 
+                                "Boar Spear", 
+                                "Wrought-Iron Fencepost",
 		};
 
 		String[] needleKind = {
@@ -267,14 +341,23 @@ public class Strife {
 				"Recordplayer Needle", 
 				"Tattoo Gun", 
 				"Shitty Wand", 
+                                "Crochet Needle", 
+                                "Sewing needle", 
+                                "Needle Gun",
+                                "Sewing Machine", 
+                                "Conductor's Wand",
 		};
 
 		String[] bowKind = {
 				"Short Bow", 
 				"Compound Bow", 
+                                "Recurve Bow", 
 				"Cross Bow", 
 				"Fancy Silk Bow", 
 				"Long Bow", 
+                                "Violin Bow", 
+                                "Cello Bow", 
+                                "Large Ribbon", 
 		};
 
 		String[] diceKind = {
@@ -284,13 +367,15 @@ public class Strife {
 				"Brick of 6-sided dice", 
 				"Lonely Ivory 12-sider", 
 				"Golden Percentile Dice", 
-				"Pop-o-Matic", 
+				"Pop-o-Matic",
+                                "Square Crate", 
 		};
 
 		String[] bitridentKind = {
 				"Double Fork", 
 				"Double Pitchfork", 
 				"2x3Trident", 
+                                "Fence Fragment", 
 		};
 
 		String[] guitarKind = {
@@ -326,6 +411,7 @@ public class Strife {
 				"Water Balloons", 
 				"Glitter-filled Easter Eggs", 
 				"Frag Grenades", 
+                                "Foraging Toy", 
 		};
 
 		String[] staffKind = {
@@ -333,6 +419,7 @@ public class Strife {
 				"Quarterstaff", 
 				"Scepter", 
 				"Pool Cue", 
+                                "Sheetmusic", 
 		};
 
 		String[] rifleKind = {
@@ -395,6 +482,7 @@ public class Strife {
 				"Laser-Guided Pizza Cutter", 
 				"Rotary Knife", 
 				"Pizza Cutter", 
+                                "Rotary Sawblade", 
 		};
 
 		String[] batKind = {
@@ -458,6 +546,7 @@ public class Strife {
 				"Swiffer Sweeper", 
 				"Broom", 
 				"Pushbroom", 
+                                "Crumb Sweeper", 
 		};
 
 		String[] pokerKind = {
@@ -466,7 +555,8 @@ public class Strife {
 				"Filigreed Poker", 
 				"Slightly Burnt Stick", 
 				"Crowbar", 
-				"Metal Pipe", 
+				"Metal Pipe",
+                                "Cards", 
 		};
 
 		String[] icepickKind = {
@@ -480,13 +570,16 @@ public class Strife {
 				"9-Iron", 
 				"Driver", 
 				"Putter", 
-				"Long Stick", 
+				"Long Stick",
+                                "Clubhouse Lego Set",
 		};
 
 		String[] ropeKind = {
 				"Climbing Rope", 
 				"Frayed Hemp Rope", 
 				"Silk Rope", 
+                                "Nylon Rope", 
+                                "Carbon-Fiber Rope", 
 		};
 
 		String[] shovelKind = {
@@ -503,6 +596,8 @@ public class Strife {
 				"Stirring Spoon", 
 				"Soup Spoon", 
 				"Tea Spoon", 
+                                "Large Scoop", 
+                                "Absinthe Spoon", 
 		};
 
 		String[] statueKind = {
@@ -511,13 +606,16 @@ public class Strife {
 				"Fancy Santa", 
 				"Dragon Figurine", 
 				"Garden Gnome", 
-				"Precious Moments", 
+				"Precious Moments Figurine", 
 				"Marble Bust", 
+                                "Amiibo", 
+                                "Gargoyle", 
 		};
 
 		String[] spatulaKind = {
 				"Shitty Dollarstore Spatula", 
 				"Silicone Spatula", 
+                                "Black Plastic Flippydoo", 
 		};
 
 		String[] lampKind = {
@@ -525,6 +623,7 @@ public class Strife {
 				"Lampshade", 
 				"Electric Lamp", 
 				"Antique Oil Lamp", 
+                                "Headlamp", 
 		};
 
 		String[] ballKind = {
@@ -552,6 +651,7 @@ public class Strife {
 				"Teak Board", 
 				"Marble Countertop", 
 				"Board with a Face on it", 
+                                "Motherboard", 
 		};
 
 		String[] forkKind = {
@@ -559,6 +659,8 @@ public class Strife {
 				"Dinner Fork", 
 				"Bent Fork", 
 				"Two-tined Fork", 
+                                "Tuning Fork", 
+                                "Dowsing Rod", 
 				"Trident", 
 				"Pitchfork", 
 		};
@@ -569,8 +671,7 @@ public class Strife {
 				"Teak Cane", 
 				"Steel Cane", 
 				"Walking Stick", 
-				"Staff", 
-				"1/2 Cane", 
+				"1/2 Staff", 
 				"Scepter", 
 				"Tapdancing Cane", 
 				"Cheerleader Baton", 
@@ -581,6 +682,12 @@ public class Strife {
 				"Jewelry Chain", 
 				"Plastic Chain", 
 				"Chain Letter", 
+                                "Kusarigama", 
+                                "Manriki", 
+                                "Meteor Hammer", 
+                                "Bolas", 
+                                "Flail", 
+                                "Nunchaku", 
 		};
 
 		String[] tablelegKind = {
@@ -703,6 +810,7 @@ public class Strife {
 				"Chemical Extinguisher", 
 				"Bucket of Water", 
 				"Bucket of Sand", 
+                                "Fire Blanket", 
 		};
 
 		String[] bowlngpinKind = {
@@ -737,6 +845,8 @@ public class Strife {
 				"Barbed Wire Circlet", 
 				"Barbed Wire Whip", 
 				"Barbed Wire Club", 
+                                "Knotted Rope", 
+                                "Beaded Rope",
 		};
 
 		String[] dartKind = {
@@ -830,6 +940,19 @@ public class Strife {
 				"Pebble", 
 		};
 
+		String[] fistKind = {
+				"Brass Knuckles", 
+				"Class Ring", 
+				"Gaudy Rings", 
+				"Can-opener Ring", 
+				"Gauntlets", 
+				"Fingerless Gloves", 
+				"Mittens", 
+				"Boxing Gloves", 
+                                "Bare hands",
+                                "Toesocks", 
+		};
+
 
 		if (Specibus=="bladeKind")           {var = bladeKind[rand.nextInt(bladeKind.length)];};
 		if (Specibus=="axeKind")               {var = axeKind[rand.nextInt(axeKind.length)];};
@@ -914,6 +1037,7 @@ public class Strife {
 		if (Specibus=="lampKind")             {var = lampKind[rand.nextInt(lampKind.length)];};
 		if (Specibus=="candlstckKind")   {var = candlstckKind[rand.nextInt(candlstckKind.length)];};
 		if (Specibus=="fncysntaKind")     {var = fncysntaKind[rand.nextInt(fncysntaKind.length)];};
+		if (Specibus=="fistKind")             {var = fistKind[rand.nextInt(fistKind.length)];};
 
 		return var;
 	}
