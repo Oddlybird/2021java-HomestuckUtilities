@@ -8,6 +8,7 @@ public class Desc {
         String respirate = "";  // works well
         String fins = "";       // works well
         String rack = "";       // redo entirely
+        String pupation = "";   // works well.  add mutant grub eyes later
 
         // If you want to feed more data into the function,
         // remember to update both here and the place
@@ -18,6 +19,7 @@ public class Desc {
             build = build(body.buildgene);
             respirate = respirate(body.respiratorygene);
             fins = fins(body.fingene);
+            pupation = pupate(body.pupation, body.feralgene, body.tailgene);
             
             // horns 
             rack = horns(horns);
@@ -105,7 +107,10 @@ public class Desc {
 		String air = code.substring(24);
 		boolean cont = true;
 		boolean skiptodone = false;
-		                
+		  
+                // teststring
+                //txt = txt + control + "." + bladders + "." + gilleyes + "." + gillneck + "." + gillribs + "." + water + "." + air + "   ";
+                
 		// new segment.  Bladders.
                 cont=true;
                 txt = txt + Gene.permute(bladders, "B", "b", "many air bladders, ", "several air bladders, ", "one air bladder, ", "no air bladders, ");
@@ -123,11 +128,11 @@ public class Desc {
                 // missing gill section
                 if ((gill1.startsWith("no"))&&(gill2.startsWith("no"))&&(gill3.startsWith("no"))) {
 			txt = txt + "entirely lacks gills, "; cont=false;}
-		if ((!gill1.startsWith("no"))&&(gill2.startsWith("no"))&&(gill3.startsWith("no"))) {
+		if (!(gill1.startsWith("no"))&&(gill2.startsWith("no"))&&(gill3.startsWith("no"))) {
 			txt = txt + "only " + gill1 + "eye gills, "; cont=false;}
-		if ((gill1.startsWith("no"))&&(!gill2.startsWith("no"))&&(gill3.startsWith("no"))) {
+		if ((gill1.startsWith("no"))&&!(gill2.startsWith("no"))&&(gill3.startsWith("no"))) {
 			txt = txt + "only " + gill2 + "neck gills, "; cont=false;}
-		if ((gill1.startsWith("no"))&&(gill2.startsWith("no"))&&(!gill3.startsWith("no"))) {
+		if ((gill1.startsWith("no"))&&(gill2.startsWith("no"))&&!(gill3.startsWith("no"))) {
 			txt = txt + "only " + gill3 + "rib gills, "; cont=false;}
                 // expressed gill section
 		if (cont==true) {txt = txt + gill1 + "eye gills, ";};
@@ -159,6 +164,8 @@ public class Desc {
 		if (control.substring(0,4).equals("SSSS")) {txt="normal sea respiration";};
 		if (control.substring(0,4).equals("ssss")) {txt="normal land respiration";};
                 if (txt.equals("no air bladders, entirely lacks gills, breathes air")) {txt = "normal land respiration";};
+                if (txt.equals("no air bladders, entirely lacks gills, breathes some air")) {txt = "asthmatic land respiration";};
+                if (txt.equals("no air bladders, entirely lacks gills, breathes no air")) {txt = "nonviable land-dweller";};
 		return txt;
 	}
 
@@ -264,53 +271,121 @@ public class Desc {
                 // Count the horns. 
                 String numeracyRight = horns.numeracy(horns.form.substring(12,14));
 		String numeracyLeft = horns.numeracy(horns.form.substring(14,16));
-                // "doubled", "stunted", "withered", or "normal"
+                // "doubled", "odd", "absent", "stunted" or "normal"
                 int numdub = 2; // two by default
                 if (numeracyRight.equals("doubled")) {numdub++;}; // double right
                 if (numeracyLeft.equals("doubled")) {numdub++;};  // double left                
+                boolean labsent = false; boolean rabsent = false;
+                if (numeracyRight.equals("absent")) {numdub--; rabsent=true;}; // missing right
+                if (numeracyLeft.equals("absent")) {numdub--; labsent=true;};  // missing left
                 // figure the type
 		String type = horns.htype(horns.form.substring(16,20));
                 
                 // declare the basics.               
-                txt = numdub + " ";
+                txt = numdub + " ";               
+                // describe the parts that do match
                 if (matchLength) {txt = txt + horns.rgene.handspans(horns.rgene.Curlengene);};
                 if (matchCurl)   {txt = txt + rcurl;};
                 if (!txt.endsWith(" ")) {txt = txt + " ";};
                 txt = txt + type;
-                
-                // describe the parts that do match
                 if (matchMount) {txt = txt + ", " + horns.rgene.mountpoint(horns.rgene.Placegene);};
                 if (matchDir)   {txt = txt + ", pointing " + horns.rgene.dirpoint(horns.rgene.Dirgene);};
-                // curl in degrees, whether it's sharp or smooth or both
-                if (matchCross) {txt = txt + ", a " + horns.rgene.crossection(horns.rgene.Radialgene) + "-shaped base";};
-                if (matchTip) {txt = txt + ", with " + horns.rgene.tipname(horns.rgene.Tipgene) + "tips";};
+                if (matchCross) {txt = txt + ", " + horns.rgene.crossection(horns.rgene.Radialgene) + "-shaped base";};
+                if (matchTip) {txt = txt + ", " + horns.rgene.tipname(horns.rgene.Tipgene) + "tips";};
                 
                 // end combined chunk.
                 txt = txt + ".";
                // If anything doesn't match, 
                if ((!matchDir)||(!matchMount)||(!matchCross)||(!matchTip)||(!matchLength)||(!matchCurl)||(!numeracyLeft.equals("normal"))||(!numeracyRight.equals("normal"))) {
-                   txt = txt + "  The left horn";
+                   txt = txt + "  The left horn is ";
                     // all the unique data about the left horn: dir length, curl, etc
-                    if ((!numeracyLeft.equals("normal"))||(!numeracyRight.equals("normal"))) {txt = txt + " is " + numeracyLeft; };
-                    if (!matchLength) {txt = txt + " is " + horns.lgene.handspans(horns.lgene.Curlengene);};
-                    if (!matchCurl)   {txt = txt + " is " + lcurl;};
-                    if (!matchMount)  {txt = txt + " is " + horns.lgene.mountpoint(horns.lgene.Placegene);};
-                    if (!matchDir)    {txt = txt + " pointing " + horns.lgene.dirpoint(horns.lgene.Dirgene);};
-                    if (!matchCross)  {txt = txt + " with " + horns.lgene.crossection(horns.lgene.Radialgene) + "-shaped base";};
-                    if (!matchTip)    {txt = txt + " with " + horns.lgene.tipname(horns.lgene.Tipgene) + "-tip";};
-                    
-                   txt = txt + ".  The right horn";
+                    if ((!numeracyLeft.equals("normal"))||(!numeracyRight.equals("normal"))) {txt = txt + " " + numeracyLeft + ", "; };
+                    if (!labsent&&!matchLength) {txt = txt + horns.lgene.handspans(horns.lgene.Curlengene) + ", ";};
+                    if (!labsent&&!matchCurl)   {txt = txt + lcurl + ", ";};
+                    if (!labsent&&!matchMount)  {txt = txt + horns.lgene.mountpoint(horns.lgene.Placegene) + ", ";};
+                    if (!labsent&&!matchDir)    {txt = txt + "pointing " + horns.lgene.dirpoint(horns.lgene.Dirgene) + ", ";};
+                    if (!labsent&&!matchCross)  {txt = txt + horns.lgene.crossection(horns.lgene.Radialgene) + "-shaped base, ";};
+                    if (!labsent&&!matchTip)    {txt = txt + horns.lgene.tipname(horns.lgene.Tipgene) + "-tip, ";};
+                    txt = txt + ".";
+                    txt = txt.replace(", .", ".  ");
+                    txt = txt + "The right horn is ";
                     
                     // all the unique data about the right horn
-                    if ((!numeracyLeft.equals("normal"))||(!numeracyRight.equals("normal"))) {txt = txt + " is " + numeracyRight; };
-                    if (!matchLength) {txt = txt + " is " + horns.rgene.handspans(horns.rgene.Curlengene);};
-                    if (!matchCurl)   {txt = txt + " is " + rcurl;};
-                    if (!matchMount)  {txt = txt + " is " + horns.rgene.mountpoint(horns.rgene.Placegene);};
-                    if (!matchDir)    {txt = txt + " pointing " + horns.rgene.dirpoint(horns.rgene.Dirgene);};
-                    if (!matchCross)  {txt = txt + " with " + horns.rgene.crossection(horns.rgene.Radialgene) + "-shaped base";};
-                    if (!matchTip)    {txt = txt + " with " + horns.rgene.tipname(horns.rgene.Tipgene) + "-tip";};
+                    if ((!numeracyLeft.equals("normal"))||(!numeracyRight.equals("normal"))) {txt = txt + " " + numeracyRight + ", "; };
+                    if (!rabsent&&!matchLength) {txt = txt + horns.rgene.handspans(horns.rgene.Curlengene) + ", ";};
+                    if (!rabsent&&!matchCurl)   {txt = txt + lcurl + ", ";};
+                    if (!rabsent&&!matchMount)  {txt = txt + horns.rgene.mountpoint(horns.rgene.Placegene) + ", ";};
+                    if (!rabsent&&!matchDir)    {txt = txt + "pointing " + horns.rgene.dirpoint(horns.rgene.Dirgene) + ", ";};
+                    if (!rabsent&&!matchCross)  {txt = txt + horns.rgene.crossection(horns.rgene.Radialgene) + "-shaped base, ";};
+                    if (!rabsent&&!matchTip)    {txt = txt + horns.rgene.tipname(horns.rgene.Tipgene) + "-tip, ";};
+                    txt = txt + ".";
+                    txt = txt.replace(", .", ".");
                };
                 
+		return txt;
+	}
+
+	public static String pupate(String code, String feralgene, String tailgene) {
+		String txt = new String("");
+                // strip all the data out of the pupation gene
+		int number = Gene.avgnum(code.substring(0,3));     // 3, numbers
+		int limbadult = Gene.avgnum(code.substring(3,5));  // 2, numbers
+		int limbmiddle = Gene.avgnum(code.substring(5,7)); // 2, numbers
+		int wing = Gene.avgnum(code.substring(7,9));       // 2, numbers
+		int tail = Gene.avgnum(code.substring(9,11));      // 2, numbers
+		int scar = Gene.avgnum(code.substring(11,13));    // 2, numbers
+		int stance = Gene.avgnum(code.substring(13));             // 2, numbers
+                // and the control genes out of the other two
+                String control = "";
+                boolean fer = false;  control = feralgene.substring(0,2);
+                if (control.startsWith("F")) {fer = true;};
+                boolean tai = false;  control =  tailgene.substring(0,2);
+                if (!control.equals("tt")) {tai = true;};
+                boolean scars = true;
+                if (scar<=limbmiddle) {scars=false;};
+                
+		boolean cont = true;
+		boolean skiptodone = false;
+                
+
+                int cur = 0;
+		cont = true;
+                String temp = "";
+		while ((!skiptodone)&&(cont)) {
+                    temp = cur + ": ";
+                    if (cur==stance)      {temp = temp + "becomes bipedal, ";};
+                    if (cur==limbadult)   {temp = temp + "limbs mature, ";};
+                    if (cur==limbmiddle&&scars)  {temp = temp + "middle limbs to grubscars, ";};
+                    if (cur==limbmiddle&&!scars) {temp = temp + "lose middle limbs, ";};
+                    if (cur==wing&&fer)   {temp = temp + "gain wings, ";};
+                    if (cur==tail&&tai)   {temp = temp + "gain tail, ";};
+                    if (cur==scar&&scars) {temp = temp + "lose grubscars, ";};
+                    // if anything happened this pupation, add it to the list.
+                    if (temp.length()>3) {txt = txt + temp;};
+                    if (temp.equals("0: ")) {txt = txt + "hatch as grub, ";};
+                    // increment the counter
+                    cur++;                                           
+                    if (cur==number+1) {cont=false;};
+                };//endwhile
+                // Maturity
+                    if (number<9)  {txt = txt + "mature ";
+                        if (stance>number)  {txt = txt + "non-";};
+                        txt = txt + "bipedal form reached.";};
+                        if (number>=9) {txt = txt + "and pupations continue indefinitely.";}; 
+                // Nevers
+                if ((cur<stance)||(cur<limbadult)||(cur<limbmiddle)||(cur<wing)||!fer||(cur<tail)||!tai||cur<scar||!scars) {
+                    txt = txt + "  Never ";
+                    if (cur<stance)       {txt = txt + "becomes bipedal, ";};
+                    if (cur<limbadult)    {txt = txt + "matures limbs, ";};
+                    if (cur<limbmiddle)   {txt = txt + "lose middle limbs, ";};
+                    if (cur<wing||!fer)   {txt = txt + "gain wings, ";};
+                    if (cur<tail||!tai)   {txt = txt + "gain tail, ";};
+                    if (cur<scar||!scars) {txt = txt + "lose grubscars, ";};
+                    }
+                txt = txt + ".....";
+                txt = txt.replace(", .....", ".");
+                txt = txt.replace(".....", ".");
+                        
 		return txt;
 	}
 
