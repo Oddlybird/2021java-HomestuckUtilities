@@ -455,8 +455,25 @@ public class Gene {
 		return var;
 	}
 	
-	
-	
+        public static boolean isfae(String incode) {
+            boolean flag = false;
+            String[] fae = {"fae", "unseleighe", "seleighe", "faewild", "pixie", "hobb", "dryad",
+                            "faevamp", "faeghoul", "kelpie", "selkie", "redcap", "sidhe", };
+            if (Arrays.asList(fae).contains(incode)) {flag=true;};           
+            return flag;
+        };
+
+        public static int avgnum(String incode) {
+        char[] code = incode.toCharArray();
+        int num = 0; // running total
+        for (int i=0; i<code.length; i++) {
+            num = num + Character.getNumericValue(code[i]);
+            }
+        num = Math.floorDivExact(num, code.length);
+        return num;
+        }
+        
+        
 //Dirgene = Gene.mutiBlend(pickdir(blood), pickdir(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickdir("rand"));
 	
 /*	

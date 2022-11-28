@@ -54,6 +54,7 @@ public class Horn {
         
         
 // data interpretation / description
+// handspans is used
 	public String handspans(String curl) {
 		int c = 0;
 		if (Character.isUpperCase(curl.charAt(0))) {c++;};
@@ -69,14 +70,14 @@ public class Horn {
         
 		return horn;		
 	}
-
+// curldegree is used
 	public int curldegree(String curl) {
 		int c = 0;
                 c = c + (45 * Gene.counthas(curl, 'B')) + (45 * Gene.counthas(curl, 'b'));
                 c = c + (90 * Gene.counthas(curl, 'C')) + (90 * Gene.counthas(curl, 'c'));
 		return c;		
 	}
-
+// tipname is used
 	public String tipname(String tipgene) {
 		String tip = "point";
 		if (tipgene=="blank") {return tip;};
@@ -113,7 +114,7 @@ public class Horn {
 		
 		return tip;
 	}
-
+// not used
 	public String wholistic(Horn h) {
 	String horn = "";
 	String hollow, notch = new String("");
@@ -192,7 +193,7 @@ public class Horn {
 
 	return horn;
 }	
-
+// curly is used
         public String curly (String ang, String radial, String curlgene) {
             String horn = "";
             int curl = curldegree(curlgene);
@@ -238,7 +239,7 @@ public class Horn {
        	if ((width=="WW")||(width=="Ww")||(width=="wW")||(width=="ww")) {horn = horn + " and wide";};
         return horn;
         }
-        
+// crosssection is used
 	public String crossection(String radial) {
 		String shape = "";
                 String rad1 = radial.substring(0,2);
@@ -381,12 +382,12 @@ public class Horn {
 		String dir = "";
                 if (!uno.equals("")) {dir = uno;};
                 if (!dos.equals("")) {
-                    if (!dir.equals("")) {dir = dir + ", and ";}; dir = dir + dos;};
+                    if (!dir.equals("")) {dir = dir + "/";}; dir = dir + dos;};
                 if (!trs.equals("")) {
-                    if (!dir.equals("")) {dir = dir + ", and ";}; dir = dir + trs;};
+                    if (!dir.equals("")) {dir = dir + "/";}; dir = dir + trs;};
                 if (!waggle.equals("")) {
-                    if (!dir.equals("")) {dir = dir + ", and ";}; dir = dir + waggle;};
-                
+                    if (!dir.equals("")) {dir = dir + "/";}; dir = dir + waggle;};
+                if (dir.equals("")) {dir = "straight outwards";};
 		return dir;
 	}
 

@@ -4,6 +4,7 @@ import java.awt.Color;
 @SuppressWarnings("unused")
 
 	// TODO : convert all apply-by-caste things to the format at the bottom of Gene
+        // this is all for trolls and just trolls and not fae
 	
 public class Blood {
 	// blood.code is 1-3 characters. And weirdly complex.
@@ -276,7 +277,7 @@ public class Blood {
 		if ((328<=hue)&&(hue<345)) {caste="Tyrian";};
 		if ((345<=hue)&&(hue<361)) {caste="Tyrian/Maroon";};
 		// check if it's a vantas and return "CULL" if so
-		
+		// that would involve importing the pigment gene from husk.body : don't worry about it
 		return caste;
 	}
 	

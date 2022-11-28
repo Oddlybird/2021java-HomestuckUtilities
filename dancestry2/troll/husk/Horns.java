@@ -227,9 +227,10 @@ public class Horns {
 	public String numeracy(String h) {
 		// horn (DD Dd dD) doubling, (AA Aa aA) withering, (BB Bb bB)stunting/nubs 
 		String a = "";
-		if ((h.equals("DD"))||(h.equals("Dd"))||(h.equals("dD"))) {a="doubled";};
-		if ((h.equals("AA"))||(h.equals("Aa"))||(h.equals("aA"))) {a="withered";};
-		if ((h.equals("BB"))||(h.equals("Bb"))||(h.equals("bB"))) {a="stunted";};
+		if ((h.equals("DD"))||(h.equals("Dd"))||(h.equals("dD"))) {a="doubled";}; // doubled
+		if ((h.equals("AA"))||(h.equals("Aa"))||(h.equals("aA"))) {a="odd";};     // clipping errors
+		if ((h.equals("BB"))||(h.equals("Bb"))||(h.equals("bB"))) {a="stunted";}; // nubs
+		if ((h.equals("XX"))||(h.equals("Xx"))||(h.equals("xX"))) {a="absent";};  // gone
 		if (a.equals(""))     {a="normal";};
 		return a;
 	}

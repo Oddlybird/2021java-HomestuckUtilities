@@ -27,17 +27,16 @@ public class Body {
 	// 2char: 11 middle limbs -> grubscars on pupation 0, 1, 2, 3, 4+
 	// 2char: 22 wings express on pupation 0, 1, 2, 3, or 4+
 	// 2char: 11 tail expresses on pupation 0, 1, 2, 3, or 4+
-	// 2 char : grubscars.  Lose them after Ff first pupation, Ss second, Tthird, or Nn never.	
-	//        : If lose them before they express, skip having theme entirely.
+	// 2char: 99 grubscar loss. If lose them before they express, skip having theme entirely.
 	// 2char: 11 stance goes from quadruped (grub/feral) to biped(/wriggler) on pupation 0, 1, 2, 3, or 4+
 	public String feralgene = "";
 	// 2char: Ff - Feral override, 
 	//      ---- FF allows all feral,
 	//      ---- Ff: no stance, limbtypes express more weakly, full misc
-	//      ---- fF: no stance, wings, or limbtypes, partial misc
+	//      ---- fF: no stance, no wings, or no limbtypes, partial misc
 	//      ---- ff forces all nonferal, including tail and misc
 	// 2char: DdPp  limbtype leg digitigrade/plantigrade/other spectrum.  DD Dx xD dx xd px xp Px xP PP
-	// 2char: BbQq  stance biped vs quadruped
+	// 2char: BbQq  stance biped vs quadruped  // remove this : pupation gene covers it
 	// 2char: Bb -  wingtype (Bb)butterfly/moth, (Aa)bird, (Ss)bat, (Dd)dragonfly,
 	//					    (Ff)gossamer fins, (Ee)beetle, (Tt)Tentacles, other
 	// 2char: PP -  misc: paw/hand/foot size PP(huge), Pp/pP(large), pp(normal). 
@@ -99,6 +98,7 @@ public class Body {
         // 6char: supernatural - v(voodoo), e(eldritch), m(magic), n(null)
         // ------ p(physical psychic), o(oracular psychic), q(mental psychic)
         // 4char: substance allergy - N (none), I(iron), S(silver), G(gold), W(water), 
+        // ------ D (earth daylight) 
 
         
         //public String fertgene = "aaaa";
@@ -580,13 +580,10 @@ public class Body {
 	public String pupation(String blood) {
 		Random rand = new Random();
 		String var = new String("");
-		String[] f2 = {"F", "f", "S", "s", "T", "t", "N", "n"};
-                if (blood.startsWith("blank")) {var = "12311112211nn11";return var;};
+                if (blood.startsWith("blank")) {var = "123111122119911";return var;};
 		if (blood=="truerand") {
 			String[] num = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-			var = Gene.randopt(num, 11);
-                        var = var + Gene.randopt(f2, 2);
-			var = Gene.randopt(num, 2);
+			var = Gene.randopt(num, 15);
 			return var;}
 		var = Gene.mutiBlend(pickpupation(blood), pickpupation(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickpupation("rand"));			
 		return var;		
@@ -596,14 +593,14 @@ public class Body {
 		Blood b = new Blood(blood);
  		Random rand = new Random();
 		String var = new String();
-		var = "12311112211nn11"; // default
+		var = "123111122119911"; // default
 		// pupation 0 = grub form, 1 = toddler form, 2+ = spares,
 		// 3char: 123 number of pupations to go through : take average.  average=9 means infinite, every 2 sweeps.
 		// 2char: 11 adult legs/arms express on pupation 0, 1, 2, 3, or 4+
 		// 2char: 11 middle limbs -> grubscars on pupation 0, 1, 2, 3, 4+
 		// 2char: 22 wings express on pupation 0, 1, 2, 3, or 4+
 		// 2char: 11 tail expresses on pupation 0, 1, 2, 3, or 4+
-                // 2 char : grubscars.  Lose them after Ff first pupation, Ss second, Tthird, or Nn never.
+                // 2char: 99 grubscars.
                 // 2char: 11 stance goes from quadruped (grub/feral) to biped(/wriggler) on pupation 0, 1, 2, 3, or 4+
 		if (blood=="rand") {
 			String[] options = {"R", "r", "G", "g", "B", "b", "R", "r", "G", "g", "B", "b",
@@ -613,26 +610,24 @@ public class Body {
 			// This is very biased towards either single or double pupation.  Intentionally.
 		} // end rand
 		if (blood=="truerand") {
-                 	String[] f2 = {"F", "f", "S", "s", "T", "t", "N", "n"};
 			String[] num = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-			var = Gene.randopt(num, 11);
-			var = var + Gene.randopt(f2, 2);
+			var = Gene.randopt(num, 15);
 			return var;}
 
-		if (blood.startsWith("R")) {var="12311112211nn11";}; // Normal for all castes.
-		if (blood.startsWith("r")) {var="22211112211Nn11";}; // Normal for all castes.
-		if (blood.startsWith("G")) {var="12311112211nN11";}; // Normal for all castes.
-		if (blood.startsWith("g")) {var="22211112211nN11";}; // Normal for all castes.
-		if (blood.startsWith("B")) {var="12311112211Nn11";}; // Normal for all castes.
-		if (blood.startsWith("b")) {var="22211112211Nn11";}; // Normal for all castes.
+		if (blood.startsWith("R")) {var="123111122119911";}; // Normal for all castes.
+		if (blood.startsWith("r")) {var="222111122119911";}; // Normal for all castes.
+		if (blood.startsWith("G")) {var="123111122118811";}; // Normal for all castes.
+		if (blood.startsWith("g")) {var="222111122118811";}; // Normal for all castes.
+		if (blood.startsWith("B")) {var="123111122117711";}; // Normal for all castes.
+		if (blood.startsWith("b")) {var="222111122117711";}; // Normal for all castes.
 		// overrides
-		if (blood.startsWith("endless"))  {var="99911112211TT22";}; 
-		if (blood.startsWith("singular")) {var="11111112211NN11";}; 
-		if (blood.startsWith("permgrub")) {var="00011112211NS99";}; 
-		if (blood.startsWith("latewing")) {var="11111115511SS11";}; 
-		if (blood.startsWith("latemid"))  {var="32111552211FF11";}; 
-		if (blood.startsWith("latetail")) {var="22211112255nn11";}; 
-		if (blood.startsWith("grubleg"))  {var="32122221111NN55";}; 
+		if (blood.startsWith("endless"))  {var="999111122119922";}; 
+		if (blood.startsWith("singular")) {var="111111122119911";}; 
+		if (blood.startsWith("permgrub")) {var="000111122119299";}; 
+		if (blood.startsWith("latewing")) {var="111111155112211";}; 
+		if (blood.startsWith("latemid"))  {var="321115522111111";}; 
+		if (blood.startsWith("latetail")) {var="222111122559911";}; 
+		if (blood.startsWith("grubleg"))  {var="321222211119955";}; 
 		
 		return var;
 	}
@@ -920,7 +915,7 @@ public class Body {
 		if (blood=="truerand") {
                         String[] A2 = {"N", "V", "G", "Z", "U", "W"};
                         String[] B6 = {"v", "e", "m", "n", "p", "o", "q"};
-                        String[] C4 = {"N", "N", "N", "N", "I", "S", "G", "W"};
+                        String[] C4 = {"N", "N", "N", "N", "I", "S", "G", "W", "D"};
                         var = Gene.randopt(A2, 2);
 			var = var + Gene.randopt(B6, 6);
 			var = var + Gene.randopt(C4, 4);
@@ -939,7 +934,7 @@ public class Body {
                 // ------ U(fae undying), W(weak spark)
                 // 6char: supernatural - v(voodoo), e(eldritch), m(magic), n(null)
                 // ------ p(physical psychic), o(oracular psychic), q(mental psychic)
-                // 4char: substance allergy - N (none), I(iron), S(silver), G(gold), W(water), 
+                // 4char: substance allergy - N (none), I(iron), S(silver), G(gold), W(water), D (daylight)
 		if (blood=="rand") {
 			String[] options = {"RR", "rr", "RG", "GG", "gg", "GB", "gb", "BB", "bb", "RB", "rb",
                             "null", "eldritch", "psiphys", "psyment", "psysens", "voodoo", "magic", "rainbow"};
@@ -948,7 +943,7 @@ public class Body {
 		if (blood=="truerand") {
                         String[] A2 = {"N", "V", "G", "Z", "U", "W"};
                         String[] B6 = {"v", "e", "m", "n", "p", "o", "q"};
-                        String[] C4 = {"N", "I", "S", "G", "W"};
+                        String[] C4 = {"N", "I", "S", "G", "W", "D"};
                         var = Gene.randopt(A2, 2);
 			var = var + Gene.randopt(B6, 6);
 			var = var + Gene.randopt(C4, 4);
@@ -995,7 +990,7 @@ public class Body {
             
 	// other presets that overwrite the previous
             // human
-            if (blood.startsWith("vampire")) {var="VVmmmqqqNNSS";}; // human vampire
+            if (blood.startsWith("vampire")) {var="VVmmmqqqDDSS";}; // human vampire
             // fae
             if (blood.startsWith("fae"))        {var="UUnmnnmnIIII";}; // undying
             if (blood.startsWith("faevamp"))    {var="VWnmnnmnIIII";}; // weak spark vampire
