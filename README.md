@@ -5,6 +5,8 @@ Each subfolder is for a different utility, and should contain some sourcecode an
 
 Changelog:
 
+2022-11-28 :: -15:35- (V0.23) -- officially using this version number now.  Added descriptive function for pupation gene, and a few misc things.
+
 2022-11-26 :: -18:13- (V0.22) -- I don't remember what I've changed at all and I think my version numbering got confused - pretend 1.2 says 0.22.  Pigment Gene and Syndrome gene are done though, and there's a bit of new things in the strife, stats, and interests files.  Working on Description zone.  Adding more compatibility so humans and fae and various other species can be hybridized / saved in this file format.
 
 2022-11-18 :: -06:33- (no jar) changed "limbgene" to "feralgene", added "pigmentgene" and "syndromegene" (currently vacuous), added feral teeth (normal, fang, barracuda, shark, rodent, tongue barbs, beak), added blank gene template to husk.body.  Save compatibility has been broken.
