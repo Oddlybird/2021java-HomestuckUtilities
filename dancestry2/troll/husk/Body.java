@@ -3,9 +3,7 @@ import troll.fluff.Desc;
 import java.util.Random;
 @SuppressWarnings("unused")
 
-// feral overrides: 
-// -- weird pupils/eyes
-
+    // lists of fae subtypes and troll castes are in gene.hemospectrum
 
 public class Body {
 	public int heightinches = 0;
@@ -105,7 +103,7 @@ public class Body {
         // :: add FERTILITY gene
         // 2char: egglaying, live young, oviposition, other
         // 2char: mother grub only vs individual fertility vs wing or pupation dependant fertility
-        // 2char: level of fertility : A (elf) B (wildfae) C(human) D (human+) E (Troll)
+        // 2char: level of fertility : 0 (not) 1 (elf) 2 (wildfae) 3(human) 5+(Troll)
         // 2char: litter size (number, average them), ...
         // -- bulge Y/N, canDad
         // -- nook Y/N, canMom
@@ -170,12 +168,26 @@ public class Body {
 		if (blood.startsWith("RB")) {h=96;};
 		if (blood.startsWith("Rb")) {h=84;};
 		if (blood.startsWith("rb")) {h=72;};
-	
+                // nontrolls
+     		if (blood.startsWith("fae"))   {h=65;};
+     		if (blood.startsWith("human")) {h=65;};
+     		if (blood.startsWith("dryad")) {h=65;};
+
 		// Mutation zone
 		int delta = rand.nextInt(10);
 		h = h + delta - 5;		
 		if (sex=="M") {h = h + rand.nextInt(4)-1;};
 		if (sex=="F") {h = h - rand.nextInt(4)-1;};
+                
+                // itty bitties
+      		if (blood.startsWith("hobb"))  {h=8;};
+     		if (blood.startsWith("pixie")) {h=8;};
+		
+                // Mutation zone2
+		delta = rand.nextInt(2);
+		h = h + delta - 1;		
+		if (sex=="M") {h = h + rand.nextInt(2)-1;};
+		if (sex=="F") {h = h - rand.nextInt(2)-1;};
 
 		return h;
 	}
@@ -253,7 +265,7 @@ public class Body {
 	public String pickbuild(String blood) {
 		Random rand = new Random();
 		String bodyshape = new String("");
-		if (blood=="rand") {
+		if (blood=="rand"||Gene.ishum(blood)||Gene.isfae(blood)) {
 			String[] options = {"RR", "rr", "RG", "GG", "gg", "GB", "gb", "BB", "bb", "RB", "rb",
 					"dorito", "pear", "hourglass", "apple", "twig", "big", "max", "mid", "min"};
 			blood = options[rand.nextInt(options.length)];
@@ -337,6 +349,10 @@ public class Body {
 		// 3 char : sun-resistance : Aa Aa Aa : 3 capitals mean yes, any lowercase means no.
 		// 2 char : freckles.  FF Lots, Ff some, fF less, ff none.
 		// 1 char : # - skin thickness / carapace toughness.  3 normal, 5+ normal highblood
+                
+                if (Gene.isfae(blood)) {blood = "fae";};
+                if (Gene.ishum(blood)) {blood = "human";};
+                
 		if (blood=="rand") {
 			String[] options = {"RR", "rr", "RG", "GG", "gg", "GB", "gb", "BB", "bb", "RB", "rb",
 					"sea1", "sea2", "sea3", "sea4", "sea5", "sea6", "sea7", "sea8", "sea9", 
@@ -390,7 +406,11 @@ public class Body {
 		if (blood=="psychic3")  {skin="ppPpYYaaaFF3";};
 		if (blood=="drinker")   {skin="RRRRYYAAAff8";};
 		if (blood=="nothing")   {skin="NNNNYYaaaff0";};
-
+                // nontrolls
+      		if (blood=="human")     {skin="TTTTNNAAAfF2";};
+      		if (blood=="fae")       {skin="NNNNNNAAAfF2";};
+                
+                
 		return skin;
 	}
 	
@@ -426,6 +446,9 @@ public class Body {
 		// 4char:  Ggii  - Gillribs.  GGfull, Gg half, gg none, I/E internal/external/both
 		// 6char: SsBbFf - waterbreathing.  Ss salt, Bb brackish, Ff freshwater.
 		// 4char:  aaaa  - airbreathing.  aaaa=no, anything else = yes +/- asthma
+                if (Gene.isfae(blood)&&!blood.equals("selkie")) {blood = "fae";};
+                if (Gene.ishum(blood)) {blood = "human";};
+
 		if (blood=="rand") {
 			String[] options = {"RR", "rr", "RG", "GG", "gg", "GB", "gb", "BB", "bb", "RB", "rb",
 				"land", "sea", "deepsea", "landsea", "sealand", "river", "nonviable","seahidden"};
@@ -474,6 +497,11 @@ public class Body {
 		if (blood.startsWith("landsea"))   {var="ssssBbggiiGGiiGGiiSSBBFFAaAA";};
 		if (blood.startsWith("sealand"))   {var="SSSSbbggiiggiiggiissbbffAAAA";};
 		if (blood.startsWith("nonviable")) {var="SsSsBBGGeeggiiggiissbbffaaaa";};
+                // nontroll
+		if (blood.startsWith("human"))      {var="ssssbbggiiggiiggiissbbffAAAA";};
+		if (blood.startsWith("fae"))        {var="ssssbbggiiggiiggiissbbffAAAA";};
+		if (blood.startsWith("selkie"))     {var="sSsSbbggiiggiiggiiSSBBFFAAAA";};
+                
 
 		return var;
 	}
@@ -518,7 +546,10 @@ public class Body {
 			// 1char: 3  : cheekfin number of tines
 			// 1char: 5  : cheekfin size, 5 = average seadweller. 
 			// 2char: BB : cheekfin bioluminescence, BB voluntary, Bb bloodflow, bB constant, bb none.
-		if (blood=="rand") {
+		if (Gene.isfae(blood)) {blood = "fae";};
+                if (Gene.ishum(blood)) {blood = "human";};
+
+                if (blood=="rand") {
 			String[] options = {"RR", "rr", "RG", "GG", "gg", "GB", "gb", "BB", "bb", "RB", "rb",
 					"land", "sea", "landsea", "sealand", "river", "deepsea", "seahidden", "webbed", "bodyfins"};
 			blood = options[rand.nextInt(options.length)];
@@ -573,7 +604,11 @@ public class Body {
 	if (blood.startsWith("sealand"))   {var="SSffttffffnnEEcc35bb";};
 	if (blood.startsWith("webbed"))    {var="sSFFTTffffNNeeCC35bb";};
 	if (blood.startsWith("bodyfins"))  {var="sSFFTTFFFFNNEEcc35bb";};
-
+        // nontroll
+	if (blood.startsWith("human"))      {var="ssffttffffnnEEcc35bb";};
+	if (blood.startsWith("fae"))        {var="ssffttffffnnEEcc35bb";};
+        
+        
 	return var;
 }
 
@@ -602,7 +637,9 @@ public class Body {
 		// 2char: 11 tail expresses on pupation 0, 1, 2, 3, or 4+
                 // 2char: 99 grubscars.
                 // 2char: 11 stance goes from quadruped (grub/feral) to biped(/wriggler) on pupation 0, 1, 2, 3, or 4+
-		if (blood=="rand") {
+		if (Gene.isfae(blood)) {blood = "fae";};
+                if (Gene.ishum(blood)) {blood = "human";};
+                if (blood=="rand") {
 			String[] options = {"R", "r", "G", "g", "B", "b", "R", "r", "G", "g", "B", "b",
 					"singular", "singular", "singular", "singular", "singular", "singular", 
 					"endless", "permgrub", "latewing", "latemid", "latetail", "grubleg"};
@@ -628,6 +665,9 @@ public class Body {
 		if (blood.startsWith("latemid"))  {var="321115522111111";}; 
 		if (blood.startsWith("latetail")) {var="222111122559911";}; 
 		if (blood.startsWith("grubleg"))  {var="321222211119955";}; 
+                // nontroll
+                if (blood.startsWith("human"))    {var="000000000000000";}; 
+                if (blood.startsWith("fae"))      {var="000000000000000";}; 
 		
 		return var;
 	}
@@ -657,7 +697,8 @@ public class Body {
 		// 2char: AA - tail type (bare, tufted, furred, mane, scale, club, clawed, spiked, etc)
 		//           - AA full covering, Aa dense covering aA light covering aa bald
 		//           - figure out what type it is from the skin gene's thingie
-
+                if (Gene.isfae(blood)) {blood = "fae";};
+                if (Gene.ishum(blood)) {blood = "human";};
 	if (blood=="rand") {
 		String[] options = {"RR", "rr", "RG", "GG", "gg", "GB", "gb", "BB", "bb", "RB", "rb",
 				"tail1", "tail2", "tail3", "tail4"};
@@ -697,7 +738,10 @@ public class Body {
 	if (blood.startsWith("tail2")) {var="Tt33Aa";};
 	if (blood.startsWith("tail3")) {var="TT55aA";};
 	if (blood.startsWith("tail4")) {var="TT99AA";};
-
+        // nontroll
+	if (blood.startsWith("human")) {var="tt11aa";};
+	if (blood.startsWith("fae"))   {var="tt11aa";};
+        
 	return var;
 	}
 
@@ -742,7 +786,13 @@ public class Body {
 	// -------: FF(fur), FC(Scale), FB(Feathers), CC(keratin/carapace/shell), CB(callous/skin plates), BB(bare)
         // 2char: tooth/jaw mutations.  Listed in order of dominance, N>F>B>T>S>R>G>K
         // -------: NN (normal), FF (fang), BB (barracuda), TT (tusk), SS (shark), RR (rodent incisors), GG (tongue barbs), KK (beak)
-		if (blood=="rand") {
+                if (Gene.isfae(blood)) {blood = "fae";};
+                if (Gene.ishum(blood)) {blood = "human";};
+                if (blood=="fae") {
+			String[] faeopt = {"fae", "fae1", "fae2"};
+			blood = faeopt[rand.nextInt(faeopt.length)];
+		} // end rand
+                if (blood=="rand") {
 			String[] options = {"RR", "rr", "RG", "GG", "gg", "GB", "gb", "BB", "bb", "RB", "rb",
 					"feral0", "feral1", "feral2", "feral3", "feral4", 
 					"feral5", "feral6", "feral7", "feral8", "feral9"};
@@ -796,7 +846,12 @@ public class Body {
 	if (blood.startsWith("feral8")) {var="ffppbbFBpp33ccRR";};
 	if (blood.startsWith("feral9")) {var="ffppbbEBpp33BBSS";};
 	if (blood.startsWith("feral0")) {var="ffppbbBEpp33CCTT";};
-
+        // nontroll
+	if (blood.startsWith("human"))  {var="ffPPBBAApp00BBNN";};
+	if (blood.startsWith("fae"))    {var="ffPPBBAApp00BBNN";};
+	if (blood.startsWith("fae1"))   {var="FfDDBBBBpp11BBFF";};
+	if (blood.startsWith("fae2"))   {var="fFDDBBDDpp11BBFF";};
+        
 	return var;
 	}
 
@@ -841,11 +896,11 @@ public class Body {
                         };
 			blood = options[rand.nextInt(options.length)];
 		} // end rand
-      		if (blood=="human") {
+      		if (Gene.ishum(blood)) {
 			String[] humopt = {"human", "humanred", "humanyel", "humanbla", "humanbla", "humanalb"};
 			blood = humopt[rand.nextInt(humopt.length)];
 		} // end human
-      		if (blood=="fae") {
+      		if (Gene.isfae(blood)&&!blood.equals("fae")&&!blood.equals("faewild")&&!blood.equals("seleighe")&&!blood.equals("unseleighe")) {
 			String[] faeopt = {"fae", "faewild", "seleighe", "unseleighe"};
 			blood = faeopt[rand.nextInt(faeopt.length)];
 		} // end fae
@@ -949,18 +1004,16 @@ public class Body {
 			var = var + Gene.randopt(C4, 4);
 			return var;}
                 // end truerand
-      		if (blood=="human") {
+      		if (Gene.ishum(blood)) {
 			String[] humopt = {
                             "null", "null", "null", "null", "null", "null", "null", "null", "null", 
                             "null", "null", "null", "null", "null", "null", "null", "null", "null", 
                             "vampire", "eldritch", "psiphys", "psyment", "psysens", "voodoo", "magic"};
 			blood = humopt[rand.nextInt(humopt.length)];
 		} // end human
-      		if (blood=="fae") {
+      		if (Gene.isfae(blood)) {
 			String[] faeopt = {
-                            "fae", "faewild", "seleighe", "unseleighe", "faevamp", "faeghoul",
-                            "fae", "faewild", "seleighe", "unseleighe", "faevamp", "faeghoul",
-                            "vampire", "eldritch", "psiphys", "psyment", "psysens", "voodoo", "magic"};
+                            "fae", "faewild", "seleighe", "unseleighe", "faevamp", "faeghoul"};
 			blood = faeopt[rand.nextInt(faeopt.length)];
 		} // end fae
 

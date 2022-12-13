@@ -3,8 +3,8 @@ import troll.fluff.Desc;
 import java.util.Random;
 @SuppressWarnings("unused")
 
-// feral overrides: 
-// -- weird pupils/eyes
+// 
+// 
 
 
 public class Feature {

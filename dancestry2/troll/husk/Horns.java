@@ -24,9 +24,10 @@ public class Horns {
 	// 4char: Dd Nn Xx - horn doubling, normal horn, forcing a horn to be recessive / unexpressed
 	//        to interpret: starts with DD Dd dD = double left, ends with DD Dd dD= double right.
 	// end-of-alphabet letters are all fine except X
-	// Aa: withered
+	// Aa: Odd, withered, other
 	// Bb: stunted/nubs
         // Dd: doubled
+        // Xx: Absent
 	
 	// 4char: Kk Ee Aa Pp Bb Tt - keratin, electrosensory, sheddable antler, power-regulating, balance, temperature regulating
 
@@ -210,16 +211,19 @@ public class Horns {
 	if (blood.startsWith("rb"))   {var="HHHHHHHHHhHHZZZZEEKB";}; //Tyrian
 	
 // 	other presets
-	if (blood.startsWith("mut1")) {var="hHhhhhhhhHHHDDDDPPPP";};
-	if (blood.startsWith("mut2")) {var="HhhhhHhhHhHHDDhhEEEE";};
-	if (blood.startsWith("mut3")) {var="hHhhHhhhhHHHhhDDPPPP";};
-	if (blood.startsWith("mut4")) {var="HhHhHhhhHhHHABABKKKK";};
-	if (blood.startsWith("mut5")) {var="hHhHhHhhhHHHBbBbBBBB";};
-	if (blood.startsWith("mut6")) {var="HhHhHhhhHhHHDdddTTTT";};
-	if (blood.startsWith("mut7")) {var="HhhhhHhhhHHHdddDKAKA";};
-	if (blood.startsWith("mut8")) {var="hHhhhHhhHhHHbdbdAKAK";};
-	if (blood.startsWith("mut9")) {var="hHhHHhhhhHHHdadaTBTB";};
-	if (blood.startsWith("perf")) {var="HHHHHHHHHHHHHHHHBTBT";};
+	if (blood.startsWith("mut1"))  {var="hHhhhhhhhHHHDDDDPPPP";};
+	if (blood.startsWith("mut2"))  {var="HhhhhHhhHhHHDDhhEEEE";};
+	if (blood.startsWith("mut3"))  {var="hHhhHhhhhHHHhhDDPPPP";};
+	if (blood.startsWith("mut4"))  {var="HhHhHhhhHhHHABABKKKK";};
+	if (blood.startsWith("mut5"))  {var="hHhHhHhhhHHHBbBbBBBB";};
+	if (blood.startsWith("mut6"))  {var="HhHhHhhhHhHHDdddTTTT";};
+	if (blood.startsWith("mut7"))  {var="HhhhhHhhhHHHdddDKAKA";};
+	if (blood.startsWith("mut8"))  {var="hHhhhHhhHhHHbdbdAKAK";};
+	if (blood.startsWith("mut9"))  {var="hHhHHhhhhHHHdadaTBTB";};
+	if (blood.startsWith("perf"))  {var="HHHHHHHHHHHHHHHHBTBT";};
+        // nontroll
+       	if (blood.startsWith("human")) {var="hhhhhhhhhhhhXXXXKKKK";};
+       	if (blood.startsWith("fae")) {var="hhhhhhhhhhhhXXXXKKKK";};
 
 	return var;
 	}
@@ -239,7 +243,8 @@ public class Horns {
 		// 4char: KEA - keratin, electrosensory, (sheddable) antler,
 		//        PBT - power-regulating, balance-regulating, temperature regulating
 		String ht = "";
-		boolean k=false;boolean e=false;boolean a=false;boolean p=false;boolean b=false;boolean t=false;
+		boolean k=false; boolean e=false; boolean a=false;
+                boolean p=false; boolean b=false; boolean t=false;
 		int antlercounter = 0;
 
 		for (int i=0; i<form.length(); i++) {

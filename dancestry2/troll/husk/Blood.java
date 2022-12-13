@@ -59,6 +59,8 @@ public class Blood {
 		// if you don't understand, assign randomly.
 		String[] options = {"RR","rr","RG","rg","GG","gg","GB","gb","BB","bb","RB","rb"};
 		blood = options[rand.nextInt(options.length)];		
+                // if it's fae or human, overwrite to that
+                if (Gene.isfae(intxt)||Gene.ishum(intxt)) {blood=intxt;};
 		// if you DO understand, ...
 		if (intxt.toLowerCase()=="blank")    {blood="xx";};
 		if (intxt.toLowerCase()=="maroon")   {blood="RR";};
@@ -92,13 +94,15 @@ public class Blood {
 		if (intxt.toLowerCase()=="tyrian")   {blood="rb";};
 		if (intxt.toLowerCase()=="imperial") {blood="rb";};
 		if (intxt.toLowerCase()=="fuschia")  {blood="rb";};
+                
 		return blood;
 	}
 	
 	public String bloodsort(String inblood) {
 		char[] blood = inblood.toCharArray();
 		String sortedBlood = ""; 		// output 
-		
+                
+                // Sort the main letters
 		for (char b : blood) {if (b=='R') {sortedBlood=sortedBlood + "R";};}
 		for (char b : blood) {if (b=='G') {sortedBlood=sortedBlood + "G";};}
 		for (char b : blood) {if (b=='B') {sortedBlood=sortedBlood + "B";};}
@@ -106,6 +110,11 @@ public class Blood {
 		for (char b : blood) {if (b=='g') {sortedBlood=sortedBlood + "g";};}
 		for (char b : blood) {if (b=='b') {sortedBlood=sortedBlood + "b";};}
 		
+                // Put the cruft to the end
+                for (char b : blood) {
+                    if ((b!='R')&&(b!='G')&&(b!='B')&&(b!='r')&&(b!='g')&&(b!='b')) 
+                        {sortedBlood=sortedBlood + b;};}
+                
 		return sortedBlood;
 	}
 

@@ -63,7 +63,8 @@ public class Horn {
 		if (Character.isUpperCase(curl.charAt(3))) {c++;};
                 
                 String horn = "";
-                if (c<2)  {horn="short ";};
+                if (c==0)  {horn="short ";};
+                if (c==1) {horn="";};
                 if (c==2) {horn="";};
                 if (c==3) {horn="long ";};
                 if (c==4) {horn="very long ";};
@@ -257,7 +258,7 @@ public class Horn {
 		if ((rad2.startsWith("C")||rad2.endsWith("C"))) {cc=true;};
 		if ((rad2.startsWith("I")||rad2.endsWith("I"))) {ii=true;};
 		if ((shape=="")&&(oo)) {shape="oval";  if (pointy) {shape="tear";};};
-		if ((shape=="")&&(tt)) {shape="wedge"; if (pointy) {shape="star";};};
+		if ((shape=="")&&(tt)) {shape="wedge"; if (pointy) {shape="wedge";};};
 		if ((shape=="")&&(cc)) {shape="arch";  if (pointy) {shape="crescent";};};
 		if ((shape=="")&&(ii)) {shape="blob";  if (pointy) {shape="sharp";};};
 		if ((shape=="")||(rr)) {shape="round";};
@@ -448,6 +449,9 @@ public class Horn {
 	if (blood.startsWith("uni")) {var="uuHH";};
 	if (blood.startsWith("hawk")) {var="mmHH";};
 	if (blood.startsWith("jaw")) {var="jjLL";};
+        // nontroll
+       	if (blood.startsWith("human")) {var="uuMM";};
+       	if (blood.startsWith("fae")) {var="TTHH";};
 
 	return var;
 }
@@ -499,7 +503,10 @@ public class Horn {
 		if (blood.startsWith("woogle")) {var = "bBww";};
 		if (blood.startsWith("hat")) {var = "BbII";};
 		if (blood.startsWith("side")) {var = "DDII";};
-		
+                // nontroll
+            	if (blood.startsWith("human")) {var = "FFSS";};
+		if (blood.startsWith("fae")) {var = "FFSS";};
+
 		return var;
 		}
 
@@ -557,6 +564,9 @@ public class Horn {
 	if (blood.startsWith("9")) {var="AbCC";};
 	if (blood.startsWith("0")) {var="bbbb";};
 	if (blood.startsWith("c")) {var="cccc";};
+        // nontroll
+       	if (blood.startsWith("human")) {var="aaaa";};
+	if (blood.startsWith("fae")) {var="aaaa";};
 
 	return var;
 	}
@@ -629,7 +639,9 @@ public class Horn {
 	if (blood.startsWith("irr6")) {var="rRIIsSxxx";};
 	if (blood.startsWith("irr7")) {var="RriiHhIII";};
 	if (blood.startsWith("irr8")) {var="rRiihHiii";};
-
+        // nontroll
+        if (blood.startsWith("human")) {var="RRRRSSXXX";};
+        if (blood.startsWith("fae")) {var="RRRRSSXXX";};
 	return var;
 	}
 	
@@ -705,6 +717,9 @@ public class Horn {
 	if (blood.startsWith("antler"))    {var="SP";};
 	if (blood.startsWith("canopener")) {var="HS";};
 	if (blood.startsWith("hook3"))     {var="SH";};
+        // nontroll
+       	if (blood.startsWith("human"))     {var="PP";};
+       	if (blood.startsWith("fae"))     {var="PP";};
 
 	return var;
 	}
@@ -760,7 +775,10 @@ public class Horn {
 		if (blood.startsWith("screw1")) {var="saNNss";};
 		if (blood.startsWith("screw2")) {var="asWWzz";}; // for clowns specifically
 		if (blood.startsWith("screw3")) {var="ASWWZZ";};
-		
+                // nontroll
+             	if (blood.startsWith("human")) {var="AANNSS";};
+             	if (blood.startsWith("fae")) {var="SSNNZZ";};
+
 	return var;
 	}
 	

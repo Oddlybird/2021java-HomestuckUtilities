@@ -10,8 +10,15 @@ import troll.husk.*;
 // This is basically just a collection of useful subroutines.
 
 public class Gene {
+static String[] spectrum = {"RR", "Rr", "rr", "Rg", "RG", "Gr", "rg", "GG", "Gg", "gg", "Gb",
+                     "GB", "Bg", "gb", "BB", "Bb", "bb", "Br", "RB", "Rb", "rb"};
+static String[] fae = {"fae", "unseleighe", "seleighe", "faewild", "pixie", "hobb", "dryad",
+                "faevamp", "faeghoul", "kelpie", "selkie", "redcap", "sidhe", "ogre",
+                "pookah", };
+static String[] human = {"human"};
 
 	public Gene() {
+            
 		// TODO Auto-generated constructor stub
 	}
 
@@ -387,10 +394,13 @@ public class Gene {
 		Random rand = new Random();
 		String answer = "";
 		int tempindex = 0;
-		String[] spectrum = {"RR", "Rr", "rr", "Rg", "RG", "Gr", "rg", "GG", "Gg", "gg", "Gb", "GB", "Bg", "gb", "BB", "Bb", "bb", "Br", "RB", "Rb", "rb"};
 		
-		// if we don't understand the value, pick a random one.
-		if (!(Arrays.asList(spectrum).contains(inblood))) {inblood = spectrum[rand.nextInt(spectrum.length)];}		
+                // humans and fae aren't hemospectrum'd
+                if ((Arrays.asList(fae).contains(inblood))) {answer = fae[rand.nextInt(fae.length)]; return answer;}
+                if ((Arrays.asList(human).contains(inblood))) {answer = human[rand.nextInt(human.length)]; return answer;}
+		// if we don't understand the value yet, pick a random one.
+		if (answer.equals("")&&!(Arrays.asList(spectrum).contains(inblood)))
+                    {inblood = spectrum[rand.nextInt(spectrum.length)];}	
 		
 		for (int i=0; i<=spectrum.length-1;i++) {
 			if (spectrum[i]==inblood) {
@@ -457,12 +467,17 @@ public class Gene {
 	
         public static boolean isfae(String incode) {
             boolean flag = false;
-            String[] fae = {"fae", "unseleighe", "seleighe", "faewild", "pixie", "hobb", "dryad",
-                            "faevamp", "faeghoul", "kelpie", "selkie", "redcap", "sidhe", };
             if (Arrays.asList(fae).contains(incode)) {flag=true;};           
             return flag;
         };
 
+        public static boolean ishum(String incode) {
+            boolean flag = false;
+            if (Arrays.asList(human).contains(incode)) {flag=true;};           
+            return flag;
+        };
+        
+        
         public static int avgnum(String incode) {
         char[] code = incode.toCharArray();
         int num = 0; // running total

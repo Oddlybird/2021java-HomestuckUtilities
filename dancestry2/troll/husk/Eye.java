@@ -54,13 +54,14 @@ public class Eye {
 	// --- options in summary: 2char = (LRGNnFBT) + (LRGNn)
 
 	public String sight = "";
-	// 2char: Dd  Daylight sight, vs. eye damage taken from daylight
-	// 2char: Iix Can eyes move independently?
-	// --- (II both independant, Ii/iI/Ix/xI normal, ii cross eyed, ix/xi one eye lazy, xx eyes nonmobile)
-	// 2char: Dd  How well see in the dark? (DD great, Dd/dD aight, dd badly)
-	// 2char: XX  (X) normal (n) nearsight, (f)farsight, (a)astigmatism
-	// 2char: Pp  Can you see polarization of light? PP yes, else no
-	// 2char: Mm  How well the vision tracks movement Mm/mM normal
+	// 2char: Dd  Daylight sight, vs. eye damage taken from daylight // Qq (magicsight)
+	// 2char: Iix Can eyes move independently? // Qq (magicsight)
+	// --- (II both independant, Ii/iI/Ix/xI normal, ii cross eyed, ix/xi one eye lazy, xx eyes nonmobile) 
+	// 2char: Dd  How well see in the dark? (DD great, Dd/dD aight, dd badly) // Qq (magicsight)
+	// 2char: XX  (Xx) normal (Nn) nearsight, (Ff)farsight, (Aa)astigmatism // Qq (magicsight)
+	// ---------  1 capital or 2 lowercase = expressed.  2 capital = severe.  1 capital + same lowercase = strong.
+	// 2char: Pp  Can you see polarization of light? PP yes, else no // Qq (sees magic)
+	// 2char: Mm  How well the vision tracks movement Mm/mM normal   // Qq (sees magic)
 	// 2char:     color vision, dichromat, trichromat, tetrachromat, infravision, ultraviolet, etc.
 	// ---  R = 2, extending into infravision. C = 2, c = 1, normal range.  
 	// ---  U = 2, extending into ultraviolet. C = 2, c = 1, normal range. 
@@ -71,7 +72,8 @@ public class Eye {
 	// --- Q=psychic residue, R=life-sense, S=Sharingan, T=??,
 	// --- U=Electromagnetism, V=gravitational fields, W=eldritch horrorterror shit,
 	// --- X=dnd darkvision, Y=ShinySense, Z=Aspect Affiliation
-	public String desc = "";
+
+        public String desc = "";
 
 	// this one is the general constructor
 	public Eye(String blood) {
@@ -199,7 +201,11 @@ public class Eye {
 	if (blood.startsWith("psychb")) {var="EDssppbbAbgGIRs";};
 	if (blood.startsWith("psychC")) {var="DEssppCCbAGgJrr";};
 	if (blood.startsWith("psychc")) {var="EDssppccBagGBll";};
-	
+        // nontroll
+        if (blood.startsWith("human"))  {var="EESSppXXAaggARR";};
+	if (blood.startsWith("fae"))    {var="EESSppXXAaggARR";};
+
+        
 	return var;
 	}
 
@@ -286,6 +292,10 @@ public class Eye {
 	if (blood.startsWith("hand"))    {var="SMLh";};
 	if (blood.startsWith("chest"))   {var="MSRC";};
 	if (blood.startsWith("limb"))    {var="SMGL";};
+        // nontroll
+	if (blood.startsWith("human"))   {var="NNNN";};
+	if (blood.startsWith("fae"))     {var="NNNN";};
+        
 
 	// special fun
 	if (blood.startsWith("truerand")) {
@@ -324,14 +334,14 @@ public class Eye {
 	 		Random rand = new Random();
 			String var = new String();
 			var = "ddIiDdXXPpMmCcAA";
-			// 2char: Dd  Daylight sight, vs. eye damage taken from daylight
-			// 2char: Iix Can eyes move independently?
-			// --- (II both independant, Ii/iI/Ix/xI normal, ii cross eyed, ix/xi one eye lazy, xx eyes nonmobile)
-			// 2char: Dd  How well see in the dark? (DD great, Dd/dD aight, dd badly)
-			// 2char: XX  (Xx) normal (Nn) nearsight, (Ff)farsight, (Aa)astigmatism
+			// 2char: Dd  Daylight sight, vs. eye damage taken from daylight // Qq (magicsight)
+			// 2char: Iix Can eyes move independently? // Qq (magicsight)
+			// --- (II both independant, Ii/iI/Ix/xI normal, ii cross eyed, ix/xi one eye lazy, xx eyes nonmobile) 
+			// 2char: Dd  How well see in the dark? (DD great, Dd/dD aight, dd badly) // Qq (magicsight)
+			// 2char: XX  (Xx) normal (Nn) nearsight, (Ff)farsight, (Aa)astigmatism // Qq (magicsight)
 			// ---------  1 capital or 2 lowercase = expressed.  2 capital = severe.  1 capital + same lowercase = strong.
-			// 2char: Pp  Can you see polarization of light? PP yes, else no
-			// 2char: Mm  How well the vision tracks movement Mm/mM normal
+			// 2char: Pp  Can you see polarization of light? PP yes, else no // Qq (sees magic)
+			// 2char: Mm  How well the vision tracks movement Mm/mM normal   // Qq (sees magic)
 			// 2char:     color vision, dichromat, trichromat, tetrachromat, infravision, ultraviolet, etc.
 			// ---  R = 2, extending into infravision. C = 2, c = 1, normal range.  
 			// ---  U = 2, extending into ultraviolet. C = 2, c = 1, normal range. 
@@ -346,8 +356,8 @@ public class Eye {
 		if (blood=="rand") {
 			String[] options = {"RR", "rr", "RG", "GG", "gg", "GB", "gb", "BB", "bb", "RB", "rb",
 					"normal1", "normal2", "day", "crosseye", "staring", "nearsight", "farsight", "astigmatism", "infra+ultra",
-					"B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", 
-					"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+					"BBB", "CCC", "DDD", "EEE", "FFF", "GGG", "HHH", "III", "JJJ", "KKK", "LLL", "MMM", 
+					"NNN", "OOO", "PPP", "QQQ", "RRR", "SSS", "TTT", "UUU", "VVV", "WWW", "XXX", "YYY", "ZZZ",
 					};
 			blood = options[rand.nextInt(options.length)];
 		} // end rand
@@ -396,32 +406,35 @@ public class Eye {
 	if (blood.startsWith("farsight"))    {var="ddIiDdFFPpMmCcAA";};
 	if (blood.startsWith("astigmatism")) {var="ddIiDdAAPpMmCcAA";};
 	if (blood.startsWith("infra+ultra")) {var="ddIiDdxXPpMmRUAA";};
-	if (blood.startsWith("B")) {var="ddiIdDxNPpmMCcAB";};
-	if (blood.startsWith("C")) {var="ddIiDdaxPpMmCcBC";};
-	if (blood.startsWith("D")) {var="ddiIdDxAPpmMccCD";};
-	if (blood.startsWith("E")) {var="ddIiDdFxPpMmCcDE";};
-	if (blood.startsWith("F")) {var="ddiIdDXxPpmMccEF";};
-	if (blood.startsWith("G")) {var="ddIiDdxnPpMmCcFG";};
-	if (blood.startsWith("H")) {var="ddiIdDxFPpmMRcGH";};
-	if (blood.startsWith("I")) {var="ddiIdDxxPpmMCcHI";};
-	if (blood.startsWith("J")) {var="ddIiDdfXPpMmCcIJ";};
-	if (blood.startsWith("K")) {var="ddiIdDxXPpmMcCJK";};
-	if (blood.startsWith("L")) {var="ddIiDdaXPpMmCcKL";};
-	if (blood.startsWith("M")) {var="ddiIdDxXPpmMCcLM";};
-	if (blood.startsWith("N")) {var="ddIiDdxnPpMmCcMN";};
-	if (blood.startsWith("O")) {var="ddiIdDAXPpmMcUNO";};
-	if (blood.startsWith("P")) {var="ddiIdDxfPpmMCcOP";};
-	if (blood.startsWith("Q")) {var="ddIiDdNXPpMmCcPQ";};
-	if (blood.startsWith("R")) {var="ddiIdDxaPpmMCcQR";};
-	if (blood.startsWith("S")) {var="ddIiDdnXPpMmCcRS";};
-	if (blood.startsWith("T")) {var="ddiIdDxxPpmMCcST";};
-	if (blood.startsWith("U")) {var="ddIiDdXfPpMmCcTU";};
-	if (blood.startsWith("V")) {var="ddiIdDxXPpmMCcUV";};
-	if (blood.startsWith("W")) {var="ddiIdDxaPpmMCcVW";};
-	if (blood.startsWith("X")) {var="ddIiDdnXPpMmCcWX";};
-	if (blood.startsWith("Y")) {var="ddiIdDXaPpmMCcXY";};
-	if (blood.startsWith("Z")) {var="ddIiDdxfPpMmCcYZ";};
-
+	if (blood.startsWith("BBB")) {var="ddiIdDxNPpmMCcBB";};
+	if (blood.startsWith("CCC")) {var="ddIiDdaxPpMmCcCC";};
+	if (blood.startsWith("DDD")) {var="ddiIdDxAPpmMccDD";};
+	if (blood.startsWith("EEE")) {var="ddIiDdFxPpMmCcEE";};
+	if (blood.startsWith("FFF")) {var="ddiIdDXxPpmMccFF";};
+	if (blood.startsWith("GGG")) {var="ddIiDdxnPpMmCcGG";};
+	if (blood.startsWith("HHH")) {var="ddiIdDxFPpmMRcHH";};
+	if (blood.startsWith("III")) {var="ddiIdDxxPpmMCcII";};
+	if (blood.startsWith("JJJ")) {var="ddIiDdfXPpMmCcJJ";};
+	if (blood.startsWith("KKK")) {var="ddiIdDxXPpmMcCKK";};
+	if (blood.startsWith("LLL")) {var="ddIiDdaXPpMmCcLL";};
+	if (blood.startsWith("MMM")) {var="ddiIdDxXPpmMCcMM";};
+	if (blood.startsWith("NNN")) {var="ddIiDdxnPpMmCcNN";};
+	if (blood.startsWith("OOO")) {var="ddiIdDAXPpmMcUOO";};
+	if (blood.startsWith("PPP")) {var="ddiIdDxfPpmMCcPP";};
+	if (blood.startsWith("QQQ")) {var="ddIiDdNXPpMmCcQQ";};
+	if (blood.startsWith("RRR")) {var="ddiIdDxaPpmMCcRR";};
+	if (blood.startsWith("SSS")) {var="ddIiDdnXPpMmCcSS";};
+	if (blood.startsWith("TTT")) {var="ddiIdDxxPpmMCcTT";};
+	if (blood.startsWith("UUU")) {var="ddIiDdXfPpMmCcUU";};
+	if (blood.startsWith("VVV")) {var="ddiIdDxXPpmMCcVV";};
+	if (blood.startsWith("WWW")) {var="ddiIdDxaPpmMCcWW";};
+	if (blood.startsWith("XXX")) {var="ddIiDdnXPpMmCcXX";};
+	if (blood.startsWith("YYY")) {var="ddiIdDXaPpmMCcYY";};
+	if (blood.startsWith("ZZZ")) {var="ddIiDdxfPpMmCcZZ";};
+        // nontroll 
+	if (blood.startsWith("human")) {var="DDIiddxxPpMmCcAA";};
+	if (blood.startsWith("fae"))   {var="DDIqddQQPpMmCcAA";};
+        
 	return var;
 	}
 
