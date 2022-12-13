@@ -33,10 +33,10 @@ public class Troll {
 		
 		name = new Name(incode);
 		blood = new Blood(incode); 		// set incode to "rand" to randomize bloodcode.
-										// "blank" to make blank troll
-		String[] secretpasswords = {"blank", "truerand"};
+								// "blank" to make blank troll
+		String[] secretpasswords = {"blank", "truerand", "human", "fae"};
 		
-		if (Arrays.asList(secretpasswords).contains(incode)) {
+		if (Arrays.asList(secretpasswords).contains(incode)||Gene.ishum(incode)||Gene.isfae(incode)) {
 			stats = new Stats(incode);	// stats based on bloodcode
 			body  = new Body(incode);   // bodyshape...
 			horns = new Horns(incode);  // rack of horns
@@ -53,15 +53,9 @@ public class Troll {
 		specibus = speccy.getstrifespecial(interests, stats);
 		weapon = speccy.getweapon(specibus);
                 // fill out the description...
-                desc = describe(body, horns, eyes, stats);
+                desc = new Desc(body, horns, eyes, stats);
                 
 	}
-
-        // the place to update when you want to redescribe things
-        public troll.fluff.Desc describe(troll.husk.Body body, troll.husk.Horns horns, troll.husk.Eye eyes, troll.fluff.Stats stats) {
-            Desc description = new Desc(body, horns, eyes, stats);
-            return description;
-        }
 
         // can I move horn and eye descriptions into Desc?
         
