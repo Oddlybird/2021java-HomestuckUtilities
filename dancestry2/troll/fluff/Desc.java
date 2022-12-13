@@ -5,9 +5,9 @@ import java.awt.Color;
 
 public class Desc {
         String build = "";      // redo?
-        String respirate = "";  // works well
-        String fins = "";       // works well
-        String rack = "";       // redo entirely
+        String respirate = "";  // works well ? might be glitchy?
+        String fins = "";       // works well ? might be glitchy?
+        String rack = "";       // works okay, might be glitchy
         String pupation = "";   // works well.  add mutant grub eyes later
 
         // If you want to feed more data into the function,
@@ -16,13 +16,13 @@ public class Desc {
         
 	public Desc(troll.husk.Body body, troll.husk.Horns horns, troll.husk.Eye eyes, troll.fluff.Stats stats) {
             // Just the body section
-            build = build(body.buildgene);
-            respirate = respirate(body.respiratorygene);
-            fins = fins(body.fingene);
-            pupation = pupate(body.pupation, body.feralgene, body.tailgene);
+            build = descbuild(body.buildgene);
+            respirate = descrespirate(body.respiratorygene);
+            fins = descfins(body.fingene);
+            pupation = descpupate(body.pupation, body.feralgene, body.tailgene);
             
             // horns 
-            rack = horns(horns);
+            rack = deschorns(horns);
 
             // eyes
             /* stuff */
@@ -54,7 +54,7 @@ public class Desc {
 	}	
        
         // big chonks
-	public static String build(String code) {
+	public static String descbuild(String code) {
 		while (code.length()<6) {code=code+"5";};
 		
 		char[] a = code.toCharArray();
@@ -96,7 +96,7 @@ public class Desc {
 		return txt;
 	}
 		
-	public static String respirate(String code) {
+	public static String descrespirate(String code) {
 		String txt = new String("");
 		String control  = code.substring(0,4);
 		String bladders = code.substring(4,6);
@@ -107,10 +107,7 @@ public class Desc {
 		String air = code.substring(24);
 		boolean cont = true;
 		boolean skiptodone = false;
-		  
-                // teststring
-                //txt = txt + control + "." + bladders + "." + gilleyes + "." + gillneck + "." + gillribs + "." + water + "." + air + "   ";
-                
+		                  
 		// new segment.  Bladders.
                 cont=true;
                 txt = txt + Gene.permute(bladders, "B", "b", "many air bladders, ", "several air bladders, ", "one air bladder, ", "no air bladders, ");
@@ -160,16 +157,17 @@ public class Desc {
 			
 		// Control + Severe Asthma zone.
 		cont = true;
-
-		if (control.substring(0,4).equals("SSSS")) {txt="normal sea respiration";};
-		if (control.substring(0,4).equals("ssss")) {txt="normal land respiration";};
+                
+                int numsea = Gene.counthas(control, 'S');
+		if (numsea==4) {txt="normal sea respiration";};
+		if (numsea==0) {txt="normal land respiration";};
                 if (txt.equals("no air bladders, entirely lacks gills, breathes air")) {txt = "normal land respiration";};
                 if (txt.equals("no air bladders, entirely lacks gills, breathes some air")) {txt = "asthmatic land respiration";};
                 if (txt.equals("no air bladders, entirely lacks gills, breathes no air")) {txt = "nonviable land-dweller";};
 		return txt;
 	}
 
-	public static String fins(String code) {
+	public static String descfins(String code) {
 		String txt = new String("");
 		String control  = code.substring(0,2); // 2
 		String fingers  = code.substring(2,4); // 2
@@ -250,7 +248,7 @@ public class Desc {
 		return txt;
 	}
 
-       	public static String horns(troll.husk.Horns horns) {
+       	public static String deschorns(troll.husk.Horns horns) {
 		String txt = new String("");
                 // This involves HEAVY usage of description functions found in Horn and Horns
                 // check which things match
@@ -278,54 +276,75 @@ public class Desc {
                 boolean labsent = false; boolean rabsent = false;
                 if (numeracyRight.equals("absent")) {numdub--; rabsent=true;}; // missing right
                 if (numeracyLeft.equals("absent")) {numdub--; labsent=true;};  // missing left
+                if (numeracyRight.equals("stunted")) {rabsent=true;}; // nub right
+                if (numeracyLeft.equals("stunted")) {labsent=true;};  // nub left
+                // Absent and stunted horns don't match anything.
+                if (labsent||rabsent) {matchMount=false; matchDir=false; matchCross=false; matchTip=false; matchLength = false; matchCurl = false;};
                 // figure the type
 		String type = horns.htype(horns.form.substring(16,20));
                 
                 // declare the basics.               
                 txt = numdub + " ";               
                 // describe the parts that do match
-                if (matchLength) {txt = txt + horns.rgene.handspans(horns.rgene.Curlengene);};
-                if (matchCurl)   {txt = txt + rcurl;};
+                if (numdub>0&&matchLength) {txt = txt + horns.rgene.handspans(horns.rgene.Curlengene);};
+                if (numdub>0&&matchCurl)   {txt = txt + rcurl;};
                 if (!txt.endsWith(" ")) {txt = txt + " ";};
                 txt = txt + type;
-                if (matchMount) {txt = txt + ", " + horns.rgene.mountpoint(horns.rgene.Placegene);};
-                if (matchDir)   {txt = txt + ", pointing " + horns.rgene.dirpoint(horns.rgene.Dirgene);};
-                if (matchCross) {txt = txt + ", " + horns.rgene.crossection(horns.rgene.Radialgene) + "-shaped base";};
-                if (matchTip) {txt = txt + ", " + horns.rgene.tipname(horns.rgene.Tipgene) + "tips";};
+                if (numdub>0&&matchMount) {txt = txt + ", " + horns.rgene.mountpoint(horns.rgene.Placegene);};
+                if (numdub>0&&matchDir)   {txt = txt + ", pointing " + horns.rgene.dirpoint(horns.rgene.Dirgene);};
+                if (numdub>0&&matchCross) {txt = txt + ", " + horns.rgene.crossection(horns.rgene.Radialgene) + "-shaped base";};
+                if (numdub>0&&matchTip)   {txt = txt + ", " + horns.rgene.tipname(horns.rgene.Tipgene) + "tips";};
                 
                 // end combined chunk.
                 txt = txt + ".";
+                if (txt.endsWith(" .")) {txt = txt.replace(" .", ".");};
+                
                // If anything doesn't match, 
                if ((!matchDir)||(!matchMount)||(!matchCross)||(!matchTip)||(!matchLength)||(!matchCurl)||(!numeracyLeft.equals("normal"))||(!numeracyRight.equals("normal"))) {
                    txt = txt + "  The left horn is ";
                     // all the unique data about the left horn: dir length, curl, etc
-                    if ((!numeracyLeft.equals("normal"))||(!numeracyRight.equals("normal"))) {txt = txt + " " + numeracyLeft + ", "; };
+                    if ((!numeracyLeft.equals("normal"))||(!numeracyRight.equals("normal"))) {txt = txt + numeracyLeft + ", "; };
+                    if (txt.endsWith(", , ")) {txt = txt.replace(", , ", ", ");};
                     if (!labsent&&!matchLength) {txt = txt + horns.lgene.handspans(horns.lgene.Curlengene) + ", ";};
+                    if (txt.endsWith(", , ")) {txt = txt.replace(", , ", ", ");};
                     if (!labsent&&!matchCurl)   {txt = txt + lcurl + ", ";};
+                    if (txt.endsWith(", , ")) {txt = txt.replace(", , ", ", ");};
                     if (!labsent&&!matchMount)  {txt = txt + horns.lgene.mountpoint(horns.lgene.Placegene) + ", ";};
+                    if (txt.endsWith(", , ")) {txt = txt.replace(", , ", ", ");};
                     if (!labsent&&!matchDir)    {txt = txt + "pointing " + horns.lgene.dirpoint(horns.lgene.Dirgene) + ", ";};
+                    if (txt.endsWith(", , ")) {txt = txt.replace(", , ", ", ");};
                     if (!labsent&&!matchCross)  {txt = txt + horns.lgene.crossection(horns.lgene.Radialgene) + "-shaped base, ";};
+                    if (txt.endsWith(", , ")) {txt = txt.replace(", , ", ", ");};
                     if (!labsent&&!matchTip)    {txt = txt + horns.lgene.tipname(horns.lgene.Tipgene) + "-tip, ";};
                     txt = txt + ".";
                     txt = txt.replace(", .", ".  ");
+                    if (txt.endsWith("The left horn is normal.")) {txt = txt.replace("The left horn is normal.", "");};
                     txt = txt + "The right horn is ";
                     
                     // all the unique data about the right horn
-                    if ((!numeracyLeft.equals("normal"))||(!numeracyRight.equals("normal"))) {txt = txt + " " + numeracyRight + ", "; };
+                    if ((!numeracyLeft.equals("normal"))||(!numeracyRight.equals("normal"))) {txt = txt + numeracyRight + ", "; };
+                    if (txt.endsWith(", , ")) {txt = txt.replace(", , ", ", ");};
                     if (!rabsent&&!matchLength) {txt = txt + horns.rgene.handspans(horns.rgene.Curlengene) + ", ";};
+                    if (txt.endsWith(", , ")) {txt = txt.replace(", , ", ", ");};
                     if (!rabsent&&!matchCurl)   {txt = txt + lcurl + ", ";};
+                    if (txt.endsWith(", , ")) {txt = txt.replace(", , ", ", ");};
                     if (!rabsent&&!matchMount)  {txt = txt + horns.rgene.mountpoint(horns.rgene.Placegene) + ", ";};
+                    if (txt.endsWith(", , ")) {txt = txt.replace(", , ", ", ");};
                     if (!rabsent&&!matchDir)    {txt = txt + "pointing " + horns.rgene.dirpoint(horns.rgene.Dirgene) + ", ";};
+                    if (txt.endsWith(", , ")) {txt = txt.replace(", , ", ", ");};
                     if (!rabsent&&!matchCross)  {txt = txt + horns.rgene.crossection(horns.rgene.Radialgene) + "-shaped base, ";};
+                    if (txt.endsWith(", , ")) {txt = txt.replace(", , ", ", ");};
                     if (!rabsent&&!matchTip)    {txt = txt + horns.rgene.tipname(horns.rgene.Tipgene) + "-tip, ";};
                     txt = txt + ".";
                     txt = txt.replace(", .", ".");
+                    if (txt.endsWith("The right horn is normal.")) {txt = txt.replace("The right horn is normal.", "");};
+
                };
                 
 		return txt;
 	}
 
-	public static String pupate(String code, String feralgene, String tailgene) {
+	public static String descpupate(String code, String feralgene, String tailgene) {
 		String txt = new String("");
                 // strip all the data out of the pupation gene
 		int number = Gene.avgnum(code.substring(0,3));     // 3, numbers
