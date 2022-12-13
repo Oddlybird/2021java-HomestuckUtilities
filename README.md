@@ -5,6 +5,8 @@ Each subfolder is for a different utility, and should contain some sourcecode an
 
 Changelog:
 
+2022-12-13 :: -13:02- (V0.24) -- More fae/human compatibility.  Can now generate a random human or fae, and cross them with everyone else.  The description functions work better.  You can edit a saved troll file, and run it through the program again, to get new descriptions based off of what you changed.  The zipped binary includes some compatible trolls and fae.
+
 2022-11-28 :: -15:35- (V0.23) -- officially using this version number now.  Added descriptive function for pupation gene, and a few misc things.
 
 2022-11-26 :: -18:13- (V0.22) -- I don't remember what I've changed at all and I think my version numbering got confused - pretend 1.2 says 0.22.  Pigment Gene and Syndrome gene are done though, and there's a bit of new things in the strife, stats, and interests files.  Working on Description zone.  Adding more compatibility so humans and fae and various other species can be hybridized / saved in this file format.
