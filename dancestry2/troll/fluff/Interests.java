@@ -2,6 +2,7 @@ package troll.fluff;
 import java.util.Random;
 @SuppressWarnings("unused")
 
+
 public class Interests {
 	
 	String[] interest = {"games", "videogames", "sports", "gambling", "science", "biology", "geology",

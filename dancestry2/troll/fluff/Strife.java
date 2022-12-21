@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.Random;
 @SuppressWarnings("unused")
 
+
 public class Strife {
 	String[] all = {
 			"bladeKind", "axeKind", "clawKind", "scytheKind", "knifeKind", "cleaverKind", "spearKind",
