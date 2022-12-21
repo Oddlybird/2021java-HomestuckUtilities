@@ -4,6 +4,8 @@ import troll.husk.*;
 import java.util.Random;
 @SuppressWarnings("unused")
 
+    // This is going to be complicated and need a lot of rethinking.
+
 public class Bloodline {
 	public String sign = new String("");	
 	public String aspect = new String("");	
@@ -25,6 +27,7 @@ public class Bloodline {
 		horns = t.horns;  // yes, the entire horns.
 		body = t.body;    // yup, entire body
 		stats = pickstats(t.stats, t.stats.aspect);
+                // interests and strife have 50% of matching ancestor, 25% swap for same category, 25% all new
 	}
 
 	

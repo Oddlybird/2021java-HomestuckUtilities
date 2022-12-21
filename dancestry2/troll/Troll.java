@@ -6,6 +6,45 @@ import troll.husk.*;
 
 @SuppressWarnings("unused")
 
+// things to add: 
+
+// TODO Change horn direction to be along 3 axes
+// TODO move all descriptions to desc
+// - - - - - TODO - and make them Work.
+
+// TODO: bloodlines. Make sign name respect bloodlines.
+
+// -: additional calcinous or bioluminescent or finlike formations, in new skin section of body feature
+// -: organsystems, 
+// -: internal headcanon differences (reproductive, other),
+// -: genetic diseases/syndromes/mutations
+
+//face structure, eye hollowness/bug-eyed, chin, nose, eyebrows, eyelashes
+//-: muzzles? thickness / length, mouth wideness?
+//"hair": {"back": "", "mid": "", "line": "", "front": ""},
+//mouth
+/*
+        "jawline": "",
+        "cheek": "",
+        "chin": "",
+        "eyebrow": "", 
+        "eyeshape": "",
+        "eyelash": ""
+ */
+
+// psychic powers, voodoo, eldritch, clowns voodoo, seadwellers eldritch
+// -- strength of power based on stats.psyche (0-6)
+// -- power specifics can be influenced by interests, element, and physical/mental stats
+// -- element : describe abilities with a Spell School, Domain, or Pokemon Type?
+
+// biolum: psychic eyes glow, rainbow drinker skin glows after death, seadwellers glow various times
+
+// title.
+// fae and human names
+
+// gender
+
+
 public class Troll {
 	// Husk
 	public Blood blood;
@@ -22,18 +61,18 @@ public class Troll {
 	public String element; 
         public Desc desc;
 	
-	// Keep a list of what each caste is Expected to look like, and describe differences from standard
+	// Keep a list of what each trait is Expected to look like, and describe differences from standards
 	
 	public Troll(String incode) {
-		// these two are down here so we can use methods, but it won't be included in the save.
+		// these two are down here so we can use methods in just this constructor specifically
 		Strife speccy = new Strife();
 		Interests hobby = new Interests();
 		Element ella = new Element();
 
 		
 		name = new Name(incode);
-		blood = new Blood(incode); 		// set incode to "rand" to randomize bloodcode.
-								// "blank" to make blank troll
+		blood = new Blood(incode); 		
+                // set incode to "rand" to randomize bloodcode, "blank" to make blank troll
 		String[] secretpasswords = {"blank", "truerand", "human", "fae"};
 		
 		if (Arrays.asList(secretpasswords).contains(incode)||Gene.ishum(incode)||Gene.isfae(incode)) {
@@ -56,57 +95,5 @@ public class Troll {
                 desc = new Desc(body, horns, eyes, stats);
                 
 	}
-
-        // can I move horn and eye descriptions into Desc?
         
 }
-
-// things to add: 
-
-
-// TODO Change horn direction to be along 3 axes
-// TODO put descriptions in desc
-// - - - - - TODO - and make them Work.
-
-// TODO: bloodlines. Make sign name respect bloodlines.
-
-// -: additional calcinous or bioluminescent or finlike formations, in new skin section of body feature
-
-// organsystems, internal headcanon differences (reproductive, other), genetic diseases/syndromes/mutations
-
-//face structure, eye hollowness/bug-eyed, chin, nose, eyebrows, eyelashes
-//-: muzzles? thickness / length, mouth wideness?
-//"hair": {"back": "", "mid": "", "line": "", "front": ""},
-//mouth
-/*
-        "jawline": "",
-        "cheek": "",
-        "chin": "",
-        "eyebrow": "",  # Move all eye bits to a subgene?
-        "eyeshape": "",
-        "eyelash": ""
- */
-
-// discolorations: hairstreaks, birthmarks, vitiligo, melanism, albinism, karkat
-//      - Vantas color mutation, 3 letters long.  "X" sets that 1 color to 0, another sets a color to 255.
-// -: horn color variations; lighter, darker, less redtone
-// -: hair color variations; light/dark/blood/other
-// -: blood color mutations
-// -: skin color mutations
-// albinism in trolls -> blood hue
-// -: melanistic(blackhorn), leucistic(whitehorn), albinism
-
-// psychic powers, voodoo, eldritch, etc
-// psychic eyes glow, rainbow drinker skin glows after death, seadwellers glow various times
-// clowns voodoo, seadwellers eldritch
-// trolls with red genes are inclined to all powers, including physical
-// trolls with blue and green genes are inclined to mental / emotive / sensory
-
-// title.
-
-// gender
-
-
-
-
-
