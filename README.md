@@ -5,6 +5,8 @@ Each subfolder is for a different utility, and should contain some sourcecode an
 
 Changelog:
 
+2022-12-20 :: -18:12- (v0.25) -- More descriptions.  Started taking the eye datatype apart and shoving it in with the rest of the body subgenes, bits so far have been incorporated into feral and pupate.  Updating old trolls to new formats is easier with that redescribe function.
+
 2022-12-13 :: -13:02- (V0.24) -- More fae/human compatibility.  Can now generate a random human or fae, and cross them with everyone else.  The description functions work better.  You can edit a saved troll file, and run it through the program again, to get new descriptions based off of what you changed.  The zipped binary includes some compatible trolls and fae.
 
 2022-11-28 :: -15:35- (V0.23) -- officially using this version number now.  Added descriptive function for pupation gene, and a few misc things.
