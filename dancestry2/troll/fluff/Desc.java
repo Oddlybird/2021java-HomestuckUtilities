@@ -9,17 +9,25 @@ public class Desc {
         String fins = "";       // works well ? might be glitchy?
         String rack = "";       // works okay, might be glitchy
         String pupation = "";   // works well.  add mutant grub eyes later
+        String feral = "";      // in progress
+        
+        // - move descriptive functions from Eye to here
+        // - New segment: Feral + Tail
+        // - New Segment: skin + pigment + syndrome
+        // - new segment : vision
 
         // If you want to feed more data into the function,
         // remember to update both here and the place
         // in troll.Troll() where info is fed over here
         
 	public Desc(troll.husk.Body body, troll.husk.Horns horns, troll.husk.Eye eyes, troll.fluff.Stats stats) {
+            
             // Just the body section
             build = descbuild(body.buildgene);
             respirate = descrespirate(body.respiratorygene);
             fins = descfins(body.fingene);
             pupation = descpupate(body.pupation, body.feralgene, body.tailgene);
+            feral = descferal(body.pupation, body.feralgene, body.tailgene);
             
             // horns 
             rack = deschorns(horns);
@@ -352,7 +360,7 @@ public class Desc {
 		int limbmiddle = Gene.avgnum(code.substring(5,7)); // 2, numbers
 		int wing = Gene.avgnum(code.substring(7,9));       // 2, numbers
 		int tail = Gene.avgnum(code.substring(9,11));      // 2, numbers
-		int scar = Gene.avgnum(code.substring(11,13));    // 2, numbers
+		int scar = Gene.avgnum(code.substring(11,13));     // 2, numbers
 		int stance = Gene.avgnum(code.substring(13));             // 2, numbers
                 // and the control genes out of the other two
                 String control = "";
@@ -362,6 +370,16 @@ public class Desc {
                 if (!control.equals("tt")) {tai = true;};
                 boolean scars = true;
                 if (scar<=limbmiddle) {scars=false;};
+                // and also the weird eye shit
+                boolean oddeye = false; boolean grubeye=false;  boolean strayplural=false;
+                String eyecon =  feralgene.substring(14,16); // 2char = (NSM)+(NSM)
+                String wheye =   feralgene.substring(16,18); // 2char = (LRGNnFBT) + (LRGNn)
+                if (!eyecon.equals("NN")) {oddeye=true;};
+                if (wheye.startsWith("N")||wheye.endsWith("N")) {oddeye=false;};
+                if (oddeye) {if (wheye.startsWith("G")||wheye.endsWith("G"))  {grubeye=true;};};
+                if (oddeye) {if (eyecon.startsWith("M")||eyecon.endsWith("M")){strayplural=true;};};
+
+                // flags are set
                 
 		boolean cont = true;
 		boolean skiptodone = false;
@@ -376,12 +394,27 @@ public class Desc {
                     if (cur==limbadult)   {temp = temp + "limbs mature, ";};
                     if (cur==limbmiddle&&scars)  {temp = temp + "middle limbs to grubscars, ";};
                     if (cur==limbmiddle&&!scars) {temp = temp + "lose middle limbs, ";};
+                    if (cur==limbmiddle) {
+                        if (oddeye&&grubeye) {
+                            temp = temp + "stray ";
+                            if (!strayplural) {temp = temp + "eye disappears, ";};
+                            if (strayplural)  {temp = temp + "eyes disappear, ";};
+                            };};
                     if (cur==wing&&fer)   {temp = temp + "gain wings, ";};
                     if (cur==tail&&tai)   {temp = temp + "gain tail, ";};
                     if (cur==scar&&scars) {temp = temp + "lose grubscars, ";};
                     // if anything happened this pupation, add it to the list.
                     if (temp.length()>3) {txt = txt + temp;};
-                    if (temp.equals("0: ")) {txt = txt + "hatch as grub, ";};
+                    if (temp.equals("0: ")) {
+                        txt = txt + "hatch as grub, ";
+                        if (oddeye&&grubeye) {
+                            // GRUBEYE SEGMENT BEGIN
+                            txt = txt.replace("as grub, ", "with ");
+                            txt = txt + desceye(eyecon, wheye);
+                            txt = txt + ", ";
+                            // GRUBEYE SEGMENT END
+                            }; // end oddeye
+                        }; // end0
                     // increment the counter
                     cur++;                                           
                     if (cur==number+1) {cont=false;};
@@ -396,7 +429,9 @@ public class Desc {
                     txt = txt + "  Never ";
                     if (cur<stance)       {txt = txt + "becomes bipedal, ";};
                     if (cur<limbadult)    {txt = txt + "matures limbs, ";};
-                    if (cur<limbmiddle)   {txt = txt + "lose middle limbs, ";};
+                    if (cur<limbmiddle)   {txt = txt + "lose middle limbs, ";
+                             if (grubeye) {txt = txt + "lose stray eyes, ";};
+                             };
                     if (cur<wing||!fer)   {txt = txt + "gain wings, ";};
                     if (cur<tail||!tai)   {txt = txt + "gain tail, ";};
                     if (cur<scar||!scars) {txt = txt + "lose grubscars, ";};
@@ -404,10 +439,82 @@ public class Desc {
                 txt = txt + ".....";
                 txt = txt.replace(", .....", ".");
                 txt = txt.replace(".....", ".");
+                txt = txt.replace("..", ".");
                         
 		return txt;
 	}
 
+        public static String desceye(String control, String where) {
+            String txt = "";
+            boolean oddeye = false; boolean grubeye=false;
+            boolean single = false; boolean multi=false;
+            if (!control.startsWith("N")&&!control.endsWith("N")) {oddeye=true;};
+            if (where.startsWith("N")||where.endsWith("N")) {oddeye=false;};
+            if (oddeye) {if (where.startsWith("G")||where.endsWith("G")) {grubeye=true;};};
+            if (oddeye) {if (control.startsWith("M")||control.endsWith("M")){multi=true;};};
+            if (oddeye) {if (control.startsWith("S")||control.endsWith("S")){single=true;};};
+            // number of eyes 
+            if (!oddeye) {return "normally placed eyes";}; // escape if normal
+            if (oddeye&&single&&!multi) {txt = txt + "a stray eye ";};
+            if (oddeye&&single&&multi)  {txt = txt + "a variety of stray eyes ";};
+            if (oddeye&&!single&&multi) {txt = txt + "several small eyes ";};
+            // where the eyes go
+            if (where.equals("LL")||where.equals("LG"))
+                {txt = txt + "under the left one";};
+            if (where.equals("RR")||where.equals("RG"))
+                {txt = txt + "under the right one";};
+            if (where.equals("RL")||where.equals("LR"))
+                {txt = txt + "under both normal ones";};
+            if (where.equals("FH")) {txt = txt + "on the face";};
+            if (where.equals("BH")) {txt = txt + "on the back of the head";};
+            if (where.equals("TH")) {txt = txt + "on the forehead";};
+            if (where.equals("GH")) {txt = txt + "on the head";};
+            if (where.equals("Fh")) {txt = txt + "on the palm";};
+            if (where.equals("Bh")) {txt = txt + "on the back of the hand";};
+            if (where.equals("Th")) {txt = txt + "on the fingertips";};
+            if (where.equals("Gh")) {txt = txt + "at extremity tips";};
+            if (where.equals("FC")) {txt = txt + "on their chest";};
+            if (where.equals("BC")) {txt = txt + "on their back";};
+            if (where.equals("TC")) {txt = txt + "on the spine";};
+            if (where.equals("GC")) {txt = txt + "on the torso";};           
+            if (where.equals("FL")||where.equals("FR")) {txt = txt + "on the arms";};
+            if (where.equals("BL")||where.equals("BR")) {txt = txt + "on the legs";};
+            if (where.equals("TL")||where.equals("TR")) {txt = txt + "on the tail (if present)";};
+            if (where.equals("GL")||where.equals("GR")) {txt = txt + "on the limbs";};
+            if (where.equals("FG")) {txt = txt + "on their front";};
+            if (where.equals("BG")) {txt = txt + "on their back";};
+            if (where.equals("TG")) {txt = txt + "towards the tail end";};
+            if (where.equals("GG")) {txt = "normal eyes that disappear on adult pupation";};
+            // add grubnote
+            if (oddeye&&grubeye&&!where.equals("GG")) {txt = txt + " as a grub";};
+            return txt;
+        }
+        
+	public static String descferal(String genepupa, String genefera, String genetail) {
+		String txt = new String("");
+		boolean cont = true;
+		boolean skiptodone = false;
+
+                // TEMP
+                String eyecon =  genefera.substring(14,16); // 2char = (NSM)+(NSM)
+                String wheye =   genefera.substring(16,18); // 2char = (LRGNnFBT) + (LRGNn)
+                txt = desceye(eyecon, wheye);
+                
+                
+		// new segment.
+		cont = true;
+		while ((!skiptodone)&&(cont)) {
+			//segment 1
+			cont=false;};
+
+		// new segment.
+		cont = true;
+		while ((!skiptodone)&&(cont)) {
+			//segment 2
+			cont=false;};
+
+		return txt;
+	}
 
 
         // blank entry
