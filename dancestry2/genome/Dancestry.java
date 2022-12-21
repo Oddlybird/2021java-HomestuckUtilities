@@ -138,6 +138,18 @@ public class Dancestry {
 		gentruerandMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {buttonGenTroll(readoutresult, 1, "truerand");readoutresult.repaint();}
 			});
+		var gen5truerandMenuItem = new JMenuItem("Generate 5 random mutants");
+		gen5truerandMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {buttonGenTroll(readoutresult, 5, "truerand");readoutresult.repaint();}
+			});
+		var genfaeMenuItem = new JMenuItem("Generate 1 fae");
+		genfaeMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {buttonGenTroll(readoutresult, 1, "fae");readoutresult.repaint();}
+			});
+		var genhumanMenuItem = new JMenuItem("Generate 1 human");
+		genhumanMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {buttonGenTroll(readoutresult, 1, "human");readoutresult.repaint();}
+			});                               
 		var genRGbMenuItem = new JMenuItem("Generate 1 RGb Off-gold Troll");
 		genRGbMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {buttonGenTroll(readoutresult, 1, "RGb");readoutresult.repaint();}
@@ -231,12 +243,24 @@ public class Dancestry {
 		loadrightoppMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {readout2.troll = readout1.troll; readout2.repaint();}
 			});
-
+                // Redescribe Left
+		var redescLeftMenuItem = new JMenuItem("Redescribe Left");
+		redescLeftMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {buttonRedescTroll(readout1);}
+			});
+                // Redescribe Right
+		var redescRightMenuItem = new JMenuItem("Redescribe Right");
+		redescRightMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {buttonRedescTroll(readout2);}
+			});
 		
 		// assemble menubar
 		trollMenu.add(gen1MenuItem);
 		trollMenu.add(gen5MenuItem);
 		trollMenu.add(gentruerandMenuItem);
+		trollMenu.add(gen5truerandMenuItem);
+		trollMenu.add(genfaeMenuItem);
+		trollMenu.add(genhumanMenuItem);
 		trollMenu.add(genRGbMenuItem);
 		trollMenu.add(genBrgMenuItem);
 		trollMenu.add(genRRMenuItem);
@@ -269,6 +293,8 @@ public class Dancestry {
 		rightMenu.add(loadrightcenMenuItem);
 		leftMenu.add(loadleftoppMenuItem);
 		rightMenu.add(loadrightoppMenuItem);
+		leftMenu.add(redescLeftMenuItem);
+		rightMenu.add(redescRightMenuItem);
 		// add menus to main bar
 		menuBar.add(generalMenu);
 		menuBar.add(trollMenu);
@@ -305,6 +331,7 @@ public class Dancestry {
 		int x = 0;
 		while (x<numbertogenerate) {
 			readout.troll = new Troll(key);
+                        readout.troll.desc = new troll.fluff.Desc(readout.troll.body, readout.troll.horns, readout.troll.eyes, readout.troll.stats);
 			int hue = 0;
 			hue = (int) readout.troll.blood.huefromCode(readout.troll.blood.code);
 			if (hue>99)  {filename = Integer.toString(hue) + "-";};
@@ -320,6 +347,13 @@ public class Dancestry {
 		readout.repaint();
 	}
 
+	private static void buttonRedescTroll(DisplayTroll readout) {
+		Gson gson = new Gson();		
+                readout.troll.desc = new troll.fluff.Desc(readout.troll.body, readout.troll.horns, readout.troll.eyes, readout.troll.stats);                
+                saveTroll(readout.troll);
+                readout.repaint();
+	}
+                
 	private static void buttonGenTags() {
 		Gson gson = new Gson();
 		String txt = new String("");
@@ -351,8 +385,7 @@ public class Dancestry {
 			}
 		fileinterface.save("names.txt",txt);
 	}
-	
-        
+	        
 	private static void buttonGenStats() {
 		Gson gson = new Gson();
 		String txt = new String("");
@@ -440,13 +473,13 @@ public class Dancestry {
 		while (num>0) {
 			
 			c.troll = Gene.fuck(a.troll, b.troll);
+                        c.troll.desc = new troll.fluff.Desc(c.troll.body, c.troll.horns, c.troll.eyes, c.troll.stats);
 			saveTroll(c.troll);
 			c.repaint();
 			num--;
 		}
 	}
-	
-	
+		
 	private static void buttonInterestStrife(int num) {		
 		if (num>50) {num=50;};
 

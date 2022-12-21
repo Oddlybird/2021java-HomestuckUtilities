@@ -6,7 +6,7 @@ package Dancestry;
 
 /**
  *
- * @author wirri
+ * @author wirrit
  */
 import java.awt.image.BufferedImage;
 import java.io.*;

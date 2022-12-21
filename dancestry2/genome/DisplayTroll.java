@@ -53,11 +53,9 @@ public class DisplayTroll extends JPanel {
         String finstr = "fin: " + troll.body.fingene;
         String hr = troll.horns.rgene.shortform();
         String hl = troll.horns.lgene.shortform();
-        String eyestuff = troll.eyes.control + "-" + troll.eyes.sight;
-        String er = troll.eyes.righteye + " " + troll.eyes.rightcolor;
-        String el = troll.eyes.lefteye  + " " + troll.eyes.leftcolor;
-        String es = troll.eyes.strayeye + " " + troll.eyes.straycolor;
-        String eyesum = troll.eyes.desc;
+        String er = troll.eyes.righteye;
+        String el = troll.eyes.lefteye;
+        String es = troll.eyes.strayeye;
         
         int column1 = 10;
         int rowstart = 15;
@@ -74,11 +72,11 @@ public class DisplayTroll extends JPanel {
         g.drawString(finstr,       column1,  rowstart + 9*rowheight);
         g.drawString(hr,           column1,  rowstart + 10*rowheight);
         g.drawString(hl,           column1,  rowstart + 11*rowheight);
-        g.drawString(eyestuff,     column1,  rowstart + 12*rowheight);        
+
         g.drawString(er,           column1,  rowstart + 13*rowheight);
         g.drawString(el,           column1,  rowstart + 14*rowheight);
         g.drawString(es,           column1,  rowstart + 15*rowheight);
-        g.drawString(eyesum,       column1,  rowstart + 16*rowheight);
+
         
         
     }
