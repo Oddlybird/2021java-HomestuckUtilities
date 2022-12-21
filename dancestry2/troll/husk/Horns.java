@@ -14,7 +14,7 @@ public class Horns {
 	public Horn lgene;
 
 	public String form;	// Balances out fuckery.  Unless it doesn't.
-	// 2char: Hh Hh : place 
+	// 2char: Hh Hh : place : 
 	// 2char: Hh Hh : dir
 	// 2char: Hh Hh : curlen
 	// 2char: Hh Hh : radial
@@ -69,6 +69,8 @@ public class Horns {
 			// Placegene
 			gauge = "";
 			gauge = form.substring(0,2);
+                        
+                        /* I don't like horns being placed in different places, so it's temporarily disabled.
 			if (gauge.startsWith("HH")) {
                             R.Placegene=Gene.mutiBlend(rgene.Placegene, lgene.Placegene, rgene.Placegene); L.Placegene=R.Placegene;
                             if (rand.nextBoolean()) {L.Placegene=Gene.mutiBlend(lgene.Placegene, rgene.Placegene, lgene.Placegene); R.Placegene=L.Placegene;};
@@ -76,6 +78,10 @@ public class Horns {
 			if (gauge.startsWith("Hh")) {L.Placegene = lgene.Placegene;R.Placegene = lgene.Placegene;};
 			if (gauge.startsWith("hH")) {L.Placegene = rgene.Placegene;R.Placegene = rgene.Placegene;};
 			if (gauge.startsWith("hh")) {L.Placegene = lgene.Placegene;R.Placegene = rgene.Placegene;};
+                        */
+                        // these two lines are what you cut if you want to re-enable the above commented-out area.
+                        R.Placegene=Gene.mutiBlend(rgene.Placegene, lgene.Placegene, rgene.Placegene); L.Placegene=R.Placegene;
+                        if (rand.nextBoolean()) {L.Placegene=Gene.mutiBlend(lgene.Placegene, rgene.Placegene, lgene.Placegene); R.Placegene=L.Placegene;};
 
 			// -------------------DIRECTION------------------------- // 		
 			// Dirgene

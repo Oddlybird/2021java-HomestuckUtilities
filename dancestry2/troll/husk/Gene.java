@@ -4,7 +4,6 @@ import java.util.Random;
 
 import troll.Troll;
 import troll.fluff.*;
-import troll.husk.*;
 @SuppressWarnings("unused")
 
 // This is basically just a collection of useful subroutines.
@@ -314,7 +313,8 @@ static String[] human = {"human"};
 		c.fingene = mutiBlend2(a.fingene, b.fingene, c.fingene, 15, 15, 50);
 		c.respiratorygene = mutiBlend2(a.respiratorygene, b.respiratorygene, c.respiratorygene, 10, 10, 50);
 		c.pigmentgene = mutiBlend2(a.pigmentgene, b.pigmentgene, c.pigmentgene, 50, 50, 10);
-                c.syndromegene = mutiBlend2(a.syndromegene, b.syndromegene, c.syndromegene, 10, 10, 50);
+                c.syndromegene = mutiBlend2(a.syndromegene, b.syndromegene, c.syndromegene, 50, 50, 10);
+                c.sightgene = mutiBlend2(a.sightgene, b.sightgene, c.sightgene, 50, 50, 10);
                 
 		return c;
 	}
@@ -345,18 +345,10 @@ static String[] human = {"human"};
 	public static Eye eyefuck(Eye a, Eye b, Eye c, String blood) {
 		Eye d = new Eye("blank");
 		
-		d.control  = mutiBlend2(a.control,  b.control,  c.control,  50, 50, 20);
 		d.lefteye  = mutiBlend2(a.lefteye,  b.lefteye,  c.lefteye,  50, 50, 20);
 		d.righteye = mutiBlend2(a.righteye, b.righteye, c.righteye, 50, 50, 20);
 		d.strayeye = mutiBlend2(a.strayeye, b.strayeye, c.strayeye, 50, 50, 20); 
-		d.sight    = mutiBlend2(a.sight,    b.sight,    c.sight,    50, 50, 20);
-		
-		d.desc = d.wholisticdescription(d);
-		
-		d.leftcolor  = d.colfromeye(d.lefteye,  blood);
-		d.rightcolor = d.colfromeye(d.righteye, blood);
-		d.straycolor = d.colfromeye(d.strayeye, "none");
-		
+				
 		return d;
 	}
 

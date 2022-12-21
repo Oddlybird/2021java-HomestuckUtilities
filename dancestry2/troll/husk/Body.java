@@ -4,6 +4,7 @@ import java.util.Random;
 @SuppressWarnings("unused")
 
     // lists of fae subtypes and troll castes are in gene.hemospectrum
+    // overall to-do lists are in troll.java
 
 public class Body {
 	public int heightinches = 0;
@@ -23,6 +24,7 @@ public class Body {
 	// 3char: 123 number of pupations to go through : take average(round nearest).  average=9 means infinite, every 2 sweeps.
 	// 2char: 11 adult legs/arms express on pupation 0, 1, 2, 3, or 4+
 	// 2char: 11 middle limbs -> grubscars on pupation 0, 1, 2, 3, 4+
+        // -----: also use this to control extra grub eyes / grub only features
 	// 2char: 22 wings express on pupation 0, 1, 2, 3, or 4+
 	// 2char: 11 tail expresses on pupation 0, 1, 2, 3, or 4+
 	// 2char: 99 grubscar loss. If lose them before they express, skip having theme entirely.
@@ -34,15 +36,28 @@ public class Body {
 	//      ---- fF: no stance, no wings, or no limbtypes, partial misc
 	//      ---- ff forces all nonferal, including tail and misc
 	// 2char: DdPp  limbtype leg digitigrade/plantigrade/other spectrum.  DD Dx xD dx xd px xp Px xP PP
-	// 2char: BbQq  stance biped vs quadruped  // remove this : pupation gene covers it
 	// 2char: Bb -  wingtype (Bb)butterfly/moth, (Aa)bird, (Ss)bat, (Dd)dragonfly,
-	//					    (Ff)gossamer fins, (Ee)beetle, (Tt)Tentacles, other
+	//			 (Ff)gossamer fins, (Ee)beetle, (Tt)Tentacles, other
 	// 2char: PP -  misc: paw/hand/foot size PP(huge), Pp/pP(large), pp(normal). 
 	// 2char: 33 -  misc: claw craziness, curvature + length.  average numbers, take floor. 3 is norm.
 	// 2char: BB -  misc: body-covering materials (F/C/B)
 	// -------: FF(fur), FC(Scale), FB(Feathers), CC(keratin/carapace/shell), CB(callous/skin plates), BB(bare)
         // 2char: tooth/jaw mutations.  Listed in order of dominance, N>F>B>T>S>R>G>K
         // -------: NN (normal), FF (fang), BB (barracuda), TT (tusk), SS (shark), RR (rodent incisors), GG (tongue barbs), KK (beak)
+        // 2char - does eyeweirdness express?
+	// --- (NN/NS/SN/NM/MN) nothing weird, (SS) single, (MM) many tiny eyes, (SM/MS) various sized eyes
+        // 2char - where does eyeweirdness express?
+	// --- containing N = normal, containing G = more eyes as grub than adult
+	// --- (LL) left doubling, (RR) right doubling, (LR/RL) both doubling, GL/LG/RG/GR - doubling as grub
+	// --- (N?, ?N, n?) nowhere weird. (anything not covered) nowhere weird.
+	// --- (Fn) misc frontal  (Bn) misc back        (Tn) misc extremities     (Gn) nothing weird
+	// --- (FH) misc facial,  (BH) back of head,    (TH) forehead		  (GH) grub-only spare head eyes
+	// --- (Fh) palm,         (Bh) back of hand,    (Th) fingertips		  (Gh) tip-of-grubleg
+	// --- (FC) chest/ribcage,(BC) misc torso+back, (TC) spine		  (GC) grub-torso
+	// --- (FL) arms,         (BL) legs,            (TL) tail-if-present      (GL) back-of-grubleg
+	// --- (FR) arms,         (BR) legs,            (TR) tail-if-present      (GR) back-of-grubleg
+	// --- (FG) Grub front    (BG) grub rear        (TG) grubtail             (GG) no normal eyes after pupation
+	// --- options in summary: 2char = (LRGNnFBT) + (LRGNn)
 	public String tailgene = "";
 	// 2char: Tt - tail level of expression TT(full) Tt(stunted) tT(stunted) tt (none)
 	// 1char: #  - tail length in (TT)forearm-spans, (Tt)handspans or (tT)inches.
@@ -51,8 +66,9 @@ public class Body {
 	// 2char: Rr - tail type (bare, tufted, furred, mane, scale, club, clawed, spiked, horse, etc)
 	public String skingene = "";
 	// whether biolum is ACTIVE or not will depend on epigenetics -- psychic stat, seadweller control genes, etc.
-	// 4 char : Bioluminescence Patterning - Rr(rainbowdrinker, full skin) Pp(psychic eye glow) Nn Ee (none)
-	//		  : sea varieties - Ss(spots) Tt(stripe) Bb(blotches) Ff(freckles)
+        // ------ : redo skin patterning gene, synchronize with syndromes and pigment?
+	// 4 char : Skin Patterning - Rr(rainbowdrinker, full skin) Pp(psychic eye glow) Nn Ee (none)
+	//		            : sea varieties - Ss(larger spots) Tt(stripe) Bb(blotches) Ff(tiny freckle dots)
 	// 2 char : Darkens with age Y/N?
 	// 3 char : sun-resistance : Aa Aa Aa : 3 capitals mean yes, any lowercase means no.
 	// 2 char : freckles.  FF Lots, Ff some, fF less, ff none.
@@ -76,6 +92,7 @@ public class Body {
 	// 2char: CC : cheekfin.  CC, Cc/cC, cc.
 	// 1char: 3  : cheekfin number of tines
 	// 1char: 5  : cheekfin size, 5 = average seadweller. 
+        // ----------: move bioluminescence to skin gene or syndrome gene to centralize Glowing?
 	// 2char: BB : cheekfin bioluminescence, BB voluntary, Bb bloodflow, bB constant, bb none.
         public String pigmentgene = "";
         // -- Options: Aa (albino colorless), Ll (leucistic white), Mm (melanism black) Gg (grey: GG = LM or ML)
@@ -83,22 +100,40 @@ public class Body {
         // --(contd) Cc (caste color) Ii (inverted caste color) Tt (earthtone)
         // -- lowercase = 1 pt, upper = 2 pt.  you need 3 points for a trait to express.
         // 2char: Hair Streaking - Pp (plain) Kk (streaking)
-        // 4char: Hair - Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt
-        // 2char: blood - Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt
+        // 4char: Hair - Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt  (trolls MMMM, hum M/E/T, fae M/E/T/any)
+        // 2char: blood - Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt (trolls Cc/Ii, hum EE, fae EE/BB/any)
         // 4char: skin - Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt
         // -- if multiple things express, either blend them or check skin patterning + second character of feral control gene
-        // 2char: lips / accent color : Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt
-        // -- humans use TC, trolls MC, fae TE
+        // -- vitiligo and birthmarks come from here
+        // 2char: lips / accent color : Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt (trolls MC, hum TC, fae TE)
+        // add: 2char horn - Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt, trolls use EX, human TA, fae AT/any
         public String syndromegene = "";
         // need 2 letters of a gene for it to express usually - but Undying and Weak Spark stack with everything
         // 2char: undeath - N(nothing), V(vampire/Drinker), G(ghoul), Z(mindless zombie), 
         // ------ U(fae undying), W(weak spark)
         // 6char: supernatural - v(voodoo), e(eldritch), m(magic), n(null)
         // ------ p(physical psychic), o(oracular psychic), q(mental psychic)
-        // 4char: substance allergy - N (none), I(iron), S(silver), G(gold), W(water), 
-        // ------ D (earth daylight) 
+        // 4char: substance allergy - N (none), I(iron), S(silver), G(gold), W(water), D (earth daylight) 
+	public String sightgene = "";
+	// 2char: Dd  Daylight sight, vs. eye damage taken from daylight 
+	// 2char: Dd  How well see in the dark? (DD great, Dd/dD aight, dd badly) 
+	// 2char: XX  (Xx) normal (Nn) nearsight, (Ff)farsight, (Aa)astigmatism 
+	// ---------  1 capital or 2 lowercase = expressed.  2 capital = severe.  1 capital + same lowercase = strong.
+	// 2char: Pp  Can you see polarization of light? PP yes, else no 
+	// 2char: Mm  How well the vision tracks movement Mm/mM normal   
+	// 2char:     color vision, dichromat, trichromat, tetrachromat, infravision, ultraviolet, etc.
+	// ---  R = 2, extending into infravision. C = 2, c = 1, normal range.  
+	// ---  U = 2, extending into ultraviolet. C = 2, c = 1, normal range. 
+	// --- cc: dichromat.  Cc / cC, trichromat.  Rc = trichro infra, cU=trichro ultra.  CC/RC/CU/RU tetrachromat.
+	// 8char:     "xfoldvision": "",      # Fancy bullshit vision senses
+        // --- : number of times each letter occurs tells how strong it is.  all but P need 2+ to activate.
+	// --- A=0,  B=1,  C=2,  D=3, E=4, F=5, G=6, H=7, I=8, J=9, K=10, M=20,
+        // --- N=Radiation,        O=Auras,                P=Magicsight
+	// --- Q=psychic residue,  R=life-sense,           S=Sharingan,                  T=??,
+	// --- U=Electromagnetism, V=gravitational fields, W=eldritch horrorterror shit,
+	// --- X=dnd darkvision,   Y=ShinySense,           Z=Aspect Affiliation
 
-        
+
         //public String fertgene = "aaaa";
         // :: add FERTILITY gene
         // 2char: egglaying, live young, oviposition, other
@@ -134,6 +169,7 @@ public class Body {
 		feralgene = feral(blood);
                 pigmentgene = pigment(blood);
                 syndromegene = syndrome(blood);
+                sightgene = sight(blood);
 			
 		// TODO Auto-generated constructor stub
 	}
@@ -748,21 +784,24 @@ public class Body {
 	public String feral(String blood) {
 		Random rand = new Random();
 		String var = new String("");
-		if (blood.startsWith("blank")) {var = "ffPPBBBBpp33";return var;};
+		if (blood.startsWith("blank")) {var = "ffPPBBpp33BBNNNNGN";return var;};
 		if (blood=="truerand") {
 			String[] F2 = {"F", "f"};
 			String[] D2 = {"D", "d", "P", "p"};
-			String[] Q2 = {"B", "b", "Q", "q"};
 			String[] W2 = {"B", "b", "A", "a", "S", "s", "D", "d", "F", "f", "E", "e", "T", "t"}; 
 			String[] P2 = {"P", "p"};
 			String[] num = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
                         String[] B2 = {"F", "f", "B", "b", "C", "c"};
                         String[] T2 = {"N", "F", "B", "T", "S", "R", "G", "K"};
-			var = Gene.randopt(F2, 2) + Gene.randopt(D2, 2) + Gene.randopt(Q2, 2);
+			String[] N2 = {"N", "S", "M"};
+			String[] L1 = {"L", "R", "G", "N", "F", "B", "T"};
+			String[] R1 = {"L", "R", "G", "N"};
+			var = Gene.randopt(F2, 2) + Gene.randopt(D2, 2);
 			var = var + Gene.randopt(W2, 2) + Gene.randopt(P2, 2) + Gene.randopt(num, 2);	
                         var = var + Gene.randopt(B2, 2) + Gene.randopt(T2, 2);
+                        var = var + Gene.randopt(N2, 2) + Gene.randopt(L1, 1) + Gene.randopt(R1, 1);
 			return var;};
-		var = Gene.mutiBlend(pickferal(blood), pickferal(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickferal("rand"));			
+		var = Gene.mutiBlend(pickferal(blood), pickferal(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickferal("rand"));
 		return var;
 	}
 
@@ -770,14 +809,13 @@ public class Body {
 		Blood b = new Blood(blood);
  		Random rand = new Random();
  		String var = new String();
-		var = "ffPPBBBBpp33";
+		var = "ffPPBBpp33BBNNNNGN";
 	// 2char: Ff - Feral override, 
 	// 		  ---- FF allows all feral,
 	// 		  ---- Ff: no stance, limbtypes express more weakly, full misc
 	// 		  ---- fF: no stance, wings, or limbtypes, partial misc
 	// 		  ---- ff forces all nonferal, including tail
 	// 2char: DdPp  limbtype leg digitigrade/plantigrade/other spectrum.  DD Dx xD dx xd px xp Px xP PP
-	// 2char: BbQq  stance biped vs quadruped
 	// 2char: Bb -  wingtype (Bb)butterfly/moth, (Aa)bird, (Ss)bat, (Dd)dragonfly,
 	//					    (Ff)gossamer fins, (Ee)beetle, (Tt)Tentacles, other
 	// 2char: PP -  misc: paw/hand/foot size PP(huge), Pp/pP(large), pp(normal). 
@@ -786,6 +824,19 @@ public class Body {
 	// -------: FF(fur), FC(Scale), FB(Feathers), CC(keratin/carapace/shell), CB(callous/skin plates), BB(bare)
         // 2char: tooth/jaw mutations.  Listed in order of dominance, N>F>B>T>S>R>G>K
         // -------: NN (normal), FF (fang), BB (barracuda), TT (tusk), SS (shark), RR (rodent incisors), GG (tongue barbs), KK (beak)
+        // 2char - does eyeweirdness express?
+	// --- (NN/NS/SN/NM/MN) nothing weird, (SS) single, (MM) many tiny eyes, (SM/MS) various sized eyes
+        // 2char - where does eyeweirdness express?
+	// --- containing N = normal, containing G = more eyes as grub than adult
+	// --- (LL) left doubling, (RR) right doubling, (LR/RL) both doubling, GL/LG/RG/GR - doubling as grub
+	// --- (N?, ?N) nowhere weird.
+	// --- (FH) misc facial,  (BH) back of head,    (TH) forehead		  (GH) grub-only spare head eyes
+	// --- (Fh) palm,         (Bh) back of hand,    (Th) fingertips		  (Gh) tip-of-grubleg
+	// --- (FC) chest/ribcage,(BC) misc torso+back, (TC) spine		  (GC) grub-torso
+	// --- (FL) arms,         (BL) legs,            (TL) tail-if-present      (GL) back-of-grubleg
+	// --- (FR) arms,         (BR) legs,            (TR) tail-if-present      (GR) back-of-grubleg
+	// --- (FG) Grub front    (BG) grub rear        (TG) grubtail             (GG) no normal eyes after pupation
+	// --- options in summary: 2char = (LRGNFBT) + (LRGN)
                 if (Gene.isfae(blood)) {blood = "fae";};
                 if (Gene.ishum(blood)) {blood = "human";};
                 if (blood=="fae") {
@@ -801,56 +852,59 @@ public class Body {
 		if (blood=="truerand") {
 			String[] F2 = {"F", "f"};
 			String[] D2 = {"D", "d", "P", "p"};
-			String[] Q2 = {"B", "b", "Q", "q"};
 			String[] W2 = {"B", "b", "A", "a", "S", "s", "D", "d", "F", "f", "E", "e", "T", "t"}; 
 			String[] P2 = {"P", "p"};
 			String[] num = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
                         String[] B2 = {"F", "f", "B", "b", "C", "c"};
                         String[] T2 = {"N", "F", "B", "T", "S", "R", "G", "K"};
-			var = Gene.randopt(F2, 2) + Gene.randopt(D2, 2) + Gene.randopt(Q2, 2);
+			String[] N2 = {"N", "S", "M"};
+			String[] L1 = {"L", "R", "G", "N", "F", "B", "T"};
+			String[] R1 = {"L", "R", "G", "N", "n"};
+			var = Gene.randopt(F2, 2) + Gene.randopt(D2, 2);
 			var = var + Gene.randopt(W2, 2) + Gene.randopt(P2, 2) + Gene.randopt(num, 2);	
                         var = var + Gene.randopt(B2, 2) + Gene.randopt(T2, 2);
+                        var = var + Gene.randopt(N2, 2) + Gene.randopt(L1, 1) + Gene.randopt(R1, 1);
 			return var;};
 		// caste presets
-	if (blood.startsWith("RR")) {var="ffPPBBBBpp11BBNN";}; //Maroon
-	if (blood.startsWith("Rr")) {var="fFPPBBBBpp11BBRR";};
-	if (blood.startsWith("rr")) {var="ffPPBBBBpp22BBNN";}; // Bronze
-	if (blood.startsWith("Rg")) {var="fFPPBBBBpp22BBTT";};
-	if (blood.startsWith("RG")) {var="ffPPBBBBpp33BBNF";}; // Gold
-	if (blood.startsWith("Gr")) {var="ffPPBBBBpp33BBFB";};
-	if (blood.startsWith("rg")) {var="ffPPBBBBpp33BBNN";}; // Lime
-	if (blood.startsWith("GG")) {var="ffPPBBBBPp35BBNG";}; // Olive
-	if (blood.startsWith("Gg")) {var="ffPPBBBBpP53BBGN";};
-	if (blood.startsWith("gg")) {var="ffPPBBBBpp44BBFN";}; // Jade
-	if (blood.startsWith("Gb")) {var="ffPPBBBBpp33BBNF";};
-	if (blood.startsWith("GB")) {var="ffPPBBBBpp33BBNN";}; // Teal
-	if (blood.startsWith("Bg")) {var="ffPPBBBBpp33BBFK";};
-	if (blood.startsWith("gb")) {var="ffPPBBBBpp33BBNN";}; // Ceru
-	if (blood.startsWith("BB")) {var="ffPPBBBBpp33BBNN";}; // Bloo
-	if (blood.startsWith("Bb")) {var="ffPPBBBBpP33BFNN";};
-	if (blood.startsWith("bb")) {var="ffPPBBBBPp44BBFF";}; //Indigo
-	if (blood.startsWith("Br")) {var="FfPPBBBBpP65FFFT";};
-	if (blood.startsWith("RB")) {var="ffPPBBBBpp44BBBB";}; //Violet
-	if (blood.startsWith("Rb")) {var="fFPPBBBfpp56BBBS";};
-	if (blood.startsWith("rb")) {var="ffPPBBBBpp44BBBB";}; //Tyrian
+	if (blood.startsWith("RR")) {var="ffPPBBpp11BBNNNNNH";}; // Maroon
+	if (blood.startsWith("Rr")) {var="fFPPBBpp11BBRRNNTH";};
+	if (blood.startsWith("rr")) {var="ffPPBBpp22BBNNNNNH";}; // Bronze
+	if (blood.startsWith("Rg")) {var="fFPPBBpp22BBTTSNLN";};
+	if (blood.startsWith("RG")) {var="ffPPBBpp33BBNFNSNH";}; // Gold
+	if (blood.startsWith("Gr")) {var="ffPPBBpp33BBFBNNNR";};
+	if (blood.startsWith("rg")) {var="ffPPBBpp33BBNNNNNH";}; // Lime
+	if (blood.startsWith("GG")) {var="ffPPBBPp35BBNGNNNH";}; // Olive
+	if (blood.startsWith("Gg")) {var="ffPPBBpP53BBGNNNBH";};
+	if (blood.startsWith("gg")) {var="ffPPBBpp44BBFNNNNH";}; // Jade
+	if (blood.startsWith("Gb")) {var="ffPPBBpp33BBNFNNFN";};
+	if (blood.startsWith("GB")) {var="ffPPBBpp33BBNNNNNH";}; // Teal
+	if (blood.startsWith("Bg")) {var="ffPPBBpp33BBFKNSNL";};
+	if (blood.startsWith("gb")) {var="ffPPBBpp33BBNNSNLN";}; // Ceru
+	if (blood.startsWith("BB")) {var="ffPPBBpp33BBNNNNNH";}; // Bloo
+	if (blood.startsWith("Bb")) {var="ffPPBBpP33BFNNNNNR";};
+	if (blood.startsWith("bb")) {var="ffPPBBPp44BBFFNNNH";}; //Indigo
+	if (blood.startsWith("Br")) {var="FfPPBBpP65FFFTNNFh";};
+	if (blood.startsWith("RB")) {var="ffPPBBpp44BBBBNNNH";}; //Violet
+	if (blood.startsWith("Rb")) {var="fFPPBfpp56BBBSNNNC";};
+	if (blood.startsWith("rb")) {var="ffPPBBpp44BBBBNNNH";}; //Tyrian
 
 	// other presets
-	if (blood.startsWith("feral1")) {var="FFDDBBAAPP88FBKK";};
-	if (blood.startsWith("feral2")) {var="FFdDBBSSpP77FCGG";};
-	if (blood.startsWith("feral3")) {var="FFDdBBBBPp66CFRR";};
-	if (blood.startsWith("feral3")) {var="FFDDQqFFPp99CBSS";};
-	if (blood.startsWith("feral4")) {var="FFDDqQDDpP77BCTT";};
-	if (blood.startsWith("feral5")) {var="FFDDQQEEPP55FFBB";};
-	if (blood.startsWith("feral6")) {var="ffppbbTTpp33ffFF";};
-	if (blood.startsWith("feral7")) {var="ffppbbBFpp33bbGG";};
-	if (blood.startsWith("feral8")) {var="ffppbbFBpp33ccRR";};
-	if (blood.startsWith("feral9")) {var="ffppbbEBpp33BBSS";};
-	if (blood.startsWith("feral0")) {var="ffppbbBEpp33CCTT";};
+	if (blood.startsWith("feral1")) {var="FFDDAAPP88FBKKNSFn";};
+	if (blood.startsWith("feral2")) {var="FFdDSSpP77FCGGSNBH";};
+	if (blood.startsWith("feral3")) {var="FFDdBBPp66CFRRNMTh";};
+	if (blood.startsWith("feral3")) {var="FFDDFFPp99CBSSMNGC";};
+	if (blood.startsWith("feral4")) {var="FFDDDDpP77BCTTSSTL";};
+	if (blood.startsWith("feral5")) {var="FFDDEEPP55FFBBMMBG";};
+	if (blood.startsWith("feral6")) {var="ffppTTpp33ffFFSNLL";};
+	if (blood.startsWith("feral7")) {var="ffppBFpp33bbGGNSRR";};
+	if (blood.startsWith("feral8")) {var="ffppFBpp33ccRRMNGH";};
+	if (blood.startsWith("feral9")) {var="ffppEBpp33BBSSNMTG";};
+	if (blood.startsWith("feral0")) {var="ffppBEpp33CCTTSMTH";};
         // nontroll
-	if (blood.startsWith("human"))  {var="ffPPBBAApp00BBNN";};
-	if (blood.startsWith("fae"))    {var="ffPPBBAApp00BBNN";};
-	if (blood.startsWith("fae1"))   {var="FfDDBBBBpp11BBFF";};
-	if (blood.startsWith("fae2"))   {var="fFDDBBDDpp11BBFF";};
+	if (blood.startsWith("human"))  {var="ffPPAApp00BBNNNNNN";};
+	if (blood.startsWith("fae"))    {var="ffPPAApp00BBNNNNNN";};
+	if (blood.startsWith("fae1"))   {var="FfDDBBpp11BBFFNNNN";};
+	if (blood.startsWith("fae2"))   {var="fFDDDDpp11BBFFNNNN";};
         
 	return var;
 	}
@@ -1064,6 +1118,153 @@ public class Body {
 
 		return var;
 	}
+ 
+	public String sight(String blood) {
+		Random rand = new Random();
+		String var = new String("ddDdXXPpMmCcAAAAAAAA");
+		if (blood.startsWith("blank")) {return var;};
+		if (blood=="truerand") {
+			String[] Dd = {"D", "d"};
+			String[] Xnfa = {"X", "n", "f", "a"};
+			String[] Pp = {"P", "p"};
+			String[] Mm = {"M", "m"};
+			String[] RCU = {"C", "c", "R", "U"};
+			String[] ABC = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+							"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+			var = Gene.randopt(Dd, 4) + Gene.randopt(Xnfa, 2) ;
+			var = var + Gene.randopt(Pp, 2) + Gene.randopt(Mm, 2);			
+			var = var + Gene.randopt(RCU, 2) + Gene.randopt(ABC, 8);
+			return var;};
+		var = Gene.mutiBlend(picksight(blood), picksight(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), picksight("rand"));			
+		return var;		
+	}
+
+	public String picksight(String blood){
+			Blood b = new Blood(blood);
+	 		Random rand = new Random();
+			String var = new String();
+			var = "ddDdXXPpMmCcAAAAAAAA";
+	// 2char: Dd  Daylight sight, vs. eye damage taken from daylight 
+	// 2char: Dd  How well see in the dark? (DD great, Dd/dD aight, dd badly) 
+	// 2char: XX  (Xx) normal (Nn) nearsight, (Ff)farsight, (Aa)astigmatism 
+	// ---------  1 capital or 2 lowercase = expressed.  2 capital = severe.  1 capital + same lowercase = strong.
+	// 2char: Pp  Can you see polarization of light? PP yes, else no 
+	// 2char: Mm  How well the vision tracks movement Mm/mM normal   
+	// 2char:     color vision, dichromat, trichromat, tetrachromat, infravision, ultraviolet, etc.
+	// ---  R = 2, extending into infravision. C = 2, c = 1, normal range.  
+	// ---  U = 2, extending into ultraviolet. C = 2, c = 1, normal range. 
+	// --- cc: dichromat.  Cc / cC, trichromat.  Rc = trichro infra, cU=trichro ultra.  CC/RC/CU/RU tetrachromat.
+	// 8char:     "xfoldvision": "",      # Fancy bullshit vision senses
+        // --- : number of times each letter occurs tells how strong it is.  all but P need 2+ to activate.
+	// --- A=0,  B=1,  C=2,  D=3, E=4, F=5, G=6, H=7, I=8, J=9, K=10, M=20,
+        // --- N=Radiation,        O=Auras,                P=Magicsight
+	// --- Q=psychic residue,  R=life-sense,           S=Sharingan,                  T=??,
+	// --- U=Electromagnetism, V=gravitational fields, W=eldritch horrorterror shit,
+	// --- X=dnd darkvision,   Y=ShinySense,           Z=Aspect Affiliation
+
+		if (blood=="rand") {
+			String[] options = {"RR", "rr", "RG", "GG", "gg", "GB", "gb", "BB", "bb", "RB", "rb",
+					"normal1", "normal2", "day", "nearsight", "farsight", "astigmatism", "infra+ultra",
+					"BBB", "CCC", "DDD", "EEE", "FFF", "GGG", "HHH", "III", "JJJ", "KKK", "LLL", "MMM", 
+					"NNN", "OOO", "PPP", "QQQ", "RRR", "SSS", "TTT", "UUU", "VVV", "WWW", "XXX", "YYY", "ZZZ",
+					};
+			blood = options[rand.nextInt(options.length)];
+		} // end rand
+		if (blood=="truerand") {
+			String[] Dd = {"D", "d"};
+			String[] Xnfa = {"X", "n", "f", "a"};
+			String[] Pp = {"P", "p"};
+			String[] Mm = {"M", "m"};
+			String[] RCU = {"C", "c", "R", "U"};
+			String[] ABC = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+							"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+			var = Gene.randopt(Dd, 4) + Gene.randopt(Xnfa, 2) ;
+			var = var + Gene.randopt(Pp, 2) + Gene.randopt(Mm, 2);			
+			var = var + Gene.randopt(RCU, 2) + Gene.randopt(ABC, 8);
+			return var;};
+               	if (blood=="human") {
+			String[] opthum = {"normal1", "normal2", "day", "nearsight", "farsight", "astigmatism", "infra+ultra",
+                        "human", "human", "norm1B", "norm2B", "mage", "nearsight2", "farsight2", "astigmatism2", "infra+ultra2"};
+			blood = opthum[rand.nextInt(opthum.length)];
+		} // end rand
+               	if (blood=="fae") {
+			String[] optfae = {"fae", "fae", "fae", "mage",};
+			blood = optfae[rand.nextInt(optfae.length)];
+		} // end rand
+
+		// caste presets
+	if (blood.startsWith("RR")) {var="ddDdxXpPMmCcAAAAAAQA";}; //Maroon
+	if (blood.startsWith("Rr")) {var="ddDdxfpPmMCcQAAAAAAA";};
+	if (blood.startsWith("rr")) {var="ddDdaXpPMmCcAAAAQAAA";}; // Bronze
+	if (blood.startsWith("Rg")) {var="dddDnXpPMmCcAUQAAAAA";};
+	if (blood.startsWith("RG")) {var="ddDdXxPpMmCcAUAAAAQA";}; // Gold
+	if (blood.startsWith("Gr")) {var="ddDdfXpPMmCcAAAUAAAA";};
+	if (blood.startsWith("rg")) {var="ddDdxXpPMmCcAAAAAUAA";}; // Lime
+	if (blood.startsWith("GG")) {var="ddDdfXpPMmCcAAAOAAAA";}; // Olive
+	if (blood.startsWith("Gg")) {var="dDdDXnpPMmCcAAAAAAAA";};
+	if (blood.startsWith("gg")) {var="DDDDxXPpMmCcAAAAAAAA";}; // Jade
+	if (blood.startsWith("Gb")) {var="DddDfXpPMmCcAAAAAAAA";};
+	if (blood.startsWith("GB")) {var="ddDdnXPpMmCcAAAAAAAA";}; // Teal
+	if (blood.startsWith("Bg")) {var="ddDdxnpPmMCcAAAAAAAA";};
+	if (blood.startsWith("gb")) {var="ddDdnXpPMmCcAAAAAAAA";}; // Ceru
+	if (blood.startsWith("BB")) {var="ddDdxXpPMmCcAAAAAAAA";}; // Bloo
+	if (blood.startsWith("Bb")) {var="ddDdnxpPmMcCAAAAAAAA";};
+	if (blood.startsWith("bb")) {var="ddDdXxpPMMCcAAAAAAAA";}; //Indigo
+	if (blood.startsWith("Br")) {var="ddDdxfpPmMCcAAAAAAAA";};
+	if (blood.startsWith("RB")) {var="ddDdXxpPMmCcAAAWAAAA";}; //Violet
+	if (blood.startsWith("Rb")) {var="ddDdxapPmMCcAAAAAWAA";};
+	if (blood.startsWith("rb")) {var="ddDdnxpPMmCcARAWAAAA";}; //Tyrian
+	// other presets
+	if (blood.startsWith("normal1"))     {var="ddDdXXpPMmCcAAAAAAAA";};
+	if (blood.startsWith("normal2"))     {var="dddDxxPpmMcCAAAAAAAA";};
+	if (blood.startsWith("day"))         {var="DDDdxXPpMmCcAAAAAAAA";};
+	if (blood.startsWith("nearsight"))   {var="ddDdNNPpMmCcAAAAAAAA";};
+	if (blood.startsWith("farsight"))    {var="ddDdFFPpMmCcAAAAAAAA";};
+	if (blood.startsWith("astigmatism")) {var="ddDdAAPpMmCcAAAAAAAA";};
+	if (blood.startsWith("infra+ultra")) {var="ddDdxXPpMmRUAAAAAAAA";};
+	if (blood.startsWith("BBB")) {var="dddDxNPpmMCcBBBBBBBB";}; // 1fold
+	if (blood.startsWith("CCC")) {var="ddDdaxPpMmCcCCCCCCCC";}; // 2fold
+	if (blood.startsWith("DDD")) {var="dddDxAPpmMccDDDDDDDD";}; // 3fold
+	if (blood.startsWith("EEE")) {var="ddDdFxPpMmCcEEEEEEEE";}; // 4fold
+	if (blood.startsWith("FFF")) {var="dddDXxPpmMccFFFFFFFF";}; // 5fold
+	if (blood.startsWith("GGG")) {var="ddDdxnPpMmCcGGGGGGGG";}; // 6fold
+	if (blood.startsWith("HHH")) {var="dddDxFPpmMRcHHHHHHHH";}; // 7fold
+	if (blood.startsWith("III")) {var="dddDxxPpmMCcIIIIIIII";}; // 8fold
+	if (blood.startsWith("JJJ")) {var="ddDdfXPpMmCcJJJJJJJJ";}; // 9fold
+	if (blood.startsWith("KKK")) {var="dddDxXPpmMcCKKKKKKKK";}; // 10fold
+	if (blood.startsWith("LLL")) {var="ddDdaXPpMmCcLLLLLLLL";}; // 20fold
+	if (blood.startsWith("MMM")) {var="dddDxXPpmMCcMMMMMMMM";}; // 30fold
+	if (blood.startsWith("NNN")) {var="ddDdxnPpMmCcNNNNNNNN";}; // radiation
+	if (blood.startsWith("OOO")) {var="dddDAXPpmMcUOOOOOOOO";}; // Auras
+	if (blood.startsWith("PPP")) {var="dddDxfPpmMCcPPPPPPPP";}; // Magicsight (only need 1)
+	if (blood.startsWith("QQQ")) {var="ddDdNXPpMmCcQQQQQQQQ";}; // Psychic Residue
+	if (blood.startsWith("RRR")) {var="dddDxaPpmMCcRRRRRRRR";}; // Life-sense
+	if (blood.startsWith("SSS")) {var="ddDdnXPpMmCcSSSSSSSS";}; // Sharingan
+	if (blood.startsWith("TTT")) {var="dddDxxPpmMCcTTTTTTTT";}; // ??? mystery free space ???
+	if (blood.startsWith("UUU")) {var="ddDdXfPpMmCcUUUUUUUU";}; // Electromagnetism
+	if (blood.startsWith("VVV")) {var="dddDxXPpmMCcVVVVVVVV";}; // Gravitational fields
+	if (blood.startsWith("WWW")) {var="dddDxaPpmMCcWWWWWWWW";}; // Eldritch horrorterror shit
+	if (blood.startsWith("XXX")) {var="ddDDnXPpMmCcXXXXXXXX";}; // DnD Darkvision
+	if (blood.startsWith("YYY")) {var="dddDXaPpmMCcYYYYYYYY";}; // Shinysense
+	if (blood.startsWith("ZZZ")) {var="ddDdxfPpMmCcZZZZZZZZ";}; // Aspect Affiliation
+        // nontroll 
+	if (blood.startsWith("human"))        {var="DDddxxPpMmCcAAAAAAAA";};
+	if (blood.startsWith("norm1B"))       {var="DDDdXXpPMmCcAAAAAAAA";};
+	if (blood.startsWith("norm2B"))       {var="DDdDxxPpmMcCAAAOAAAA";};
+	if (blood.startsWith("nearsight2"))   {var="DDDdnnPpMmCcAAAAAAOA";};
+	if (blood.startsWith("farsight2"))    {var="DDDdffPpMmCcAAAAAAAA";};
+	if (blood.startsWith("astigmatism2")) {var="DDDdaaPpMmCcAAAOAAAA";};
+	if (blood.startsWith("infra+ultra2")) {var="DDDdXxPpMmRUAAAAAAAA";};
+	if (blood.startsWith("fae"))          {var="DDddxxPpMmCcPPPAAAAA";};
+	if (blood.startsWith("mage"))         {var="DDDdxXPpMmCcPQPPOPWP";};
+
+        
+	return var;
+	}
+        
+        
+        
+        
         
         
 // The blank ones to copy-paste when adding new genes
