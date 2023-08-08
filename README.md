@@ -5,6 +5,8 @@ Each subfolder is for a different utility, and should contain some sourcecode an
 
 Changelog:
 
+2023-08-08 :: -01:45- (v0.26) -- Added gender/reproductive gene plus description function.  Moved bloodcode, hue, caste, to Troll.body for easier access.  Added a lot of descriptive functions relating to caste, standardizing its layout and making it useful for identification in hybrids.  Began adding carapacian demographics.  Updated stats section, many grubs will be more powerful by a point or two, and some fae have aspect affiliations.  Standardized fae blood colors.  Added fae/carapacian/human bloodcodes.  Top of Gene.java has a list of supported species codes.  Changed a variety of subfunctions in Blood, Gene, and Desc, and updated Dancestry main and Troll to match.  Considering adding bulk redesc tool.  Began adding pigment desc function (unfinished).  Preparing to add power/syndrome descriptive functions, and fae names.  Procrastinated on updating for so long because I was quibbling over the gender stuff.  Probably going to continue to change it significantly.
+
 2022-12-20 :: -18:12- (v0.25) -- More descriptions.  Started taking the eye datatype apart and shoving it in with the rest of the body subgenes, bits so far have been incorporated into feral and pupate.  Updating old trolls to new formats is easier with that redescribe function.
 
 2022-12-13 :: -13:02- (V0.24) -- More fae/human compatibility.  Can now generate a random human or fae, and cross them with everyone else.  The description functions work better.  You can edit a saved troll file, and run it through the program again, to get new descriptions based off of what you changed.  The zipped binary includes some compatible trolls and fae.
