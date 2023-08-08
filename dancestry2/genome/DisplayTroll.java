@@ -14,6 +14,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import javax.swing.JPanel;
 import troll.Troll;
+import troll.husk.Blood;
 @SuppressWarnings("unused")
 
 
@@ -34,12 +35,12 @@ public class DisplayTroll extends JPanel {
     }
 
     private void drawText(Graphics g) {
-    	Color bloodcol = troll.blood.colorfromcode(troll.blood.code);
+    	Color bloodcol = Blood.colorfromcode(troll.body.blood);
     	
         g.setColor(bloodcol);
         
         String namestr = troll.name.hatchname + " " + troll.name.signname + ", " + troll.name.trolltag;
-        String castestr = troll.blood.caste + " " + String.valueOf(troll.blood.hue) + troll.blood.code;
+        String castestr = troll.body.caste + " " + String.valueOf(troll.body.hue) + troll.body.blood;
         castestr = castestr + " (" + bloodcol.getRed() + ", " + bloodcol.getGreen() + ", " + bloodcol.getBlue() + ")";
         // statblock goes ... later.  Its own object maybe?
         // String cloutstr = "Clout " + String.valueOf(troll.stats.clout);

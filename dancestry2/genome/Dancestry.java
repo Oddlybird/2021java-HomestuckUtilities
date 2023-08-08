@@ -49,8 +49,10 @@ public class Dancestry {
 		generalMenu.setMnemonic(KeyEvent.VK_F);
 		var miscMenu = new JMenu("Misc");
 		generalMenu.setMnemonic(KeyEvent.VK_M);
-		var trollMenu = new JMenu("Spontaneously Generate");
+		var trollMenu = new JMenu("Trolls");
 		trollMenu.setMnemonic(KeyEvent.VK_T);
+		var faeMenu = new JMenu("Nontrolls");
+		faeMenu.setMnemonic(KeyEvent.VK_N);
 		var leftMenu = new JMenu("Load Left");
 		leftMenu.setMnemonic(KeyEvent.VK_L);
 		var fuckMenu = new JMenu("Offspring");
@@ -95,6 +97,10 @@ public class Dancestry {
 		genlandsMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {buttonlands(10);}
 			});
+		var genlittersMenuItem = new JMenuItem("Generate Litter Numbers");
+		genlittersMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {buttonGenLitters(readout1, readout2);}
+			});
                 
                 // Misc Menu
                 // Activate this later.
@@ -122,10 +128,31 @@ public class Dancestry {
 		fuckmoremoreMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {buttonOffspring(readout1, readout2, readoutresult, 100);readoutresult.repaint();}
 			});
-		
+		var fucklitterMenuItem = new JMenuItem("create a litter of offspring");
+		fucklitterMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {buttonOffspring(readout1, readout2, readoutresult, Gene.littersize(readout1.troll.body.fertgene, readout2.troll.body.fertgene));readoutresult.repaint();}
+			});
+                // nontroll menu
+		var genfaeMenuItem = new JMenuItem("Generate 1 fae");
+		genfaeMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {buttonGenTroll(readoutresult, 1, "fae");readoutresult.repaint();}
+			});
+		var gen5faeMenuItem = new JMenuItem("Generate 5 fae");
+		genfaeMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {buttonGenTroll(readoutresult, 5, "fae");readoutresult.repaint();}
+			});
+		var genhumanMenuItem = new JMenuItem("Generate 1 human");
+		genhumanMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {buttonGenTroll(readoutresult, 1, "human");readoutresult.repaint();}
+			});                               
+		var gen5humanMenuItem = new JMenuItem("Generate 5 human");
+		genhumanMenuItem.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {buttonGenTroll(readoutresult, 5, "human");readoutresult.repaint();}
+			});                               
+               
                 
-		//troll menu
-		
+                
+		//troll menu		
 		var gen1MenuItem = new JMenuItem("Generate 1 normal troll");
 		gen1MenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {buttonGenTroll(readoutresult, 1, "caste");readoutresult.repaint();}
@@ -142,14 +169,6 @@ public class Dancestry {
 		gen5truerandMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {buttonGenTroll(readoutresult, 5, "truerand");readoutresult.repaint();}
 			});
-		var genfaeMenuItem = new JMenuItem("Generate 1 fae");
-		genfaeMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {buttonGenTroll(readoutresult, 1, "fae");readoutresult.repaint();}
-			});
-		var genhumanMenuItem = new JMenuItem("Generate 1 human");
-		genhumanMenuItem.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {buttonGenTroll(readoutresult, 1, "human");readoutresult.repaint();}
-			});                               
 		var genRGbMenuItem = new JMenuItem("Generate 1 RGb Off-gold Troll");
 		genRGbMenuItem.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {buttonGenTroll(readoutresult, 1, "RGb");readoutresult.repaint();}
@@ -259,8 +278,6 @@ public class Dancestry {
 		trollMenu.add(gen5MenuItem);
 		trollMenu.add(gentruerandMenuItem);
 		trollMenu.add(gen5truerandMenuItem);
-		trollMenu.add(genfaeMenuItem);
-		trollMenu.add(genhumanMenuItem);
 		trollMenu.add(genRGbMenuItem);
 		trollMenu.add(genBrgMenuItem);
 		trollMenu.add(genRRMenuItem);
@@ -275,9 +292,14 @@ public class Dancestry {
 		trollMenu.add(genbbMenuItem);
 		trollMenu.add(genRBMenuItem);
 		trollMenu.add(genrbMenuItem);
+       		faeMenu.add(genfaeMenuItem);
+       		faeMenu.add(gen5faeMenuItem);
+		faeMenu.add(genhumanMenuItem);
+		faeMenu.add(gen5humanMenuItem);
 		fuckMenu.add(fuckMenuItem);
 		fuckMenu.add(fuckmoreMenuItem);
 		fuckMenu.add(fuckmoremoreMenuItem);
+		fuckMenu.add(fucklitterMenuItem);
 		generalMenu.add(gentagsMenuItem);
 		generalMenu.add(gennamesMenuItem);
 		generalMenu.add(genstatsMenuItem);
@@ -286,6 +308,7 @@ public class Dancestry {
 		generalMenu.add(genstaticMenuItem);
 		generalMenu.add(genintereststrifeMenuItem);
 		generalMenu.add(genlandsMenuItem);
+		generalMenu.add(genlittersMenuItem);
 		generalMenu.add(exitMenuItem);
 		leftMenu.add(loadleftfileMenuItem);
 		rightMenu.add(loadrightfileMenuItem);
@@ -298,6 +321,7 @@ public class Dancestry {
 		// add menus to main bar
 		menuBar.add(generalMenu);
 		menuBar.add(trollMenu);
+		menuBar.add(faeMenu);
 		menuBar.add(leftMenu);
 		menuBar.add(fuckMenu);
 		menuBar.add(rightMenu);		
@@ -331,29 +355,36 @@ public class Dancestry {
 		int x = 0;
 		while (x<numbertogenerate) {
 			readout.troll = new Troll(key);
-                        readout.troll.desc = new troll.fluff.Desc(readout.troll.body, readout.troll.horns, readout.troll.eyes, readout.troll.stats);
-			int hue = 0;
-			hue = (int) readout.troll.blood.huefromCode(readout.troll.blood.code);
-			if (hue>99)  {filename = Integer.toString(hue) + "-";};
-			if (hue<100) {filename = "0"  + Integer.toString(hue) + "-";};
-			if (hue<10)  {filename = "00" + Integer.toString(hue) + "-";};
-			filename = filename + readout.troll.blood.code + "-" + readout.troll.body.sex + "-";
-			filename = filename + readout.troll.stats.role + readout.troll.stats.aspect + "-";
-			filename = filename + readout.troll.name.trolltag + ".txt";
-			txt = gson.toJson(readout.troll);
-			fileinterface.save(filename,txt);
+                        buttonRedescTroll(readout);
+                        // redesc saves a copy of your troll
 			x++;
 			}
 		readout.repaint();
 	}
-
+        
 	private static void buttonRedescTroll(DisplayTroll readout) {
-		Gson gson = new Gson();		
-                readout.troll.desc = new troll.fluff.Desc(readout.troll.body, readout.troll.horns, readout.troll.eyes, readout.troll.stats);                
+                readout.troll.desc = new troll.fluff.Desc(readout.troll.body, readout.troll.horns, readout.troll.eyes, readout.troll.stats);
+                readout.troll.body.caste=Blood.condensecaste(readout.troll.body.blood + readout.troll.body.caste);
+                readout.troll.stats.recalc(readout.troll.body.caste);
                 saveTroll(readout.troll);
                 readout.repaint();
 	}
-                
+         
+        private static void buttonGenLitters(DisplayTroll readout1, DisplayTroll readout2) {
+		Gson gson = new Gson();
+		String txt = new String("");
+		fio fileinterface = new fio();
+		Name name = new Name("");
+		int x = 0;
+		int numbertogenerate = 150;
+		while (x<numbertogenerate) {
+			txt = txt + Integer.toString(Gene.littersize(readout1.troll.body.fertgene, readout2.troll.body.fertgene));
+			txt = txt + ", ";
+			x++;
+			}
+		fileinterface.save("littersizes.txt",txt);
+	}
+        
 	private static void buttonGenTags() {
 		Gson gson = new Gson();
 		String txt = new String("");
@@ -519,14 +550,16 @@ public class Dancestry {
 		String txt = new String("");
 		fio fileinterface = new fio();
 	
-			int hue = 0;
-			hue = (int) troll.blood.huefromCode(troll.blood.code);
-			if (hue>99)  {filename = Integer.toString(hue) + "-";};
-			if (hue<100) {filename = "0"  + Integer.toString(hue) + "-";};
-			if (hue<10)  {filename = "00" + Integer.toString(hue) + "-";};
-			filename = filename + troll.blood.code + "-" + troll.body.sex + "-";
+                        String huestr = "";
+			if (troll.body.hue>99)  {huestr = Integer.toString(troll.body.hue);};
+			if (troll.body.hue<100) {huestr = "0"  + Integer.toString(troll.body.hue);};
+			if (troll.body.hue<10)  {huestr = "00" + Integer.toString(troll.body.hue);};
+                        
+			filename = filename + troll.body.blood + "-" + troll.body.fertgene.substring(0,2);
+                        filename = filename + troll.body.sex + troll.body.gender + "-" + huestr + "-";
+			filename = filename + troll.name.trolltag + "-";
 			filename = filename + troll.stats.role + troll.stats.aspect + "-";
-			filename = filename + troll.name.trolltag + ".txt";
+                        filename = filename + ".txt";
 			txt = gson.toJson(troll);
 			fileinterface.save(filename,txt);
 		}
