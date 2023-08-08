@@ -14,11 +14,12 @@ public class Blood {
 	public String color = "";
 	
 	public Blood(String intxt) {
-		if (intxt == "rand")  {intxt = premadeBlood();};
-		if (intxt.length()>3) {intxt = casteBlood(intxt);};
+		if (intxt.equals("rand"))  {intxt = premadeBlood();};
+		if (intxt.length()>3) {intxt = codefromcaste(intxt);};
 		code = intxt;
 		caste = castefromcode(code);
-		
+                caste = condensecaste(caste);
+                
 		Color chroma = new Color(0,0,0);
 		chroma = colorfromcode(intxt);
 		color = "(" + chroma.getRed() + ", " + chroma.getGreen() + ", " + chroma.getBlue() + ")";
@@ -28,77 +29,23 @@ public class Blood {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public String Getoneblood() {
-		Random rand = new Random();
-		int x = rand.nextInt(16); // numbers between 0 and 15
-		String blood = "";
-		if (x<5)             {blood="R";};
-		if ((x>=5)&&(x<9))   {blood="r";};
-		if ((x>=9)&&(x<12))  {blood="G";};
-		if ((x>=12)&&(x<14)) {blood="g";};
-		if ((x>=14)&&(x<15)) {blood="B";};
-		if (x==15)           {blood="b";};		
-		return blood;
+	public static String Getoneblood() {
+            String[] trollpigment = {"R", "R", "R", "R", "R", "r", "r", "r", "r", "r",
+                                     "G", "G", "G", "G", "g", "g", "g", "B", "B", "b"};
+            String blood = Gene.randopt(trollpigment, 1);
+            return blood;
 	}
 	
-	public String premadeBlood() {
-		Random rand = new Random();
-		int x = rand.nextInt(16); // numbers between 0 and 15
-		String blood = Getoneblood() + Getoneblood();
-
-		blood = bloodsort(blood);
-		
-		if (x>12) {blood = blood + Getoneblood();};  // purposefully do not sort the last letter
-		return blood;
-	}
-
-	public String casteBlood(String intxt) {
-		// initialize
-		Random rand = new Random();
-		String blood = "";
-		// if you don't understand, assign randomly.
-		String[] options = {"RR","rr","RG","rg","GG","gg","GB","gb","BB","bb","RB","rb"};
-		blood = options[rand.nextInt(options.length)];		
-                // if it's fae or human, overwrite to that
-                if (Gene.isfae(intxt)||Gene.ishum(intxt)) {blood=intxt;};
-		// if you DO understand, ...
-		if (intxt.toLowerCase()=="blank")    {blood="xx";};
-		if (intxt.toLowerCase()=="maroon")   {blood="RR";};
-		if (intxt.toLowerCase()=="burgundy") {blood="RR";};
-		if (intxt.toLowerCase()=="bronze")   {blood="rr";};
-		if (intxt.toLowerCase()=="brown")    {blood="rr";};
-		if (intxt.toLowerCase()=="copper")   {blood="rr";};
-		if (intxt.toLowerCase()=="gold")     {blood="RG";};
-		if (intxt.toLowerCase()=="yellow")   {blood="RG";};
-		if (intxt.toLowerCase()=="helm")     {blood="RG";};
-		if (intxt.toLowerCase()=="lime")     {blood="rg";};
-		if (intxt.toLowerCase()=="cull")     {blood="rg";};
-		if (intxt.toLowerCase()=="olive")    {blood="GG";};
-		if (intxt.toLowerCase()=="green")    {blood="GG";};
-		if (intxt.toLowerCase()=="jade")     {blood="gg";};
-		if (intxt.toLowerCase()=="matron")   {blood="gg";};
-		if (intxt.toLowerCase()=="teal")     {blood="GB";};
-		if (intxt.toLowerCase()=="cyan")     {blood="GB";};
-		if (intxt.toLowerCase()=="cerulean") {blood="gb";};
-		if (intxt.toLowerCase()=="skyblue")  {blood="gb";};
-		if (intxt.toLowerCase()=="bloo")     {blood="BB";};
-		if (intxt.toLowerCase()=="blue")     {blood="BB";};
-		if (intxt.toLowerCase()=="navy")     {blood="BB";};
-		if (intxt.toLowerCase()=="noble")    {blood="BB";};
-		if (intxt.toLowerCase()=="indigo")   {blood="bb";};
-		if (intxt.toLowerCase()=="clown")    {blood="bb";};
-		if (intxt.toLowerCase()=="purple")   {blood="bb";};
-		if (intxt.toLowerCase()=="violet")   {blood="RB";};
-		if (intxt.toLowerCase()=="royal")    {blood="RB";};
-		if (intxt.toLowerCase()=="fish")     {blood="RB";};
-		if (intxt.toLowerCase()=="tyrian")   {blood="rb";};
-		if (intxt.toLowerCase()=="imperial") {blood="rb";};
-		if (intxt.toLowerCase()=="fuschia")  {blood="rb";};
-                
-		return blood;
+	public static String premadeBlood() {
+            Random rand = new Random();
+            int x = rand.nextInt(16); // numbers between 0 and 15
+            String blood = Getoneblood() + Getoneblood();
+            blood = bloodsort(blood);		
+            if (x>12) {blood = blood + Getoneblood();};  // purposefully do not sort the last letter
+            return blood;
 	}
 	
-	public String bloodsort(String inblood) {
+	public static String bloodsort(String inblood) {
 		char[] blood = inblood.toCharArray();
 		String sortedBlood = ""; 		// output 
                 
@@ -109,16 +56,32 @@ public class Blood {
 		for (char b : blood) {if (b=='r') {sortedBlood=sortedBlood + "r";};}
 		for (char b : blood) {if (b=='g') {sortedBlood=sortedBlood + "g";};}
 		for (char b : blood) {if (b=='b') {sortedBlood=sortedBlood + "b";};}
-		
+                // fae
+		for (char b : blood) {if (b=='F') {sortedBlood=sortedBlood + "F";};}
+		for (char b : blood) {if (b=='f') {sortedBlood=sortedBlood + "f";};}
+		for (char b : blood) {if (b=='A') {sortedBlood=sortedBlood + "A";};}
+		for (char b : blood) {if (b=='a') {sortedBlood=sortedBlood + "a";};}
+		for (char b : blood) {if (b=='E') {sortedBlood=sortedBlood + "E";};}
+		for (char b : blood) {if (b=='e') {sortedBlood=sortedBlood + "e";};}
+                // hum
+		for (char b : blood) {if (b=='H') {sortedBlood=sortedBlood + "H";};}
+		for (char b : blood) {if (b=='h') {sortedBlood=sortedBlood + "h";};}
+		for (char b : blood) {if (b=='U') {sortedBlood=sortedBlood + "U";};}
+		for (char b : blood) {if (b=='u') {sortedBlood=sortedBlood + "u";};}
+		for (char b : blood) {if (b=='M') {sortedBlood=sortedBlood + "M";};}
+		for (char b : blood) {if (b=='m') {sortedBlood=sortedBlood + "m";};}
+                
                 // Put the cruft to the end
                 for (char b : blood) {
-                    if ((b!='R')&&(b!='G')&&(b!='B')&&(b!='r')&&(b!='g')&&(b!='b')) 
-                        {sortedBlood=sortedBlood + b;};}
+                    if ((b!='R')&&(b!='G')&&(b!='B')&&(b!='r')&&(b!='g')&&(b!='b')) {
+                        if ((b!='F')&&(b!='f')&&(b!='A')&&(b!='a')&&(b!='E')&&(b!='e')) {
+                            if ((b!='H')&&(b!='h')&&(b!='U')&&(b!='u')&&(b!='M')&&(b!='m')) {
+                                 sortedBlood=sortedBlood + b;};};};};
                 
 		return sortedBlood;
 	}
 
-	public Color colorfromcode(String incode) {
+	public static Color colorfromcode(String incode) {
 		
 		if ((incode=="blank")||(incode=="xx")) {return Color.lightGray;};
 
@@ -156,11 +119,18 @@ public class Blood {
 		// How to modify the hue
 		String modifier = "";
 		
-		// pure hues are brighter, between are duller.
-		if (incode.length() == 2) {modifier="pure";};
-		if (incode.length() > 2) {
+		// pure hues are brighter, between are duller
+                int numblood = 0;
+                numblood = numblood + Gene.counthas(incode, 'R') + Gene.counthas(incode, 'r');
+                numblood = numblood + Gene.counthas(incode, 'G') + Gene.counthas(incode, 'g');
+                numblood = numblood + Gene.counthas(incode, 'B') + Gene.counthas(incode, 'b');
+                
+                // pure trolls
+                if ((incode.length() == 2)&&(numblood == 2)) {modifier="pure";};
+                // muddy trolls
+		if ((incode.length() > 2)&&(numblood>2)) {
 			
-		// if there is an R:
+                // if there is an R:
 		if (Gene.canhas(incode,'R')) {
 			// If you have an R and a G, last letter effects color as so
 			if (Gene.canhas(incode,'G')) {
@@ -189,7 +159,7 @@ public class Blood {
 				if (incode.charAt(2) == 'R') {modifier="bigrec";}; // dark red
 				if (incode.charAt(2) == 'r') {modifier="lilrec";};	
 			};
-		}  // end "Has an R"
+                    }  // end "Has an R"
 		// meanwhile, if there IS no R, 
 		if (!Gene.canhas(incode,'R')) {
 			// If you have a G and a B, last letter effects color as so
@@ -219,7 +189,7 @@ public class Blood {
 				if (incode.charAt(2) == 'G') {modifier="bigrec";}; // dark green
 				if (incode.charAt(2) == 'g') {modifier="lilrec";};	
 			};
-		}  // end "Has no R"
+                    }  // end "Has no R"
 		} // end "has 3 letters"
 		
 		// Apply the modifiers
@@ -233,6 +203,27 @@ public class Blood {
 		if (modifier=="bigmudd") {sat=sat-0.1;   val=val-0.15;};
 		if (modifier=="lilmudd") {sat=sat-0.05;  val=val-0.1;};
 		
+                // Set degenerate bloods with 1 valid blood letter or less
+                if (numblood<2) {
+                    if (Gene.counthas(incode, 'R')>0) {hue=0;};
+                    if (Gene.counthas(incode, 'r')>0) {hue=30;};
+                    if (Gene.counthas(incode, 'G')>0) {hue=120;};
+                    if (Gene.counthas(incode, 'g')>0) {hue=150;};
+                    if (Gene.counthas(incode, 'B')>0) {hue=240;};
+                    if (Gene.counthas(incode, 'b')>0) {hue=270;};                    
+                    };
+                // adjust blood hue for fae and humans
+                if (Gene.counthas(incode, 'f')>0) {sat=sat-0.2; hue = avg(hue,0);}; // redfae
+                if (Gene.counthas(incode, 'a')>0) {sat=sat-0.2; hue = avg(hue,0);}; // redfae
+                if (Gene.counthas(incode, 'e')>0) {sat=sat-0.2; hue = avg(hue,0);}; // redfae
+                if (Gene.counthas(incode, 'F')>0) {sat=sat-0.2; hue = avg(hue,240);}; // bluefae
+                if (Gene.counthas(incode, 'A')>0) {sat=sat-0.2; hue = avg(hue,240);}; // bluefae
+                if (Gene.counthas(incode, 'E')>0) {sat=sat-0.2; hue = avg(hue,240);}; // bluefae
+                if (Gene.counthas(incode, 'h')>0) {sat=sat+0.2; hue = avg(hue,0); val=avg(val,0.5);};
+                if (Gene.counthas(incode, 'u')>0) {sat=sat+0.2; hue = avg(hue,0); val=avg(val,0.5);};
+                if (Gene.counthas(incode, 'm')>0) {sat=sat+0.2; hue = avg(hue,0); val=avg(val,0.5);};
+                
+                // color correction
 		while (hue>360) {hue=hue-360;};
 		while (hue<0)   {hue=hue+360;};
 		if (sat<0) {sat=0;};
@@ -249,52 +240,218 @@ public class Blood {
 		return col;
 	}
 
-	public double huefromCode(String inblood) {
+	public static double huefromCode(String inblood) {
 		Color col = new Color(0,0,0);
 		col = colorfromcode(inblood);
 		float[] hsb = new float[3];
 		hsb = Color.RGBtoHSB(col.getRed(),col.getGreen(), col.getBlue(), null);
 		double hue = (double) hsb[0] * 360;
-		return hue;		
+		return hue;
 	}
 	
-	public String castefromhue(double hue) {
-		String caste = new String();
-		caste = "CULL";
-		if ((  0<=hue)&&(hue< 14)) {caste="Maroon";};
-		if (( 14<=hue)&&(hue< 25)) {caste="Maroon/Bronze";};
-		if (( 25<=hue)&&(hue< 37)) {caste="Bronze";};
-		if (( 37<=hue)&&(hue< 48)) {caste="Bronze/Gold";};
-		if (( 48<=hue)&&(hue< 75)) {caste="Gold";};
-		if (( 75<=hue)&&(hue< 88)) {caste="Gold/Lime";};
-		if (( 88<=hue)&&(hue<105)) {caste="Lime";};
-		if ((105<=hue)&&(hue<118)) {caste="Lime/Olive";};
-		if ((118<=hue)&&(hue<135)) {caste="Olive";};
-		if ((135<=hue)&&(hue<148)) {caste="Olive/Jade";};
-		if ((148<=hue)&&(hue<165)) {caste="Jade";};
-		if ((165<=hue)&&(hue<178)) {caste="Jade/Teal";};
-		if ((178<=hue)&&(hue<195)) {caste="Teal";};
-		if ((195<=hue)&&(hue<208)) {caste="Teal/Cerulean";};
-		if ((208<=hue)&&(hue<225)) {caste="Cerulean";};
-		if ((225<=hue)&&(hue<238)) {caste="Cerulean/Blue";};
-		if ((238<=hue)&&(hue<255)) {caste="Blue";};
-		if ((255<=hue)&&(hue<268)) {caste="Blue/Indigo";};
-		if ((268<=hue)&&(hue<285)) {caste="Indigo";};
-		if ((285<=hue)&&(hue<298)) {caste="Indigo/Violet";};
-		if ((298<=hue)&&(hue<315)) {caste="Violet";};
-		if ((315<=hue)&&(hue<328)) {caste="Violet/Tyrian";};
-		if ((328<=hue)&&(hue<345)) {caste="Tyrian";};
-		if ((345<=hue)&&(hue<361)) {caste="Tyrian/Maroon";};
-		// check if it's a vantas and return "CULL" if so
-		// that would involve importing the pigment gene from husk.body : don't worry about it
+	public static String castefromhue(double hue) {
+		String caste = new String();		
+                int h = (int) hue;
+                caste = Gene.colorfromhue(h, false);
+                if (caste.equals("")) {caste = "CULL";};
 		return caste;
 	}
 	
-	public String castefromcode(String inblood) {
-		double hue = huefromCode(inblood);
-		String caste = "";
-		caste = castefromhue(hue);
+        public static String codefromcaste(String caste) {
+            caste = caste.toLowerCase();
+            String code = "";
+            // purecaste
+            if (caste.contains("maroon"))   {code = code + "RR";};
+            if (caste.contains("bronze"))   {code = code + "rr";};
+            if (caste.contains("gold"))     {code = code + "RG";};
+            if (caste.contains("lime"))     {code = code + "rg";};
+            if (caste.contains("crimson"))  {code = code + "rg";};
+            if (caste.contains("olive"))    {code = code + "GG";};
+            if (caste.contains("jade"))     {code = code + "gg";};
+            if (caste.contains("teal"))     {code = code + "GB";};
+            if (caste.contains("cerulean")) {code = code + "gb";};
+            if (caste.contains("blue"))     {code = code + "BB";};
+            if (caste.contains("indigo"))   {code = code + "bb";};
+            if (caste.contains("violet"))   {code = code + "RB";};
+            if (caste.contains("tyrian"))   {code = code + "rb";};
+            // mixedcaste
+            if (caste.contains("maroon/bronze")) {code = "Rr";};
+            if (caste.contains("bronze/gold"))   {code = "Gr";};
+            if (caste.contains("gold/lime"))     {code = "Rg";};
+            if (caste.contains("lime/olive"))    {code = "rgg";};
+            if (caste.contains("olive/jade"))    {code = "Gg";};
+            if (caste.contains("jade/teal"))     {code = "Gb";};
+            if (caste.contains("teal/cerulean")) {code = "Bg";};
+            if (caste.contains("cerulean/blue")) {code = "Bgb";};
+            if (caste.contains("blue/indigo"))   {code = "Bb";};
+            if (caste.contains("indigo/violet")) {code = "Br";};
+            if (caste.contains("violet/tyrian")) {code = "Rb";};
+            if (caste.contains("tyrian/maroon")) {code = "rrb";};
+            // humans & Carapacians & fae
+            if (Gene.ishum(caste))           {code = code + "HUM";};
+            if (Gene.iscarapacian(caste))    {code = code + "CCC";};
+            // faetypes
+            int blue = 0; String[] B = {"F", "A", "E"};
+            int red = 0;  String[] r = {"f", "a", "e"};
+            if (caste.contains("sidhe"))      {blue++; red++;};
+            if (caste.contains("unseleighe")) {blue++; red++;};
+            if (caste.contains("seleighe"))   {blue++; red++;};
+            if (caste.contains("frostgiant")) {blue++;};
+            if (caste.contains("pookah"))     {blue++; red++;};
+            if (caste.contains("wild"))   {red++;};
+            if (caste.contains("fae"))    {red++;};
+            if (caste.contains("satyr"))  {red++;};
+            if (caste.contains("hobb"))   {red++;};
+            if (caste.contains("pixie"))  {red++;};
+            if (caste.contains("dryad"))  {red++;};
+            if (caste.contains("kelpie")) {red++;};
+            if (caste.contains("selkie")) {red++;};
+            if (caste.contains("redcap")) {red++;};
+            if (caste.contains("ogre"))   {red++;};
+            String temp = "";
+            while (red>0)  {temp = temp + Gene.randopt(r, 2); red--;};
+            while (blue>0) {temp = temp + Gene.randopt(B, 2); blue--;};
+            temp = bloodsort(temp);
+            while (temp.length()>3) {temp = temp.substring(0, 3);};
+            code=code+temp;
+            //endfae
+            return code;
+        };
+        
+	public static String castefromcode(String inblood) {
+		String caste = inblood;
+                // Assemble possibilities
+                if (Gene.istroll(inblood)) {caste = caste + castefromhue(huefromCode(inblood));};
+                if (Gene.ishum(inblood)) {caste = caste + " human ";};
+                if (Gene.isfae(inblood)) {caste = caste + " fae ";};
+                if (Gene.iscarapacian(inblood)) {caste = caste + " carapacian ";};
+                // condense
+                caste = condensecaste(caste);
 		return caste;
 	}
-	
+        
+        public static double avg(double x, double y) {
+        double z = (x+y)/2;
+        return z;
+        };
+
+        public static String condensecaste(String L) {
+            String var = "";
+            boolean human=false;  boolean fae = false;   boolean troll=false;     boolean spirit=false;
+            boolean sidhe=false;  boolean hobb=false;    boolean pixie=false;     boolean elemental=false;
+            boolean dryad=false;  boolean kelpie=false;  boolean locus=false;     boolean carapacian=false;
+            boolean selkie=false; boolean redcap=false;  boolean ogre=false;      boolean frostgiant=false;
+            boolean pookah=false; boolean banshee=false; boolean rusalka=false;   boolean satyr=false;
+            boolean faewild=false;boolean seleighe=false;boolean unseleighe=false;
+            // misc types
+            if (L.contains("human"))      {human=true;};
+            if (L.contains("carapacian")) {carapacian=true;};
+            // fae+spirit types
+            if (L.contains("fae"))        {fae=true;};
+            if (L.contains("wild"))       {faewild=true;};
+            if (L.contains("unseleighe")) {fae=true; unseleighe=true;};
+            if (L.contains("seleighe"))   {fae=true; seleighe=true;};
+            if (L.contains("sidhe"))      {fae=true; sidhe=true;};
+            if (L.contains("frostgiant")) {fae=true; frostgiant=true;};
+            if (L.contains("hobb"))       {fae=true; hobb=true;};
+            if (L.contains("pixie"))      {fae=true; pixie=true;};
+            if (L.contains("dryad"))      {fae=true; dryad=true;};
+            if (L.contains("kelpie"))     {fae=true; kelpie=true;};
+            if (L.contains("selkie"))     {fae=true; selkie=true;};
+            if (L.contains("redcap"))     {fae=true; redcap=true;};
+            if (L.contains("ogre"))       {fae=true; ogre=true;};
+            if (L.contains("pookah"))     {fae=true; pookah=true;}; 
+            if (L.contains("banshee"))    {fae=true; spirit=true; banshee=true;}; 
+            if (L.contains("banesidhe"))  {fae=true; spirit=true; banshee=true;}; 
+            if (L.contains("rusalka"))    {fae=true; spirit=true; rusalka=true;}; 
+            if (L.contains("elemental"))  {fae=true; spirit=true; elemental=true;}; 
+            if (L.contains("locus"))        {spirit=true; locus=true;}; 
+            if (L.contains("genius locii")) {spirit=true; locus=true;}; 
+            if (L.contains("locii"))        {spirit=true; locus=true;}; 
+            // trolls and casteshit
+            if (L.startsWith("RR"))       {troll=true; var="maroon-";};
+            if (L.startsWith("maroon"))   {troll=true; var="maroon-";};
+            if (L.startsWith("burgundy")) {troll=true; var="maroon-";};
+            if (L.startsWith("Rr"))       {troll=true; var="maroon/bronze-";};
+            if (L.startsWith("rr"))       {troll=true; var="bronze-";};
+            if (L.startsWith("bronze"))   {troll=true; var="bronze-";};
+            if (L.startsWith("brown"))    {troll=true; var="bronze-";};
+            if (L.startsWith("copper"))   {troll=true; var="bronze-";};
+            if (L.startsWith("Gr"))       {troll=true; var="bronze/gold-";};
+            if (L.startsWith("RG"))       {troll=true; var="gold-";};
+            if (L.startsWith("gold"))     {troll=true; var="gold-";};
+            if (L.startsWith("yellow"))   {troll=true; var="gold-";};
+            if (L.startsWith("helm"))     {troll=true; var="gold-";};
+            if (L.startsWith("Rg"))       {troll=true; var="gold/lime-";};
+            if (L.startsWith("rg"))       {troll=true; var="lime-";};
+            if (L.startsWith("lime"))     {troll=true; var="lime-";};
+            if (L.startsWith("cull"))     {troll=true; var="off-color-";};
+            if (L.startsWith("GG"))       {troll=true; var="olive-";};
+            if (L.startsWith("olive"))    {troll=true; var="olive-";};
+            if (L.startsWith("green"))    {troll=true; var="olive-";};
+            if (L.startsWith("Gg"))       {troll=true; var="olive/jade-";};
+            if (L.startsWith("gg"))       {troll=true; var="jade-";};
+            if (L.startsWith("jade"))     {troll=true; var="jade-";};
+            if (L.startsWith("Gb"))       {troll=true; var="jade/teal-";};
+            if (L.startsWith("GB"))       {troll=true; var="teal-";};
+            if (L.startsWith("teal"))     {troll=true; var="teal-";};
+            if (L.startsWith("cyan"))     {troll=true; var="teal-";};
+            if (L.startsWith("Bg"))       {troll=true; var="teal/cerulean-";};
+            if (L.startsWith("bg"))       {troll=true; var="cerulean-";};
+            if (L.startsWith("cerulean")) {troll=true; var="cerulean-";};
+            if (L.startsWith("skyblue"))  {troll=true; var="cerulean-";};
+            if (L.startsWith("BB"))       {troll=true; var="blue-";};
+            if (L.startsWith("bloo"))     {troll=true; var="blue-";};
+            if (L.startsWith("blue"))     {troll=true; var="blue-";};
+            if (L.startsWith("navy"))     {troll=true; var="blue-";};
+            if (L.startsWith("Bb"))       {troll=true; var="blue/indigo-";};
+            if (L.startsWith("bb"))       {troll=true; var="indigo-";};
+            if (L.startsWith("indigo"))   {troll=true; var="indigo-";};
+            if (L.startsWith("clown"))    {troll=true; var="indigo-";};
+            if (L.startsWith("Br"))       {troll=true; var="indigo/violet-";};
+            if (L.startsWith("RB"))       {troll=true; var="violet-";};
+            if (L.startsWith("purple"))   {troll=true; var="violet-";};
+            if (L.startsWith("violet"))   {troll=true; var="violet-";};
+            if (L.startsWith("fish"))     {troll=true; var="violet-";};
+            if (L.startsWith("Rb"))       {troll=true; var="violet/tyrian-";};
+            if (L.startsWith("rb"))       {troll=true; var="tyrian-";};
+            if (L.startsWith("tyrian"))   {troll=true; var="tyrian-";};
+            if (L.startsWith("fuschia"))  {troll=true; var="tyrian-";};
+            // affiliations
+            if (faewild) {var=var+"wild ";};
+            if (seleighe&!unseleighe) {var=var+"seleighe ";};
+            if (unseleighe&!seleighe) {var=var+"unseleighe ";};
+            if (unseleighe&&seleighe) {var=var+"seleighe/unseleighe ";};
+            
+            // text string species time
+            if (troll)      {var = var + "troll/";};
+            if (human)      {var = var + "human/";};
+            if (sidhe)      {var = var + "sidhe/";};
+            if (hobb)       {var = var + "hobb/";};
+            if (pixie)      {var = var + "pixie/";};
+            if (elemental)  {var = var + "elemental/";};
+            if (dryad)      {var = var + "dryad/";};
+            if (kelpie)     {var = var + "kelpie/";};
+            if (satyr)      {var = var + "satyr/";};
+            if (locus)      {var = var + "locus/";};
+            if (carapacian) {var = var + "carapacian/";};
+            if (selkie)     {var = var + "selkie/";};
+            if (redcap)     {var = var + "redcap/";};
+            if (ogre)       {var = var + "ogre/";};
+            if (frostgiant) {var = var + "frostgiant/";};
+            if (pookah)     {var = var + "pookah/";};
+            if (banshee)    {var = var + "banshee/";};
+            if (rusalka)    {var = var + "rusalka/";};
+            
+            // trim that last slash if there is one
+            if (var.endsWith("/")) {var=var.substring(0, var.length()-1);};
+            
+            // If string contains ZERO recognized text, spit it back out as-is
+            if (var.equals("")) {var=L;};
+            /* another way to check if all tests have been failed: 
+            if (!human&&!fae&&!troll&&!spirit&&!carapacian) {};
+            */
+            return var;
+        };
+        
 }

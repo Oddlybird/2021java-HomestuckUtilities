@@ -14,31 +14,40 @@ public class Interests {
 			"physics", "chemistry", "photography", "treasure", "fungi", "bugs", "fish", "birds",
 			"miniatures", "dolls", "weaponry", "armor", "stage magic", "slight of hand", "costuming",
 			"sewing", "needlecraft", "glassworking", "strategy", "card games", "board games",
-                        "mythology", "puppets", "robots", 
+                        "mythology", "puppets", "robots", "winning", "dominance", "romance", "recreational substances", 
+                        "parkour", "magic", "cartography", "technology", "social justice", "tea", "fashion",
+                        "spreadsheets", "cybernetics", "fishing", "painting", "religion", "philosophy", "music",
+                        "piracy",
                         };
 
 	String[] manipulation = {"games", "videogames", "sports", "gambling", "frivolity", "exercise",
-			"stage magic", "strategy", "war", "card games", "board games", "puppets"};
+			"stage magic", "strategy", "war", "card games", "board games", "puppets",
+                        "parkour", "magic", "technology", "social justice", "spreadsheets", "piracy", };
 	
 	String[] knowledge = {"science", "biology", "geology", "botany", "archaeology", "paleontology", 
 			"history", "psychology", "math", "physics", "chemistry", "geography", "the esoteric", 
 			"grimdark arts", "psychic", "cryptids", "conspiracies", "meta", "statistics", 
-                        "mythology", };
+                        "mythology", "magic", "cartography", "technology", "tea", "social justice", 
+                        "cybernetics", "spreadsheets", "religion", "philosophy", "music", };
 	
 	String[] creation = {"crafting", "programming", "cooking", "writing", "engineering", "robotics", 
 			"art", "literature", "photography", "costuming", "sewing", "needlecraft", "glassworking",
-                        "puppets", "robots", };
+                        "puppets", "robots", "romance", "tea", "fashion", "fishing", "painting", "music", };
 	
 	String[] reallocation = {"knickknacks", "collectibles", "treasure", "miniatures", "dolls",
-			"weaponry", "armor", "stage magic", "slight of hand"};
+			"weaponry", "armor", "stage magic", "slight of hand", "romance", "recreational substances",
+                        "parkour", "cartography", "religion", "piracy", };
 	
 	String[] exploitation = {"photography", "art", "film", "literature", "meta", "mythology", "physicality",
-                        "dolls", "puppets", "robots", "stage magic", "the esoteric"};
+                        "dolls", "puppets", "robots", "stage magic", "the esoteric", "dominance", "parkour",
+                        "fashion", "cybernetics", "painting", "philosophy", 
+                        };
 	
-	String[] nature = {"nature", "animals", "plants", "fungi", "life", "bugs", "fish", "birds"};
+	String[] nature = {"nature", "animals", "plants", "fungi", "life", "bugs", "fish", "birds", "romance", 
+                           "cartography", "fishing", };
 	
 	String[] destruction = {"war", "death", "chaos", "apocalypses", "physicality", "videogames", 
-                        "sports", "frivolity", "weaponry", };
+                        "sports", "frivolity", "weaponry", "winning", "dominance", "religion"};
 
 	public Interests() {
 		// stats contains: 

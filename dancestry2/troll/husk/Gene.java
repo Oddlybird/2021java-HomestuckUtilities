@@ -9,12 +9,18 @@ import troll.fluff.*;
 // This is basically just a collection of useful subroutines.
 
 public class Gene {
-static String[] spectrum = {"RR", "Rr", "rr", "Rg", "RG", "Gr", "rg", "GG", "Gg", "gg", "Gb",
+public static String[] spectrum = {"RR", "Rr", "rr", "Rg", "RG", "Gr", "rg", "GG", "Gg", "gg", "Gb",
                      "GB", "Bg", "gb", "BB", "Bb", "bb", "Br", "RB", "Rb", "rb"};
-static String[] fae = {"fae", "unseleighe", "seleighe", "faewild", "pixie", "hobb", "dryad",
+public static String[] castes = {"maroon", "bronze", "gold", "lime", "crimson", "olive", "jade", 
+                "teal", "cerulean", "blue", "indigo", "violet", "tyrian"};
+public static String[] fae = {"fae", "unseleighe", "seleighe", "faewild", "pixie", "hobb", "dryad",
                 "faevamp", "faeghoul", "kelpie", "selkie", "redcap", "sidhe", "ogre",
-                "pookah", };
-static String[] human = {"human"};
+                "pookah", "frostgiant", "rusalka", "banshee", "elemental", "locus", "satyr" };
+public static String[] bluefae = {"frostgiant", "sidhe", "pookah", "sidhe"};
+public static String[] human = {"human"};
+public static String[] carapacian = {"carapacian", "pawn", "rook", "bishop", "knight", "king", "queen"};
+// New species/castes should be added to Blood.condensecaste, Stats(), and Troll.body.*.
+
 
 	public Gene() {
             
@@ -205,17 +211,25 @@ static String[] human = {"human"};
 		// c is to be used as the mutation source
 		// c is ALSO the place where final versions will be stored.
 		Troll c = new Troll("rand");
-		
 		// name and trolltags are random and fine
-		c.blood = bloodfuck(a.blood, b.blood, c.blood);
-		c.stats = new Stats(c.blood.code);  // initialize caste default
-		c.stats = statfuck(a.stats, b.stats, c.stats, c.blood.code);
-		c.body = new Body(c.blood.code); // initialize caste default
-		c.body = bodyfuck(a.body, a.blood.code, b.body, b.blood.code, c.body, c.blood.code);
-		c.horns = new Horns(c.blood.code);
-		c.horns = hornfuck(a.horns, b.horns, c.horns, c.blood.code);
-		c.eyes = new Eye(c.blood.code);
-		c.eyes = eyefuck(a.eyes, b.eyes, c.eyes, c.blood.code);
+                
+                // do blood stuff
+                Blood A = new Blood(a.body.blood); A.caste=a.body.caste;
+                Blood B = new Blood(b.body.blood); B.caste=b.body.caste;
+                Blood C = new Blood(c.body.blood); C.caste=c.body.caste;
+		C = bloodfuck(A, B, C);
+                // assign caste to keep track of heritage
+                // always concatenate c first, so the parents' castes aren't misinterpreted as theirs
+                c.body.caste=C.condensecaste(c.body.caste + b.body.caste + a.body.caste);
+                
+		c.stats = new Stats(c.body.caste);  // initialize caste default
+		c.stats = statfuck(a.stats, b.stats, c.stats, c.body.blood);
+		c.body = new Body(c.body.blood, c.body.caste); // initialize caste default
+		c.body = bodyfuck(a.body, a.body.blood, b.body, b.body.blood, c.body, c.body.blood);
+		c.horns = new Horns(c.body.blood);
+		c.horns = hornfuck(a.horns, b.horns, c.horns, c.body.blood);
+		c.eyes = new Eye(c.body.blood);
+		c.eyes = eyefuck(a.eyes, b.eyes, c.eyes, c.body.blood);
 		
 		return c;
 	}
@@ -381,15 +395,34 @@ static String[] human = {"human"};
             return c;
         }
         
+        public static int counthas(String instr, char big, char lil) {
+            int c = 0;
+            for (int x = 0; x<instr.length(); x++) {
+                if (instr.charAt(x)==big) {c++;c++;};};
+            for (int x = 0; x<instr.length(); x++) {
+                if (instr.charAt(x)==lil) {c++;};};
+            return c;        
+        };
+
+        public static boolean listhas(String[] L, String code) {
+            boolean flag = false;
+            for (int i=0; i<=L.length-1;i++) {
+                if (L[i].contains(code)) {flag=true;};
+                if (code.contains(L[i]))   {flag=true;};
+                };
+            return flag;
+        };
+        
 	public static String hemospectrum(String inblood, int direction) {
 		// direction is an integer between -15ish and +15ish
 		Random rand = new Random();
 		String answer = "";
 		int tempindex = 0;
 		
-                // humans and fae aren't hemospectrum'd
+                // humans, carapacians, and fae aren't hemospectrum'd
                 if ((Arrays.asList(fae).contains(inblood))) {answer = fae[rand.nextInt(fae.length)]; return answer;}
                 if ((Arrays.asList(human).contains(inblood))) {answer = human[rand.nextInt(human.length)]; return answer;}
+                if ((Arrays.asList(carapacian).contains(inblood))) {answer = carapacian[rand.nextInt(carapacian.length)]; return answer;}
 		// if we don't understand the value yet, pick a random one.
 		if (answer.equals("")&&!(Arrays.asList(spectrum).contains(inblood)))
                     {inblood = spectrum[rand.nextInt(spectrum.length)];}	
@@ -459,16 +492,96 @@ static String[] human = {"human"};
 	
         public static boolean isfae(String incode) {
             boolean flag = false;
-            if (Arrays.asList(fae).contains(incode)) {flag=true;};           
+            if (Arrays.asList(fae).contains(incode)) {flag=true;};
+            if (listhas(fae, incode)) {flag=true;};
             return flag;
         };
 
         public static boolean ishum(String incode) {
             boolean flag = false;
-            if (Arrays.asList(human).contains(incode)) {flag=true;};           
+            if (Arrays.asList(human).contains(incode)) {flag=true;}; 
+            if (listhas(human, incode)) {flag=true;};
+            return flag;
+        };
+
+        public static boolean istroll(String incode) {
+            boolean flag = false;
+            if (Arrays.asList(spectrum).contains(incode))      {flag=true;};           
+            if (Arrays.asList(castes).contains(incode))        {flag=true;};
+            if (Blood.condensecaste(incode).contains("troll")) {flag=true;};
             return flag;
         };
         
+        public static boolean iscarapacian(String incode) {
+            boolean flag = false;
+            if (Arrays.asList(carapacian).contains(incode))      {flag=true;};           
+            if (listhas(carapacian, incode)) {flag=true;};
+            return flag;
+        };
+                
+        public static boolean isfertfem(String incode) {
+            boolean flag = true;
+            String sex = incode.substring(0,2);
+            if (sex.startsWith("XY")) {flag=false;};  // No men
+            if (sex.startsWith("V"))  {flag=false;};  // No bucks
+            String puberty   = incode.substring(2,3);
+            String fertility = incode.substring(3,4);
+            if (puberty.startsWith("0")) {flag=false;}; // No Neoteny
+            if (fertility.startsWith("0")) {flag=false;}; // No infertility
+            String litter = incode.substring(5,9);
+            if (litter.startsWith("0000")) {flag=false;}; // No infertility            
+            return flag;
+        };
+
+        public static boolean isfertmasc(String incode) {
+            boolean flag = true;
+            String sex = incode.substring(0,2);
+            if (sex.startsWith("XX")) {flag=false;};  // No women
+            String puberty   = incode.substring(2,3);
+            String fertility = incode.substring(3,4);
+            if (puberty.startsWith("0")) {flag=false;}; // No Neoteny
+            if (fertility.startsWith("0")) {flag=false;}; // No infertility
+            String litter = incode.substring(5,9);
+            if (litter.startsWith("0000")) {flag=false;}; // No infertility            
+            return flag;
+        };
+         
+        public static int littersize(String infert1, String infert2) {
+            int var = 0; // number of children in the litter
+            
+            // Do we have at least one egg producer and sperm donor, on opposite people?
+            boolean fertilepairing = false;
+            if (isfertfem(infert1)&&isfertmasc(infert2)) {fertilepairing=true;};
+            if (isfertfem(infert2)&&isfertmasc(infert1)) {fertilepairing=true;};
+            if (!fertilepairing) {return 0;}; // If not, get out.
+            
+            // Fertility and Litter arrays
+            char[] one = infert1.toCharArray();
+            int F1 = Character.getNumericValue(one[3]);
+            String[] L1 = {infert1.substring(5,6), infert1.substring(6,7),
+                           infert1.substring(7,8), infert1.substring(8,9)};
+            char[] two = infert2.toCharArray();
+            int F2 = Character.getNumericValue(two[3]);
+            String[] L2 = {infert2.substring(5,6), infert2.substring(6,7),
+                           infert2.substring(7,8), infert2.substring(8,9)};
+            
+            // Sum F randomly-selected digits from the Litter Array
+            int litter1 = digsum(randopt(L1, F1));
+            int litter2 = digsum(randopt(L2, F2));
+            
+            var = litter1; // Assume L1 is smaller
+            if (litter2<litter1) {var=litter2;}; // set to L2 if it's smaller
+            return var; // return the smaller of the two numbers
+        };
+        
+        public static int digsum(String incode) {
+            char[] code = incode.toCharArray();
+            int num = 0;
+            for (int i=0; i<code.length;i++) {
+                num = num + Character.getNumericValue(code[i]);
+                };
+        return num;
+        };
         
         public static int avgnum(String incode) {
         char[] code = incode.toCharArray();
@@ -479,7 +592,36 @@ static String[] human = {"human"};
         num = Math.floorDivExact(num, code.length);
         return num;
         }
-        
+
+        public static String colorfromhue(int hue, Boolean inverted) {
+            if (inverted) {hue=Math.floorMod(hue+180, 360);};
+            String col = "";
+            if ((  0<=hue)&&(hue< 14)) {col="maroon";};
+            if (( 14<=hue)&&(hue< 25)) {col="maroon/bronze";};
+            if (( 25<=hue)&&(hue< 37)) {col="bronze";};
+            if (( 37<=hue)&&(hue< 48)) {col="bronze/gold";};
+            if (( 48<=hue)&&(hue< 75)) {col="gold";};
+            if (( 75<=hue)&&(hue< 88)) {col="gold/lime";};
+            if (( 88<=hue)&&(hue<105)) {col="lime";};
+            if ((105<=hue)&&(hue<118)) {col="lime/olive";};
+            if ((118<=hue)&&(hue<135)) {col="olive";};
+            if ((135<=hue)&&(hue<148)) {col="olive/jade";};
+            if ((148<=hue)&&(hue<165)) {col="jade";};
+            if ((165<=hue)&&(hue<178)) {col="jade/teal";};
+            if ((178<=hue)&&(hue<195)) {col="teal";};
+            if ((195<=hue)&&(hue<208)) {col="teal/cerulean";};
+            if ((208<=hue)&&(hue<225)) {col="cerulean";};
+            if ((225<=hue)&&(hue<238)) {col="cerulean/blue";};
+            if ((238<=hue)&&(hue<255)) {col="blue";};
+            if ((255<=hue)&&(hue<268)) {col="blue/indigo";};
+            if ((268<=hue)&&(hue<285)) {col="indigo";};
+            if ((285<=hue)&&(hue<298)) {col="indigo/violet";};
+            if ((298<=hue)&&(hue<315)) {col="violet";};
+            if ((315<=hue)&&(hue<328)) {col="violet/tyrian";};
+            if ((328<=hue)&&(hue<345)) {col="tyrian";};
+            if ((345<=hue)&&(hue<361)) {col="tyrian/maroon";};
+            return col;
+        };
         
 //Dirgene = Gene.mutiBlend(pickdir(blood), pickdir(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickdir("rand"));
 	

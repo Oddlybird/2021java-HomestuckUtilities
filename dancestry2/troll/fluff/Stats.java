@@ -16,6 +16,7 @@ public class Stats {
 	public int moxie = 0;
 	public int psyche = 0;
         public String moon = "";
+        public String zodiac = "";
 	//secret1
 	public int faith = 0;       // +rage -hope
 	public int order = 0;       // +life -doom
@@ -39,12 +40,13 @@ public class Stats {
 	public String aspect = "";
 	public String role = "";
 	
-	public Stats(String inputblood) {
+	public Stats(String incaste) {
 		Random rand = new Random();
-		if (inputblood=="") {inputblood="mm";};
-		if (inputblood=="truerand") {inputblood="mm";};
+		if (incaste=="")         {incaste="mm";};
+		if (incaste=="truerand") {incaste="mm";};
+		if (incaste=="rand")     {incaste="mm";};
 		
-		if (inputblood=="blank") {
+		if (incaste=="blank") {
 			faith = 0; order = 0; entropy = 0; connection = 0; self = 0; opportunity = 0;			
 			activity = 0; exploit = 0; move = 0; know = 0; manip = 0; create = 0; destroy = 0;
 			clout = 3; acumen = 3; grit = 3; alacrity = 3; hunch = 3; resolve = 3; moxie = 3; psyche = 0;
@@ -61,15 +63,6 @@ public class Stats {
 		connection = rand.nextInt(20) - 10;	// +blood -breath
 		self = rand.nextInt(20) - 10;		// +mind  -heart
 		opportunity = rand.nextInt(20) - 10;// +light -void
-		// calculate derived values
-		activity = activity();  // number between -60 and +60. + active, -passive.
-		// Numbers between 0 and 30
-		exploit = exploit();
-		move = move();
-		know = know();
-		manip = manip();
-		create = create();
-		destroy = destroy();
 
 		// assign primary stats randomly
 		clout = rand.nextInt(3) + 2;
@@ -82,35 +75,59 @@ public class Stats {
 		psyche = rand.nextInt(3) + 0;
 		pts = 2;
 		
-		// apply caste modifiers
-		if (inputblood.startsWith("mm")) {pts=pts+4;};
-		if (inputblood.startsWith("RR")) {clout--;    hunch++;  hunch++;    psyche++;  pts++; pts++;};
-		if (inputblood.startsWith("Rr")) {clout--;    hunch++;  moxie++;    psyche++;  psyche++; pts++; pts++;};
-		if (inputblood.startsWith("rr")) {clout--;    moxie++;  moxie++;    psyche++;  pts=pts+2;};
-		if (inputblood.startsWith("Rg")) {clout--;    acumen++; moxie++;    psyche++;  psyche++; pts=pts+2;};
-		if (inputblood.startsWith("RG")) {clout--;    acumen++; psyche++;   psyche++;  pts=pts+2;};
-		if (inputblood.startsWith("Gr")) {clout--;    acumen++; psyche++;   psyche++;  pts=pts+2;};
-		if (inputblood.startsWith("rg")) {clout--;    grit--;   psyche++;   psyche++;  psyche++; pts=pts+2;};
-		if (inputblood.startsWith("GG")) {alacrity++; hunch++;  pts=pts+2;};
-		if (inputblood.startsWith("Gg")) {acumen++;   grit++;   alacrity++; hunch++;};
-		if (inputblood.startsWith("gg")) {acumen++;   grit++;   pts=pts+2;};
-		if (inputblood.startsWith("Gb")) {acumen++;   acumen++; grit++;     moxie++;   pts=pts+1;};
-		if (inputblood.startsWith("GB")) {acumen++;   moxie++;  pts=pts+2;};
-		if (inputblood.startsWith("gb")) {hunch++;    moxie++;  pts=pts+2;};
-		if (inputblood.startsWith("Bg")) {hunch++;    moxie++;  pts=pts+2;};
-		if (inputblood.startsWith("BB")) {clout++;    acumen++; alacrity--; resolve++; pts=pts+2;};
-		if (inputblood.startsWith("Bb")) {clout++;    grit++;   resolve++;  moxie--;   pts=pts+2;};
-		if (inputblood.startsWith("bb")) {clout++;    acumen--; grit++;     resolve++; pts=pts+2;};
-		if (inputblood.startsWith("Br")) {clout++;    grit++;   resolve++;  moxie--;   psyche--; pts=pts+2;};
-		if (inputblood.startsWith("RB")) {clout++;    grit++;   resolve++;  psyche--;  psyche--; pts=pts+2;};
-		if (inputblood.startsWith("Rb")) {clout++;    grit++;   resolve++;  psyche--;  psyche--; pts=pts+2;};
-		if (inputblood.startsWith("rb")) {clout++;    grit++;   resolve++;  psyche--;  psyche--; pts=pts+2;};
-                // non-troll options
-                if (inputblood.equals("human")) {hunch++;  resolve++; psyche--;   pts=pts+3;};
-                if (inputblood.equals("fae"))   {psyche++; psyche++;  psyche++;   grit--;};
-                if (inputblood.equals("pixie")) {clout++;  psyche++;  alacrity++; alacrity++;};
-                if (inputblood.equals("hobb"))  {clout++;  clout++;   pts++;      pts++;};
-                if (inputblood.equals("dryad")) {psyche++; moxie++;   resolve++;  alacrity++;};
+		// Troll caste section 
+                if (incaste.contains("troll")) {pts=pts+2;};
+		if (incaste.startsWith("mm")) {pts=pts+4;};
+		if (incaste.startsWith("maroon-"))        {clout--;    hunch++;  hunch++;    psyche++;  pts++; pts++;};
+		if (incaste.startsWith("maroon/bronze-")) {clout--;    hunch++;  moxie++;    psyche++;  psyche++; pts++; pts++;};
+		if (incaste.startsWith("bronze-"))        {clout--;    moxie++;  moxie++;    psyche++;  pts=pts+2;};
+		if (incaste.startsWith("bronze/gold-"))   {clout--;    acumen++; moxie++;    psyche++;  psyche++; pts=pts+2;};
+		if (incaste.startsWith("gold-"))          {clout--;    acumen++; psyche++;   psyche++;  pts=pts+2;};
+		if (incaste.startsWith("gold/lime-"))     {clout--;    acumen++; psyche++;   psyche++;  pts=pts+2;};
+		if (incaste.startsWith("lime-"))          {clout--;    grit--;   psyche++;   psyche++;  psyche++; pts=pts+2;};
+		if (incaste.startsWith("olive-"))         {alacrity++; hunch++;  pts=pts+2;};
+		if (incaste.startsWith("olive/jade-"))    {acumen++;   grit++;   alacrity++; hunch++;};
+		if (incaste.startsWith("jade-"))          {acumen++;   grit++;   pts=pts+2;};
+		if (incaste.startsWith("jade/teal-"))     {acumen++;   acumen++; grit++;     moxie++;   pts=pts+1;};
+		if (incaste.startsWith("teal-"))          {acumen++;   moxie++;  pts=pts+2;};
+		if (incaste.startsWith("teal/cerulean-")) {hunch++;    moxie++;  pts=pts+2;};
+		if (incaste.startsWith("cerulean-"))      {hunch++;    moxie++;  pts=pts+2;};
+		if (incaste.startsWith("blue-"))          {clout++;    acumen++; alacrity--; resolve++; pts=pts+2;};
+		if (incaste.startsWith("blue/indigo-"))   {clout++;    grit++;   resolve++;  moxie--;   pts=pts+2;};
+		if (incaste.startsWith("indigo-"))        {clout++;    acumen--; grit++;     resolve++; pts=pts+2;};
+		if (incaste.startsWith("indigo/violet-")) {clout++;    grit++;   resolve++;  moxie--;   psyche--; pts=pts+2;};
+		if (incaste.startsWith("violet-"))        {clout++;    grit++;   resolve++;  psyche--;  psyche--; pts=pts+2;};
+		if (incaste.startsWith("violet/tyrian-")) {clout++;    grit++;   resolve++;  psyche--;  psyche--; pts=pts+2;};
+		if (incaste.startsWith("tyrian-"))        {clout++;    grit++;   resolve++;  psyche--;  psyche--; pts=pts+2;};
+		if (incaste.startsWith("tyrian/maroon-")) {resolve++;  pts=pts+2;};
+                // Misc
+                if (incaste.contains("human")) {hunch++;  psyche--; pts=pts+3;};
+                // Carapacian
+                if (incaste.contains("carapacian")) {pts++;};
+                if (incaste.contains("pawn"))   {moxie++; pts++;};
+                if (incaste.contains("rook"))   {grit++; clout++;};
+                if (incaste.contains("knight")) {alacrity++; resolve++;};
+                if (incaste.contains("bishop")) {hunch++; acumen++;};
+                if (incaste.contains("king"))   {clout=clout+4; resolve++; pts=pts+8;};
+                if (incaste.contains("queen"))  {acumen=acumen+2; hunch=hunch+2; alacrity=alacrity+2; pts=pts+4;};
+                // Fae && spirits
+                if (incaste.contains("fae"))   {psyche++; grit--; pts++;};
+                if (incaste.contains("sidhe")) {psyche++; grit--;};
+                if (incaste.contains("unseleighe")) {clout++; hunch++; opportunity--;};
+                if (incaste.contains("seleighe")) {moxie++; acumen++; opportunity++;};
+                if (incaste.contains("frostgiant")) {clout++; grit++; resolve++;};
+                if (incaste.contains("pixie")) {clout++;  psyche++;  alacrity++; grit--;  psyche++; order++;};
+                if (incaste.contains("hobb"))  {clout++;  clout++;   pts++;      pts++; order--;};
+                if (incaste.contains("dryad")) {psyche++; moxie++;   moxie++;    pts++; connection++; entropy--;};
+                if (incaste.contains("locus")) {psyche++; psyche++;  resolve++;  pts++; connection++; entropy--;};
+                if (incaste.contains("elemental")) {psyche++; psyche++; connection--; alacrity++; pts=pts+2;};
+                if (incaste.contains("kelpie")) {psyche++; grit++; clout++; alacrity++; connection++;};
+                if (incaste.contains("selkie")) {grit++; clout++; connection--; };
+                if (incaste.contains("pookah")) {psyche++; alacrity++; hunch++;};
+                if (incaste.contains("redcap")) {grit++; clout++; connection++; connection++; connection++; moxie--; moxie--;};
+                if (incaste.contains("ogre"))   {grit++; clout++;};
+                if (incaste.contains("banshee")) {entropy++; entropy++; order--; order--; psyche++; grit--;};
+                if (incaste.contains("rusalka")) {faith++; self++; psyche++;};
 		
 		while (pts>0) {
 			int y = rand.nextInt(8);
@@ -128,12 +145,9 @@ public class Stats {
 		// Trolls without red in their blood have weaker powers.
 		// Trolls with blue in their blood are weakish.
 		int z = rand.nextInt(3);
-		if ((z!=1)&&(!Gene.canhas(inputblood, 'R'))) {psyche=psyche-1;};
-		if ((z!=1)&&(Gene.canhas(inputblood, 'B'))) {psyche=psyche-1;};
-			
-		// use the above to assign the aspect and class
-		aspect = getaspect();
-		role = getrole3();
+		if ((z!=1)&&(!Gene.canhas(incaste, 'R'))) {psyche=psyche-1;};
+		if ((z!=1)&&(Gene.canhas(incaste, 'B'))) {psyche=psyche-1;};
+
                 // coinflip the moon
                 moon = "Prospit"; if (rand.nextBoolean()) {moon="Derse";};
 		if (rand.nextBoolean()&&rand.nextBoolean()&&rand.nextBoolean()) {
@@ -141,8 +155,28 @@ public class Stats {
                         if (rand.nextBoolean()&&rand.nextBoolean()&&rand.nextBoolean()) {moon="Both";};
                         };
                     };
+                
+		// calculate derived values
+                recalc(incaste);
 	}
 	
+        public void recalc(String bloodcode) {
+		// calculate derived values
+		activity = activity();  // number between -60 and +60. + active, -passive.
+		// Numbers between 0 and 30
+		exploit = exploit();
+		move = move();
+		know = know();
+		manip = manip();
+		create = create();
+		destroy = destroy();               
+                
+		// use the above to assign the aspect and class
+		aspect = getaspect();
+		role = getrole3();
+                zodiac = zodiac(bloodcode, moon, aspect);            
+        };
+        
 	public String getaspect() {
 		// If faith is the strongest axis
 		if ((Math.abs(faith) >= Math.abs(order))&&
@@ -247,24 +281,39 @@ public class Stats {
 	
         public String zodiac(String blood, String moon, String aspect) {
           troll.husk.Blood bloodcaste = new troll.husk.Blood(blood); // initalize some blood
-          String caste = bloodcaste.castefromcode(blood); // set caste string based on that
-          boolean dual = false; String c2 = "";  // check for doubles
-          if (caste.equals("Maroon/Bronze")) {dual=true; caste="Maroon";   c2 = "Bronze";};
-          if (caste.equals("Bronze/Gold"))   {dual=true; caste="Bronze";   c2 = "Gold";};
-          if (caste.equals("Gold/Lime"))     {dual=true; caste="Gold";     c2 = "Lime";};
-          if (caste.equals("Lime/Olive"))    {dual=true; caste="Lime";     c2 = "Olive";};
-          if (caste.equals("Olive/Jade"))    {dual=true; caste="Olive";    c2 = "Jade";};
-          if (caste.equals("Jade/Teal"))     {dual=true; caste="Jade";     c2 = "Teal";};
-          if (caste.equals("Teal/Cerulean")) {dual=true; caste="Teal";     c2 = "Cerulean";};
-          if (caste.equals("Cerulean/Blue")) {dual=true; caste="Cerulean"; c2 = "Blue";};
-          if (caste.equals("Blue/Indigo"))   {dual=true; caste="Blue";     c2 = "Indigo";};
-          if (caste.equals("Indigo/Violet")) {dual=true; caste="Indigo";   c2 = "Violet";};
-          if (caste.equals("Violet/Tyrian")) {dual=true; caste="Violet";   c2 = "Tyrian";};
-          if (caste.equals("Tyrian/Maroon")) {dual=true; caste="Tyrian";   c2 = "Maroon";};
-          // caste = done, if (dual) {c2=done}
+          String caste = bloodcaste.condensecaste(blood); // set caste string based on that
+          caste = caste.toLowerCase();
+          boolean dual = false; String c2 = "";  boolean dualmoon = false; // check for doubles
+          if (moon.equals("Both")) {dualmoon=true;};
+          // if human or fae, choose a random caste so they aren't all "maroon".
+          if (Gene.isfae(blood)||Gene.ishum(blood)) {bloodcaste.castefromcode(bloodcaste.premadeBlood());};
+          
+          if (caste.contains("maroon/bronze")) {dual=true; caste="maroon";   c2 = "bronze";};
+          if (caste.contains("bronze/gold"))   {dual=true; caste="bronze";   c2 = "gold";};
+          if (caste.contains("gold/lime"))     {dual=true; caste="gold";     c2 = "lime";};
+          if (caste.contains("lime/olive"))    {dual=true; caste="lime";     c2 = "olive";};
+          if (caste.contains("olive/jade"))    {dual=true; caste="olive";    c2 = "jade";};
+          if (caste.contains("jade/teal"))     {dual=true; caste="jade";     c2 = "teal";};
+          if (caste.contains("teal/cerulean")) {dual=true; caste="teal";     c2 = "cerulean";};
+          if (caste.contains("cerulean/blue")) {dual=true; caste="cerulean"; c2 = "blue";};
+          if (caste.contains("blue/indigo"))   {dual=true; caste="blue";     c2 = "indigo";};
+          if (caste.contains("indigo/violet")) {dual=true; caste="indigo";   c2 = "violet";};
+          if (caste.contains("violet/tyrian")) {dual=true; caste="violet";   c2 = "tyrian";};
+          if (caste.contains("tyrian/maroon")) {dual=true; caste="tyrian";   c2 = "maroon";};
+          // Data all initialized -- starting on the logic proper. 
           String txt = "";
-          txt = internalzodiac(caste, moon, aspect);
-          if (dual)  {txt = txt + "/" + internalzodiac(c2, moon, aspect);};          
+          if (dualmoon) {moon="Prospit";};  // if dual do prospit first
+          
+          txt = internalzodiac(caste, moon, aspect); // do normal zodiac
+          if (dual)  {txt = txt + "/" + internalzodiac(c2, moon, aspect);}; // do doubles
+          
+          if (dualmoon) { 
+              moon="Derse";  // if dual, do derse second
+              txt = txt + "/" + internalzodiac(caste, moon, aspect); // normal first
+              if (dual)  {txt = txt + "/" + internalzodiac(c2, moon, aspect);}; // then doubles
+              moon="Both"; // set the moon back to Both just in case it remembers
+              };
+          
           return txt;
         };
         

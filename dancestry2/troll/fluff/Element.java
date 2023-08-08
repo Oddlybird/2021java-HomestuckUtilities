@@ -352,7 +352,8 @@ public class Element {
 		String[] set = {
 				"copper", "silver", "gold", "lead", "iron", "steel", "platinum", "chrome",
 				"tungsten", "tin", "mercury", "brass", "bronze", "neodymium", "electrum",
-                                "titanium", "nickle", "zinc", };
+                                "titanium", "nickle", "zinc", "uranium", "pewter", "billon", "gunmetal", 
+                                "rose gold", "invar", "pig iron", "solder", "sterling silver", };
 		var=set[rand.nextInt(set.length)];
 		return var;
 	}

@@ -22,8 +22,6 @@ public class Bloodline {
 	public Bloodline(Troll t) {
 		sign = t.name.signname;
 		aspect = t.stats.aspect;
-		blood = t.blood.code;
-			color = t.blood.color;
 		horns = t.horns;  // yes, the entire horns.
 		body = t.body;    // yup, entire body
 		stats = pickstats(t.stats, t.stats.aspect);

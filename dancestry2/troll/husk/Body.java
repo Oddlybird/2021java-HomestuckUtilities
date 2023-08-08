@@ -7,6 +7,10 @@ import java.util.Random;
     // overall to-do lists are in troll.java
 
 public class Body {
+        public String blood = "xx";
+        public String caste = "";
+        public int hue = 0;
+        public String color = "(0, 0, 0)";
 	public int heightinches = 0;
 	public String height = "";
 	//public String build = ""; // description
@@ -18,7 +22,7 @@ public class Body {
 	// char5: number between 0-9, butt
 	// char5: number between 0-9, bulk
 	public String sex = "N";
-	public String gender = "?";
+	public String gender = "N";
 	public String pupation = "";
 	// pupation 0 = grub form, 1 = toddler form, 2+ = spares,
 	// 3char: 123 number of pupations to go through : take average(round nearest).  average=9 means infinite, every 2 sweeps.
@@ -62,8 +66,8 @@ public class Body {
 	// 2char: Tt - tail level of expression TT(full) Tt(stunted) tT(stunted) tt (none)
 	// 1char: #  - tail length in (TT)forearm-spans, (Tt)handspans or (tT)inches.
 	// 1char: #  - tail width in fingerwidths
-	// 2char: Rr - tail tip from horntip
-	// 2char: Rr - tail type (bare, tufted, furred, mane, scale, club, clawed, spiked, horse, etc)
+	// (unfinished)2char: Rr - tail tip from horntip
+	// (to add) 2char: Rr - tail type (bare, tufted, furred, mane, scale, club, clawed, spiked, horse, etc)
 	public String skingene = "";
 	// whether biolum is ACTIVE or not will depend on epigenetics -- psychic stat, seadweller control genes, etc.
         // ------ : redo skin patterning gene, synchronize with syndromes and pigment?
@@ -114,6 +118,11 @@ public class Body {
         // 6char: supernatural - v(voodoo), e(eldritch), m(magic), n(null)
         // ------ p(physical psychic), o(oracular psychic), q(mental psychic)
         // 4char: substance allergy - N (none), I(iron), S(silver), G(gold), W(water), D (earth daylight) 
+        // 3char: secondary form:  Aa (avian), Bb(Bovine), Cc(canine), Dd(Cervine/rusine, deer/ungulate), Ee(equine), 
+        // ------ Ff(feline), Gg (frog/toad), Hh(hircine, goat), Ii(Insectoid), Jj(fish), Kk(humanoid), 
+        // ------ Ll(leporine, rabbit), Mm(Mustelid), Nn(noctilionine, bats), Oo(ovine, sheep), Pp(Porcine), Qq(Phocine, selkie)
+        // ------ Rr(murine, rodent), Ss(serpentine), Uu(Ursine, bear), Vv(Vulpine, fox), Xx(free shapeshifter), Zz(simian, ape)
+        // ------ None (TWY0123456789)
 	public String sightgene = "";
 	// 2char: Dd  Daylight sight, vs. eye damage taken from daylight 
 	// 2char: Dd  How well see in the dark? (DD great, Dd/dD aight, dd badly) 
@@ -132,49 +141,56 @@ public class Body {
 	// --- Q=psychic residue,  R=life-sense,           S=Sharingan,                  T=??,
 	// --- U=Electromagnetism, V=gravitational fields, W=eldritch horrorterror shit,
 	// --- X=dnd darkvision,   Y=ShinySense,           Z=Aspect Affiliation
-
-
-        //public String fertgene = "aaaa";
-        // :: add FERTILITY gene
-        // 2char: egglaying, live young, oviposition, other
-        // 2char: mother grub only vs individual fertility vs wing or pupation dependant fertility
-        // 2char: level of fertility : 0 (not) 1 (elf) 2 (wildfae) 3(human) 5+(Troll)
-        // 2char: litter size (number, average them), ...
-        // -- bulge Y/N, canDad
-        // -- nook Y/N, canMom
-        // -- testes internal/external,
-        // -- sheath y/n
-        // -- knots
+        public String fertgene = "";
+        // 1char: X (mammal), T (egg+bucket troll), V (bucket-only troll), 
+        // 1char: X (fem-passing), Y (masc-passing)
+        // ---- Penor, semen: all but XX.  vagoo: all but XY.  egg/womb: all but XY, VX, VY
+        // ---- Other infertility flags override this
+        // 1char: Puberty:  0(non), 1(all activate midteens), 2 (masculine teen puberty, feminine adult puberty)
+        // 1char: Fertility 0:non, 1: sidhe, 2: wild fae, human, 3+: troll
+        // 1char: E(gg-laying), L(ive-birth)
+        // 4char: Littersize 0-4
+        // ---- for a litter, add FERTILITY random numbers from the LITTERSIZE array
+        // "Gene.littersize(fertgene1, fertgene2)" = an integer number of bebbies, 0-16
+        
         
         // :: add INTERNALS gene
         // -- organ doubling, mirroring, rearrangement, glitches/flaws, glandular/hormone/growth problems
         // -- osteoporosis, bone spurs, arthritis, bone Things
 	
 	
-	public Body(String blood) {
+	public Body(String inblood, String incaste) {
 		// update it to have other arguments later
 		Random rand = new Random();
-		// Proportion a torso.
-		buildgene = build(blood);   	// this happens to define sex
-		// Specify height.
-		heightinches = pickheight(blood, sex);
-		height = Desc.infeet(heightinches);
-		
+                blood = inblood;
+                caste = incaste;
+                hue = (int) Math.round(Blood.huefromCode(blood));
+		color = Desc.colortostring(Blood.colorfromcode(blood));
+
+                
 		// for everybody
-		respiratorygene = respiratory(blood);
-		skingene = skin(blood);
-		fingene = fin(blood);
-		pupation = pupation(blood);
-		tailgene = tail(blood);
-		feralgene = feral(blood);
-                pigmentgene = pigment(blood);
-                syndromegene = syndrome(blood);
-                sightgene = sight(blood);
-			
+		respiratorygene = respiratory(inblood, incaste);
+		skingene = skin(inblood, incaste);
+		fingene = fin(inblood, incaste);
+		pupation = pupation(inblood, incaste);
+		tailgene = tail(inblood, incaste);
+		feralgene = feral(inblood, incaste);
+                pigmentgene = pigment(inblood, incaste);
+                syndromegene = syndrome(inblood, incaste);
+                sightgene = sight(inblood, incaste);
+                fertgene = fert(inblood, incaste);
+
+                // Proportion a torso.
+		buildgene = build(inblood, incaste, fertgene);   // this happens to define sex
+		// Specify height.
+		heightinches = pickheight(inblood, incaste, sex);
+		height = Desc.infeet(heightinches);
+
+                
 		// TODO Auto-generated constructor stub
 	}
 
-	public int pickheight(String blood, String sex) {
+	public int pickheight(String blood, String caste, String sex) {
 	// Default height if otherwise unspecified
 		Random rand = new Random();
 		int h = 72;
@@ -208,6 +224,7 @@ public class Body {
      		if (blood.startsWith("fae"))   {h=65;};
      		if (blood.startsWith("human")) {h=65;};
      		if (blood.startsWith("dryad")) {h=65;};
+     		if (blood.startsWith("frostgiant")) {h=144;};
 
 		// Mutation zone
 		int delta = rand.nextInt(10);
@@ -226,11 +243,16 @@ public class Body {
 		if (sex=="F") {h = h - rand.nextInt(2)-1;};
 
 		return h;
-	}
-	
-	public String build(String blood) {
+	}        
+        
+	public String build(String blood, String caste, String fert) {
 		Blood b = new Blood(blood);
 		Random rand = new Random();
+                String chromo = fert.substring(1, 2);
+                sex = "N";
+                if (chromo.equals("X")) {sex="F";};
+                if (chromo.equals("Y")) {sex="M";};
+                
 		String bodyshape = new String("");
 		bodyshape = "";
 		if (blood.startsWith("blank"))    {bodyshape = "555555"; return bodyshape;};
@@ -239,11 +261,9 @@ public class Body {
 			bodyshape = opts[rand.nextInt(opts.length)] + opts[rand.nextInt(opts.length)];
 			bodyshape = bodyshape + opts[rand.nextInt(opts.length)] + opts[rand.nextInt(opts.length)];
 			bodyshape = bodyshape + opts[rand.nextInt(opts.length)] + opts[rand.nextInt(opts.length)];
-			sex = "N";
-			if (rand.nextBoolean()) {sex="M";};
-			if (rand.nextBoolean()) {sex="F";};
+                        // if (rand.nextBoolean()) {sex="M";}; if (rand.nextBoolean()) {sex="F";};
 			return bodyshape;};
-		bodyshape = Gene.mutiBlend(pickbuild(blood), pickbuild(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickbuild("rand"));	
+		bodyshape = Gene.mutiBlend(pickbuild(blood, caste), pickbuild(Gene.hemospectrum(blood, (rand.nextInt(6)-4)), caste), pickbuild("rand", caste));
 		
 		char[] a = bodyshape.toCharArray();
 		// unpack bodyshape into bits
@@ -256,15 +276,20 @@ public class Body {
 		
 		int kinsey = rand.nextInt(6) - 3;
 		
+                // adjust kinsey by sex
+                if ((kinsey<3)&&(sex.equals("M"))) {kinsey++;};
+                if ((kinsey>-3)&&(sex.equals("F"))) {kinsey--;};
+                
 		// if tyrian and male, 90% -> female
 		if ((b.huefromCode(blood)>314)&&(kinsey>0)&&(rand.nextInt(10)>1)) {kinsey = -1;};
 		// if jade and male, 80% -> female
 		if ((b.huefromCode(blood)>140)&&(b.huefromCode(blood)<170)&&(kinsey>0)&&(rand.nextInt(10)>2)) {kinsey = -1;};
-		
+                	
 		int masculine = 0;
 		int feminine = 0;
-		if (kinsey>0) {masculine = Math.abs(kinsey); sex="M";};
-		if (kinsey<0) {feminine = Math.abs(kinsey);  sex="F";};
+		if (kinsey>0) {masculine = Math.abs(kinsey); gender="M";};
+		if (kinsey<0) {feminine = Math.abs(kinsey);  gender="F";};
+                if (Math.abs(kinsey)<2) {gender="N";};
 
 		while (masculine>0) {
 			if (rand.nextInt(10)>6) {shoulder++;};
@@ -298,7 +323,7 @@ public class Body {
 		return bodyshape;
 	}
 	
-	public String pickbuild(String blood) {
+	public String pickbuild(String blood, String caste) {
 		Random rand = new Random();
 		String bodyshape = new String("");
 		if (blood=="rand"||Gene.ishum(blood)||Gene.isfae(blood)) {
@@ -356,10 +381,10 @@ public class Body {
 		return bodyshape;
 	}
 
-	public String skin(String blood) {
+	public String skin(String blood, String caste) {
 		Random rand = new Random();
 		String skin = new String("");
-		if (blood.startsWith("blank")) {skin="NNNNnnYYaaaFF3";return skin;};
+		if (blood.startsWith("blank")) {skin="NNNNYYaaaFF3" ;return skin;};
 		if (blood=="truerand") {
 			String[] a4 = {"B", "b", "R", "r", "P", "p", "N", "n", "E", "e", "S", "s", };
 			String[] c2 = {"Y", "y", "N", "n"};
@@ -370,14 +395,14 @@ public class Body {
 			skin = skin + Gene.randopt(e2, 2) + Gene.randopt(g1, 1);
 			return skin;
 		}				
-		skin = Gene.mutiBlend(pickskin(blood), pickskin(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickskin("rand"));	
+		skin = Gene.mutiBlend(pickskin(blood, caste), pickskin(Gene.hemospectrum(blood, (rand.nextInt(6)-4)), caste), pickskin("rand", caste));	
 		
 		return skin;		
 	}
 	
-	public String pickskin(String blood) {
+	public String pickskin(String blood, String caste) {
 		Random rand = new Random();
-		String skin = "nnnnYYaaaffSS3";
+		String skin = "nnnnYYaaaff3";
 		// whether biolum is ACTIVE or not will depend on epigenetics -- psychic stat, seadweller control genes, etc.
 		// 4 char : Bioluminescence - Rr(rainbowdrinker) Pp(psychic) Nn Ee (none), + 
 		//		  : sea - Ss(spots) Tt(stripe) Bb(blotches) Ff(freckles)
@@ -405,7 +430,7 @@ public class Body {
 			skin = skin + Gene.randopt(e2, 2) + Gene.randopt(g1, 1);
 			return skin;
 		}				
-		
+
 		if (blood.startsWith("RR")) {skin="ppPpYyaaaff3";}; //Maroon
 		if (blood.startsWith("Rr")) {skin="ppppyYaaaFF3";};
 		if (blood.startsWith("rr")) {skin="ppppYyaaaff3";}; // Bronze
@@ -450,7 +475,7 @@ public class Body {
 		return skin;
 	}
 	
-	public String respiratory(String blood) {
+	public String respiratory(String blood, String caste) {
 		Random rand = new Random();
 		String var = new String("");
 		if (blood.startsWith("blank")) {var = "ssssbbggiiggiiggiissbbffAAAA";return var;};
@@ -466,11 +491,11 @@ public class Body {
 			var = var + Gene.randopt(Ss, 2) + Gene.randopt(Bb, 2) + Gene.randopt(Ff, 2) + Gene.randopt(Aa, 4);
 			return var;
 		}				
-		var = Gene.mutiBlend(pickrespiratory(blood), pickrespiratory(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickrespiratory("rand"));			
+		var = Gene.mutiBlend(pickrespiratory(blood, caste), pickrespiratory(Gene.hemospectrum(blood, (rand.nextInt(6)-4)), caste), pickrespiratory("rand", caste));			
 		return var;		
 	}
 	
-	public String pickrespiratory(String blood) {
+	public String pickrespiratory(String blood, String caste) {
 		Blood b = new Blood(blood);
  		Random rand = new Random();
 		String var = new String();
@@ -542,7 +567,7 @@ public class Body {
 		return var;
 	}
 
-	public String fin(String blood) {
+	public String fin(String blood, String caste) {
 		Random rand = new Random();
 		String var = new String("");
 		if (blood.startsWith("blank")) {var = "ssffttffffnnEEcc35bb";return var;};
@@ -562,11 +587,11 @@ public class Body {
 			return var;
 		}				
 
-		var = Gene.mutiBlend(pickfin(blood), pickfin(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickfin("rand"));			
+		var = Gene.mutiBlend(pickfin(blood, caste), pickfin(Gene.hemospectrum(blood, (rand.nextInt(6)-4)), caste), pickfin("rand", caste));			
 		return var;		
 	}
 
-	public String pickfin(String blood){
+	public String pickfin(String blood, String caste){
 			Blood b = new Blood(blood);
 	 		Random rand = new Random();
 			String var = new String();
@@ -648,7 +673,7 @@ public class Body {
 	return var;
 }
 
-	public String pupation(String blood) {
+	public String pupation(String blood, String caste) {
 		Random rand = new Random();
 		String var = new String("");
                 if (blood.startsWith("blank")) {var = "123111122119911";return var;};
@@ -656,11 +681,11 @@ public class Body {
 			String[] num = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 			var = Gene.randopt(num, 15);
 			return var;}
-		var = Gene.mutiBlend(pickpupation(blood), pickpupation(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickpupation("rand"));			
+		var = Gene.mutiBlend(pickpupation(blood, caste), pickpupation(Gene.hemospectrum(blood, (rand.nextInt(6)-4)), caste), pickpupation("rand", caste));			
 		return var;		
 	}
 	
-	public String pickpupation(String blood) {
+	public String pickpupation(String blood, String caste) {
 		Blood b = new Blood(blood);
  		Random rand = new Random();
 		String var = new String();
@@ -708,7 +733,7 @@ public class Body {
 		return var;
 	}
 
-	public String tail(String blood) {
+	public String tail(String blood, String caste) {
 		Random rand = new Random();
 		String var = new String("");
 		if (blood.startsWith("blank")) {var = "tt01aa";return var;};
@@ -718,11 +743,11 @@ public class Body {
 			String[] num = {"0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 			var = Gene.randopt(Tt, 2) + Gene.randopt(num, 2) + Gene.randopt(Aa, 2);
 			return var;}
-		var = Gene.mutiBlend(picktail(blood), picktail(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), picktail("rand"));			
+		var = Gene.mutiBlend(picktail(blood, caste), picktail(Gene.hemospectrum(blood, (rand.nextInt(6)-4)), caste), picktail("rand", caste));			
 		return var;		
 	}
 
-	public String picktail(String blood){
+	public String picktail(String blood, String caste){
 		Blood b = new Blood(blood);
  		Random rand = new Random();
 		String var = new String();
@@ -781,7 +806,7 @@ public class Body {
 	return var;
 	}
 
-	public String feral(String blood) {
+	public String feral(String blood, String caste) {
 		Random rand = new Random();
 		String var = new String("");
 		if (blood.startsWith("blank")) {var = "ffPPBBpp33BBNNNNGN";return var;};
@@ -801,11 +826,11 @@ public class Body {
                         var = var + Gene.randopt(B2, 2) + Gene.randopt(T2, 2);
                         var = var + Gene.randopt(N2, 2) + Gene.randopt(L1, 1) + Gene.randopt(R1, 1);
 			return var;};
-		var = Gene.mutiBlend(pickferal(blood), pickferal(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickferal("rand"));
+		var = Gene.mutiBlend(pickferal(blood, caste), pickferal(Gene.hemospectrum(blood, (rand.nextInt(6)-4)), caste), pickferal("rand", caste));
 		return var;
 	}
 
-	public String pickferal(String blood){
+	public String pickferal(String blood, String caste){
 		Blood b = new Blood(blood);
  		Random rand = new Random();
  		String var = new String();
@@ -909,25 +934,25 @@ public class Body {
 	return var;
 	}
 
-        public String pigment(String blood) {
+        public String pigment(String blood, String caste) {
 		Random rand = new Random();
-		String var = new String("PPMMMMCCGGGG");
-                if (blood.startsWith("blank")) {var = "PPMMMMCCGGGG";return var;};
+		String var = new String("PPMMMMCCGGGGMC");
+                if (blood.startsWith("blank")) {var = "PPMMMMCCGGGGMC";return var;};
 		if (blood=="truerand") {
                         String[] col = {"A", "a", "L", "l", "M", "m", "G", "g", "E", "e", "X", "x", "B", "b", "C", "c", "I", "i", "T", "t"};
 			String[] streak = {"P", "p", "K", "k"};
                         var = Gene.randopt(streak, 2);
 			var = var + Gene.randopt(col, 12);
 			return var;}
-		var = Gene.mutiBlend(pickpigment(blood), pickpigment(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), pickpigment("rand"));
+		var = Gene.mutiBlend(pickpigment(blood, caste), pickpigment(Gene.hemospectrum(blood, (rand.nextInt(6)-4)), caste), pickpigment("rand", caste));
 		return var;		
 	}
 	
-	public String pickpigment(String blood) {
+	public String pickpigment(String blood, String caste) {
 		Blood b = new Blood(blood);
  		Random rand = new Random();
 		String var = new String();
-		var = "PPMMMMCCGGGG"; // default
+		var = "PPMMMMCCGGGGMC"; // default
         // -- Options: Aa (albino colorless), Ll (leucistic white), Mm (melanism black) Gg (grey: GG = LM or ML)
         // --(contd) Ee (Erythrism red/orange), Xx (Xanthism yellow / lack of non-yellow), Bb (axanthism, lack of yellow)
         // --(contd) Cc (caste color) Ii (inverted caste color) Tt (earthtone)
@@ -1017,33 +1042,49 @@ public class Body {
 		return var;
 	}
        
-        public String syndrome(String blood) {
+        public String syndrome(String blood, String caste) {
 		Random rand = new Random();
 		String var = new String("");
-                if (blood.startsWith("blank")) {var = "NNnnnnnnNNNN";return var;};
+                if (blood.startsWith("blank")) {var = "NNnnnnnnNNNN000";return var;};
 		if (blood=="truerand") {
                         String[] A2 = {"N", "V", "G", "Z", "U", "W"};
                         String[] B6 = {"v", "e", "m", "n", "p", "o", "q"};
                         String[] C4 = {"N", "N", "N", "N", "I", "S", "G", "W", "D"};
+                        String[] D3 = {"A", "a", "B", "b", "C", "c", "D", "d", "E", "e", "F", "f", "G", "g",
+                                       "H", "h", "I", "i", "J", "j", "K", "k", "L", "l", "M", "m", "N", "n",
+                                       "O", "o", "P", "p", "Q", "q", "R", "r", "S", "s", "T", "t", "U", "u",
+                                       "V", "v", "W", "w", "X", "x", "Y", "y", "Z", "z", 
+                                       "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
                         var = Gene.randopt(A2, 2);
 			var = var + Gene.randopt(B6, 6);
 			var = var + Gene.randopt(C4, 4);
+                        var = var + Gene.randopt(D3, 3);
 			return var;}
-		var = Gene.mutiBlend(picksyndrome(blood), picksyndrome(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), picksyndrome("rand"));
+		var = Gene.mutiBlend(picksyndrome(blood, caste), picksyndrome(Gene.hemospectrum(blood, (rand.nextInt(6)-4)), caste), picksyndrome("rand", caste));
 		return var;		
 	}
 	
-	public String picksyndrome(String blood) {
+	public String picksyndrome(String blood, String caste) {
 		Blood b = new Blood(blood);
  		Random rand = new Random();
 		String var = new String();
-		var = "NNnnnnnnNNNN"; // default
+		var = "NNnnnnnnNNNN999"; // default
                 // need 2 letters of a gene for it to express
                 // 2char: undeath - N(nothing), V(vampire/Drinker), G(ghoul), Z(mindless zombie), 
                 // ------ U(fae undying), W(weak spark)
                 // 6char: supernatural - v(voodoo), e(eldritch), m(magic), n(null)
                 // ------ p(physical psychic), o(oracular psychic), q(mental psychic)
                 // 4char: substance allergy - N (none), I(iron), S(silver), G(gold), W(water), D (daylight)
+                // 3char: secondary form:  Aa (avian), Bb(Bovine), Cc(canine), Dd(Cervine/rusine, deer/ungulate), Ee(equine), 
+                // ------ Ff(feline), Gg (frog/toad), Hh(hircine, goat), Ii(Insectoid), Jj(fish), Kk(humanoid), 
+                // ------ Ll(leporine, rabbit), Mm(Mustelid), Nn(noctilionine, bats), Oo(ovine, sheep), Pp(Porcine), Qq(Phocine, selkie)
+                // ------ Rr(murine, rodent), Ss(serpentine), Uu(Ursine, bear), Vv(Vulpine, fox), Xx(free shapeshifter), Zz(simian, ape)
+                // ------ None (TWY0123456789)
+                        String[] D3 = {"A", "a", "B", "b", "C", "c", "D", "d", "E", "e", "F", "f", "G", "g",
+                                       "H", "h", "I", "i", "J", "j", "K", "k", "L", "l", "M", "m", "N", "n",
+                                       "O", "o", "P", "p", "Q", "q", "R", "r", "S", "s", "T", "t", "U", "u",
+                                       "V", "v", "W", "w", "X", "x", "Y", "y", "Z", "z", 
+                                       "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
 		if (blood=="rand") {
 			String[] options = {"RR", "rr", "RG", "GG", "gg", "GB", "gb", "BB", "bb", "RB", "rb",
                             "null", "eldritch", "psiphys", "psyment", "psysens", "voodoo", "magic", "rainbow"};
@@ -1056,6 +1097,7 @@ public class Body {
                         var = Gene.randopt(A2, 2);
 			var = var + Gene.randopt(B6, 6);
 			var = var + Gene.randopt(C4, 4);
+                        var = var + Gene.randopt(D3, 3);
 			return var;}
                 // end truerand
       		if (Gene.ishum(blood)) {
@@ -1067,59 +1109,66 @@ public class Body {
 		} // end human
       		if (Gene.isfae(blood)) {
 			String[] faeopt = {
-                            "fae", "faewild", "seleighe", "unseleighe", "faevamp", "faeghoul"};
+                            "fae", "faewild", "seleighe", "unseleighe", "faevamp", "faeghoul",
+                            "fae", "faewild", "seleighe", "unseleighe",
+                            "fae", "faewild", "seleighe", "unseleighe",
+                            "selkie", "pookah1", "pookah2", "pookah3",};
 			blood = faeopt[rand.nextInt(faeopt.length)];
 		} // end fae
 
                 
 		// caste presets
-            if (blood.startsWith("RR")) {var="NNppnnonNNNN";}; //Maroon
-            if (blood.startsWith("Rr")) {var="NNpnoonnNNNN";};
-            if (blood.startsWith("rr")) {var="NNnnnnqqNNNN";}; // Bronze
-            if (blood.startsWith("Rg")) {var="NNnpononNNNN";};
-            if (blood.startsWith("RG")) {var="NNppppppNNNN";}; // Gold
-            if (blood.startsWith("Gr")) {var="NNpqpqpqNNNN";};
-            if (blood.startsWith("rg")) {var="NNqqqqqqNNNN";}; // Lime
-            if (blood.startsWith("GG")) {var="NNnnnnnnNNNN";}; // Olive
-            if (blood.startsWith("Gg")) {var="VNonononNNNN";};
-            if (blood.startsWith("gg")) {var="NVnnnnnnNNNN";}; // Jade
-            if (blood.startsWith("Gb")) {var="VNnqnnonNNNN";};
-            if (blood.startsWith("GB")) {var="NNnnnnnnNNNN";}; // Teal
-            if (blood.startsWith("Bg")) {var="NNnqnnnnNNNN";};
-            if (blood.startsWith("gb")) {var="NNnnnnqnNNNN";}; // Ceru
-            if (blood.startsWith("BB")) {var="NNnnpnnnNNNN";}; // Bloo
-            if (blood.startsWith("Bb")) {var="NGnvnvnvNNNN";};
-            if (blood.startsWith("bb")) {var="NNvnvnvnNNNN";}; //Indigo
-            if (blood.startsWith("Br")) {var="GNmvmvmvNNNN";};
-            if (blood.startsWith("RB")) {var="NNnennenNNNN";}; //Violet
-            if (blood.startsWith("Rb")) {var="NNenenneNNNN";};
-            if (blood.startsWith("rb")) {var="NNneeeenNNNN";}; //Tyrian
+            if (blood.startsWith("RR")) {var="NNppnnonNNNN111";}; //Maroon
+            if (blood.startsWith("Rr")) {var="NNpnoonnNNNN222";};
+            if (blood.startsWith("rr")) {var="NNnnnnqqNNNN111";}; // Bronze
+            if (blood.startsWith("Rg")) {var="NNnpononNNNN222";};
+            if (blood.startsWith("RG")) {var="NNppppppNNNN111";}; // Gold
+            if (blood.startsWith("Gr")) {var="NNpqpqpqNNNN222";};
+            if (blood.startsWith("rg")) {var="NNqqqqqqNNNN222";}; // Lime
+            if (blood.startsWith("GG")) {var="NNnnnnnnNNNN111";}; // Olive
+            if (blood.startsWith("Gg")) {var="VNonononNNNN222";};
+            if (blood.startsWith("gg")) {var="NVnnnnnnNNNN333";}; // Jade
+            if (blood.startsWith("Gb")) {var="VNnqnnonNNNN222";};
+            if (blood.startsWith("GB")) {var="NNnnnnnnNNNN111";}; // Teal
+            if (blood.startsWith("Bg")) {var="NNnqnnnnNNNN222";};
+            if (blood.startsWith("gb")) {var="NNnnnnqnNNNN111";}; // Ceru
+            if (blood.startsWith("BB")) {var="NNnnpnnnNNNN111";}; // Bloo
+            if (blood.startsWith("Bb")) {var="NGnvnvnvNNNN222";};
+            if (blood.startsWith("bb")) {var="NNvnvnvnNNNN111";}; //Indigo
+            if (blood.startsWith("Br")) {var="GNmvmvmvNNNN222";};
+            if (blood.startsWith("RB")) {var="NNnennenNNNN111";}; //Violet
+            if (blood.startsWith("Rb")) {var="NNenenneNNNN222";};
+            if (blood.startsWith("rb")) {var="NNneeeenNNNN333";}; //Tyrian
             
 	// other presets that overwrite the previous
             // human
-            if (blood.startsWith("vampire")) {var="VVmmmqqqDDSS";}; // human vampire
+            if (blood.startsWith("vampire")) {var="VVmmmqqqDDSSn0k";}; // human vampire
             // fae
-            if (blood.startsWith("fae"))        {var="UUnmnnmnIIII";}; // undying
-            if (blood.startsWith("faevamp"))    {var="VWnmnnmnIIII";}; // weak spark vampire
-            if (blood.startsWith("faeghoul"))   {var="GWnmnnmnIIII";}; // weak spark ghoul
-            if (blood.startsWith("faewild"))    {var="NNnmnmnnIIII";}; // wild
-            if (blood.startsWith("seleighe"))   {var="NNmnmnmeIIII";}; // seleighe
-            if (blood.startsWith("unseleighe")) {var="NNemnmnmIIII";}; // unseleighe
+            if (blood.startsWith("fae"))        {var="UUnmnnmnIIII" + Gene.randopt(D3, 3);}; // undying
+            if (blood.startsWith("faevamp"))    {var="VWnmnnmnIIII" + Gene.randopt(D3, 3);}; // weak spark vampire
+            if (blood.startsWith("faeghoul"))   {var="GWnmnnmnIIII" + Gene.randopt(D3, 3);}; // weak spark ghoul
+            if (blood.startsWith("faewild"))    {var="NNnmnmnnIIII" + Gene.randopt(D3, 3);}; // wild
+            if (blood.startsWith("seleighe"))   {var="NNmnmnmeIIII" + Gene.randopt(D3, 3);}; // seleighe
+            if (blood.startsWith("unseleighe")) {var="NNemnmnmIIII" + Gene.randopt(D3, 3);}; // unseleighe
+            if (blood.startsWith("selkie"))    {var="NNnnmnnnIIIIQqq";}; // self-descriptive
+            if (blood.startsWith("pookah1"))    {var="NNnnnmnnIIIIExx";}; // self-descriptive
+            if (blood.startsWith("pookah2"))    {var="NNnnnmnnIIIICxx";}; // self-descriptive
+            if (blood.startsWith("pookah3"))    {var="NNnnnmnnIIIIXxx";}; // self-descriptive
             // troll 
-            if (blood.startsWith("rainbow"))  {var="UVnnnnnnNNNN";}; // rainbowdrinker
+            if (blood.startsWith("rainbow"))  {var="UVnnnnnnNNNN000";}; // rainbowdrinker
             // misc
-            if (blood.startsWith("null"))     {var="NNnnnnnnNNNN";}; // null
-            if (blood.startsWith("eldritch")) {var="NNeeeeeeNNNN";}; // eldritch
-            if (blood.startsWith("magic"))    {var="NNmmmmmmNNNN";}; // wizard
-            if (blood.startsWith("psiphys"))  {var="NNppppppNNNN";}; // psychic1 : physical
-            if (blood.startsWith("psiment"))  {var="NNqqqqqqNNNN";}; // psychic2 : mental
-            if (blood.startsWith("psisens"))  {var="NNooooooNNNN";}; // psychic3 : sensory
-            if (blood.startsWith("voodoo"))   {var="NNvvvvvvNNNN";}; // voodoo
+            if (blood.startsWith("null"))     {var="NNnnnnnnNNNN000";}; // null
+            if (blood.startsWith("eldritch")) {var="NNeeeeeeNNNN000";}; // eldritch
+            if (blood.startsWith("magic"))    {var="NNmmmmmmNNNN000";}; // wizard
+            if (blood.startsWith("psiphys"))  {var="NNppppppNNNN000";}; // psychic1 : physical
+            if (blood.startsWith("psiment"))  {var="NNqqqqqqNNNN000";}; // psychic2 : mental
+            if (blood.startsWith("psisens"))  {var="NNooooooNNNN000";}; // psychic3 : sensory
+            if (blood.startsWith("voodoo"))   {var="NNvvvvvvNNNN000";}; // voodoo
 
 		return var;
 	}
  
-	public String sight(String blood) {
+	public String sight(String blood, String caste) {
 		Random rand = new Random();
 		String var = new String("ddDdXXPpMmCcAAAAAAAA");
 		if (blood.startsWith("blank")) {return var;};
@@ -1130,16 +1179,16 @@ public class Body {
 			String[] Mm = {"M", "m"};
 			String[] RCU = {"C", "c", "R", "U"};
 			String[] ABC = {"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
-							"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
+					"N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"};
 			var = Gene.randopt(Dd, 4) + Gene.randopt(Xnfa, 2) ;
 			var = var + Gene.randopt(Pp, 2) + Gene.randopt(Mm, 2);			
 			var = var + Gene.randopt(RCU, 2) + Gene.randopt(ABC, 8);
 			return var;};
-		var = Gene.mutiBlend(picksight(blood), picksight(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), picksight("rand"));			
+		var = Gene.mutiBlend(picksight(blood, caste), picksight(Gene.hemospectrum(blood, (rand.nextInt(6)-4)), caste), picksight("rand", caste));			
 		return var;		
 	}
 
-	public String picksight(String blood){
+	public String picksight(String blood, String caste){
 			Blood b = new Blood(blood);
 	 		Random rand = new Random();
 			String var = new String();
@@ -1262,14 +1311,138 @@ public class Body {
 	return var;
 	}
         
-        
+	public String fert(String blood, String caste) {
+		Random rand = new Random();
+		String var = new String("");
+                if (blood.startsWith("blank")) {var = "VX13E0112";return var;};
+		if (blood=="truerand") {
+                        String[] T = {"X", "T", "V", "W"};
+                        String[] Y = {"X", "Y"};
+			String[] num1A = {"0", "1", "2"};
+			String[] num1B = {"0", "1", "2", "3"};
+                        String[] E = {"E", "L"};
+			String[] num4C = {"0", "0", "1", "1", "1", "1", "2", "2", "3", "4"};
+                        var = Gene.randopt(T, 1);
+			var = var + Gene.randopt(Y, 1) + Gene.randopt(num1A, 1) + Gene.randopt(num1B, 1);
+			var = var + Gene.randopt(E, 1) + Gene.randopt(num4C, 4);
+			return var;}
+		var = Gene.mutiBlend(pickfert(blood, caste), pickfert(Gene.hemospectrum(blood, (rand.nextInt(6)-4)), caste), pickfert("rand", caste));
+		return var;
+	}
+	
+	public String pickfert(String blood, String caste) {
+		Blood b = new Blood(blood);
+ 		Random rand = new Random();
+		String var = new String();
+		var = "VX13E0112"; // default
+        // 1char: X (mammal), T (egg+bucket troll), V (bucket-only troll),  W(intersex mammal)
+        // 1char: X (fem-passing), Y (masc-passing)
+        // ---- Penor, semen: all but XX.  vagoo: all but XY.  egg/womb: all but XY, VX, VY
+        // ---- Other infertility flags override this
+        // 1char: Puberty:  0(non), 1(all activate midteens), 2 (masculine teen puberty, feminine adult puberty)
+        // 1char: Fertility 0:non, 1: sidhe, 2: wild fae, human, 3+: troll
+        // 1char: E(gg-laying), L(ive-birth)
+        // 4char: Littersize 0-4
+        // ---- for a litter, add FERTILITY random numbers from the LITTERSIZE array
+		if (blood=="rand") {
+			String[] options = {
+                            "buck", "buck", "buck", "buck", "buck", "buck", "buck", "buck", "buck", "buck",
+                            "buck", "buck", "buck", "buck", "buck", "buck", "buck", "buck", "buck", "buck",
+                            "buck", "buck", "buck", "buck", "buck", "buck", "buck", "buck", "buck", "buck",
+                            "fembuck", "fembuck", "queen", };
+			blood = options[rand.nextInt(options.length)];
+		} // end rand
+		if (blood=="truerand") {
+                        String[] T = {"W", "X", "T", "V"};
+                        String[] Y = {"X", "Y"};
+			String[] num1A = {"0", "1", "2"};
+			String[] num1B = {"0", "1", "2", "3"};
+                        String[] E = {"E", "L"};
+			String[] num4C = {"0", "0", "1", "1", "1", "1", "2", "2", "3", "4"};
+                        var = Gene.randopt(T, 1);
+			var = var + Gene.randopt(Y, 1) + Gene.randopt(num1A, 1) + Gene.randopt(num1B, 1);
+			var = var + Gene.randopt(E, 1) + Gene.randopt(num4C, 4);
+			return var;}
+                // end truerand
+      		if (Gene.ishum(blood)) {
+			String[] humopt = {"humanM", "humanF"};
+			blood = humopt[rand.nextInt(humopt.length)];
+		} // end human
+      		if (Gene.isfae(blood)) {
+			String[] faeopt = {"faeM", "faewildM", "purebloodM", "mudbloodM",
+                                           "faeF", "faewildF", "purebloodF", "mudbloodF",
+                                           "bowie"};
+			blood = faeopt[rand.nextInt(faeopt.length)];
+		} // end fae
+                
+		// caste presets
+                if (blood.startsWith("RR")) {blood="buck";}; //Maroon
+                if (blood.startsWith("Rr")) {blood="buck";};
+                if (blood.startsWith("rr")) {if(rand.nextBoolean()) {if(rand.nextBoolean()) {if(rand.nextBoolean()) {blood="queen";}}}}; // Bronze
+                if (blood.startsWith("Rg")) {blood="buck";};
+                if (blood.startsWith("RG")) {blood="buck";}; // Gold
+                if (blood.startsWith("Gr")) {blood="buck";};
+                if (blood.startsWith("rg")) {if(rand.nextBoolean()) {if(rand.nextBoolean()) {if(rand.nextBoolean()) {blood="queen";}}}}; // Lime
+                if (blood.startsWith("GG")) {blood="buck";}; // Olive
+                if (blood.startsWith("Gg")) {blood="buck";};
+                if (blood.startsWith("gg")) {blood="fembuck";}; // Jade
+                if (blood.startsWith("Gb")) {blood="fembuck";};
+                if (blood.startsWith("GB")) {blood="buck";}; // Teal
+                if (blood.startsWith("Bg")) {blood="buck";};
+                if (blood.startsWith("gb")) {blood="buck";}; // Ceru
+                if (blood.startsWith("BB")) {blood="buck";}; // Bloo
+                if (blood.startsWith("Bb")) {blood="buck";};
+                if (blood.startsWith("bb")) {blood="buck";}; //Indigo
+                if (blood.startsWith("Br")) {blood="buck";};
+                if (blood.startsWith("RB")) {blood="buck";}; //Violet
+                if (blood.startsWith("Rb")) {blood="fembuck";};
+                if (blood.startsWith("rb")) {blood="fembuck"; if(rand.nextBoolean()) {if(rand.nextBoolean()) {blood="queen";}}; //Tyrian
+
+                
+            // A slim chance for gender variation
+            if (blood.startsWith("fembuck")) {if(rand.nextBoolean()) {if(rand.nextBoolean()) {if(rand.nextBoolean()) 
+                                                   {if(rand.nextBoolean()) {if(rand.nextBoolean()) {if(rand.nextBoolean()) 
+                                                   {blood="buck";}}}}}}}};
+            if (blood.startsWith("queen")) {if(rand.nextBoolean()) {if(rand.nextBoolean()) {if(rand.nextBoolean()) 
+                                                 {if(rand.nextBoolean()) {if(rand.nextBoolean()) {if(rand.nextBoolean()) 
+                                                 {blood="fembuck";}}}}}}};
+            // turn half of bucks female and half of queens male
+            if (blood.startsWith("buck")) {if(rand.nextBoolean()) {blood="fembuck";};};
+            if (blood.startsWith("queen")) {if(rand.nextBoolean()) {blood="king";};};
+            
+	// other presets that overwrite the previous
+            // human
+            if (blood.startsWith("humanM"))      {var="XY12L0121";};
+            if (blood.startsWith("humanF"))      {var="XX12L1210";};
+            // fae
+            if (blood.startsWith("bowie"))       {var="WY00L0000";};
+            if (blood.startsWith("purebloodM"))  {var="XY11L0001";};
+            if (blood.startsWith("purebloodF"))  {var="XX11L0001";};
+            if (blood.startsWith("faeM"))        {var="XY11L1010";};
+            if (blood.startsWith("faeF"))        {var="XX11L0101";};
+            if (blood.startsWith("faewildM"))    {var="XY12L1010";};
+            if (blood.startsWith("faewildF"))    {var="XX12L0101";};
+            if (blood.startsWith("mudbloodM"))   {var="XY12L0211";};
+            if (blood.startsWith("mudbloodF"))   {var="XX12L1021";};
+            // troll
+            if (blood.startsWith("buck"))        {var="VY13E2011";};
+            if (blood.startsWith("fembuck"))     {var="VX13E2011";};
+            if (blood.startsWith("queen"))       {var="TX23E3210";};
+            if (blood.startsWith("king"))        {var="TY23E3210";};
+
+		return var;
+	}
+
         
         
         
         
 // The blank ones to copy-paste when adding new genes
 
-	public String trait(String blood) {
+// the reason Trait includes a copy of the truerand thing, is
+// so that when generating a truerand it doesn't get blended with normal shit
+
+	public String trait(String blood, String caste) {
 		Random rand = new Random();
 		String var = new String("");
                 if (blood.startsWith("blank")) {var = "AA11";return var;};
@@ -1279,11 +1452,11 @@ public class Body {
                         var = Gene.randopt(A2, 2);
 			var = var + Gene.randopt(num, 2);
 			return var;}
-		var = Gene.mutiBlend(picktrait(blood), picktrait(Gene.hemospectrum(blood, (rand.nextInt(6)-4))), picktrait("rand"));
+		var = Gene.mutiBlend(picktrait(blood, caste), picktrait(Gene.hemospectrum(blood, (rand.nextInt(6)-4)), caste), picktrait("rand", caste));
 		return var;		
 	}
 	
-	public String picktrait(String blood) {
+	public String picktrait(String blood, String caste) {
 		Blood b = new Blood(blood);
  		Random rand = new Random();
 		String var = new String();

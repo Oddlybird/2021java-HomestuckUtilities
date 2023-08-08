@@ -9,12 +9,13 @@ public class Desc {
         String fins = "";       // works well ? might be glitchy?
         String rack = "";       // works okay, might be glitchy
         String pupation = "";   // works well.  add mutant grub eyes later
-        String feral = "";      // in progress
+        String feral = "";      // works okay, might be glitchy.  includes mutant eyes
+        String gender = "";     // works aight
+        String pigment = "";    // in progress
         
         // - move descriptive functions from Eye to here
-        // - New segment: Feral + Tail
         // - New Segment: skin + pigment + syndrome
-        // - new segment : vision
+        // - new segment : vision + psychic, magic, and aspect potential
 
         // If you want to feed more data into the function,
         // remember to update both here and the place
@@ -28,6 +29,8 @@ public class Desc {
             fins = descfins(body.fingene);
             pupation = descpupate(body.pupation, body.feralgene, body.tailgene);
             feral = descferal(body.pupation, body.feralgene, body.tailgene);
+            gender = descgender(body.fertgene, body.gender);
+            pigment = descpigment(body, horns, eyes, stats);
             
             // horns 
             rack = deschorns(horns);
@@ -490,33 +493,274 @@ public class Desc {
             return txt;
         }
         
-	public static String descferal(String genepupa, String genefera, String genetail) {
+	public static String descferal(String pupagene, String feralgene, String tailgene) {
 		String txt = new String("");
-		boolean cont = true;
-		boolean skiptodone = false;
-
-                // TEMP
-                String eyecon =  genefera.substring(14,16); // 2char = (NSM)+(NSM)
-                String wheye =   genefera.substring(16,18); // 2char = (LRGNnFBT) + (LRGNn)
-                txt = desceye(eyecon, wheye);
+                String control = "";
+                // strip all the data out of the pupation gene
+		int pupanumber = Gene.avgnum(pupagene.substring(0,3));     // 3, numbers
+		int pupalimbadult = Gene.avgnum(pupagene.substring(3,5));  // 2, numbers
+		int pupalimbmiddle = Gene.avgnum(pupagene.substring(5,7)); // 2, numbers
+		int pupawing = Gene.avgnum(pupagene.substring(7,9));       // 2, numbers
+		int pupatail = Gene.avgnum(pupagene.substring(9,11));      // 2, numbers
+		int pupascar = Gene.avgnum(pupagene.substring(11,13));     // 2, numbers
+		int pupastance = Gene.avgnum(pupagene.substring(13));             // 2, numbers
+                boolean grubscars = true; boolean pwings = false; boolean ptail = false; boolean pstance = false;
+                if (pupascar<=pupalimbmiddle) {grubscars=false;};
+                if (pupawing<=pupanumber)     {pwings=true;};
+                if (pupatail<=pupanumber)     {ptail=true;};
+                if (pupastance<=pupanumber)   {pstance=true;};
+                // and feral gene
+                boolean feral = false; boolean fer1 = false; boolean fer2 = false; 
+                control = feralgene.substring(0,2); // 2char = Ff
+                if (control.startsWith("F")) {fer1 = true;};
+                if (control.endsWith("F"))   {fer2 = true;};
+                if (fer1||fer2)                    {feral  = true;};
+                String ferstance = feralgene.substring(2,4); // 2char = DdPp
+                String ferwing = feralgene.substring(4,6);   // 2char = BbAaSsDdFfEeTt
+                String ferpaw = feralgene.substring(6,8);    // 2char = Pp
+                int ferclaw = Gene.avgnum(feralgene.substring(8,10));  // 2char = ##
+                String ferskin = feralgene.substring(10,12); // 2char = FCB
+                String ferjaw = feralgene.substring(12,14);  // 2char = N>F>B>T>S>R>G>K
+                boolean oddeye = false; boolean grubeye=false;  boolean strayplural=false;
+                String eyecon =  feralgene.substring(14,16); // 2char = (NSM)+(NSM)
+                String wheye =   feralgene.substring(16,18); // 2char = (LRGNnFBT) + (LRGNn)
+                if (!eyecon.equals("NN")) {oddeye=true;};
+                if (wheye.startsWith("N")||wheye.endsWith("N")) {oddeye=false;};
+                if (oddeye) {if (wheye.startsWith("G")||wheye.endsWith("G"))  {grubeye=true;};};
+                if (oddeye) {if (eyecon.startsWith("M")||eyecon.endsWith("M")){strayplural=true;};};
+                // and tail gene
+                boolean tail = false; 
+                String tailcon =  tailgene.substring(0,2); // 2char, TT > Tt > tT > tt
+                if (!tailcon.equals("tt")) {tail=true;};
+                int tlen = Gene.avgnum(tailgene.substring(2, 3)); // 1char num
+                int twid = Gene.avgnum(tailgene.substring(3, 4)); // 1char num
+                // String tailtip = tailgene.substring(4,6); // 2char Aa (unfinished)
+               
+                // flags are set, ready the actual description process
                 
+                txt = desceye(eyecon, wheye) + ", ";
+                if (txt.equals("normally placed eyes, ")) {txt = "";};
                 
-		// new segment.
-		cont = true;
-		while ((!skiptodone)&&(cont)) {
-			//segment 1
-			cont=false;};
+                // if no tail : no tail desc.  But, if tail ...
+                if (tail&&ptail) {
+                    txt = txt + "tail is " + tlen;
+                    if (tailcon.equals("TT")) {txt = txt + " forearm-spans";};
+                    if (tailcon.equals("Tt")) {txt = txt + " hand-spans";};
+                    if (tailcon.equals("tT")) {txt = txt + " inches";};
+                    txt = txt + " long, and " + twid + " fingerwidths wide, ";
+                    };
+                // if no feral, no feral desc.  But, if feral, ...
+                if (feral) {
+                    // digitigrade vs plantigrade
+                    if (fer1&&fer2) {
+                        boolean digitigrade = false;
+                        boolean plantigrade = false;
+                        if (Gene.canhas(ferwing, 'D')||Gene.canhas(ferwing, 'd')) {digitigrade=true;};
+                        if (Gene.canhas(ferwing, 'P')||Gene.canhas(ferwing, 'p')) {plantigrade=true;};
+                        if (digitigrade&&!plantigrade) {txt = txt + "digitigrade stance, ";};
+                        // if (plantigrade&&!digitigrade) {txt = txt + "plantigrade stance, ";};
+                        if (plantigrade&&digitigrade)  {txt = txt + "mixed planti/digitigrade stance, ";};
+                        };
+                    // if (!fer1||!fer2) {txt = txt + "plantigrade stance, ";};
+                    // mani/pedi
+                    if (ferpaw.equals("PP")) {txt = txt + "with large paws, ";};
+                    if (ferclaw<3)           {txt = txt + "petite claws, ";};
+                    if (ferclaw>5&&ferclaw<8) {txt = txt + "large claws, ";};
+                    if (ferclaw>7)        {txt = txt + "monstrous claws, ";};
+                    // wings
+                    if (fer1&&pwings) {
+                        String type1 = wingtype(ferwing.substring(0,1));
+                        String type2 = wingtype(ferwing.substring(1,2));
+                        if (type1.toLowerCase().equals(type2.toLowerCase()))  {txt = txt + type1 + " wings, ";};
+                        if (!type1.toLowerCase().equals(type2.toLowerCase())) {txt = txt + type1 + "/" + type2 + " wings, ";};
+                        };
+                    // and the ones that have Strong(fer1/both) and Weak(just fer2) versions : skin and jaw
+                    if (fer1) { // the strong version
+                        if (!skincovering(ferskin).equals("bare")) {txt = txt + skincovering(ferskin) + " skin, ";};
+                        if (!jawtype(ferjaw).equals("normal")) {
+                            if (jawtype(ferjaw).equals("F")) {txt = txt + "massive fangs, ";};
+                            if (jawtype(ferjaw).equals("B")) {txt = txt + "barracuda jaw, ";};
+                            if (jawtype(ferjaw).equals("T")) {txt = txt + "tusks, ";};
+                            if (jawtype(ferjaw).equals("S")) {txt = txt + "fierce shark teeth, ";};
+                            if (jawtype(ferjaw).equals("R")) {txt = txt + "rodent incisors, ";};
+                            if (jawtype(ferjaw).equals("G")) {txt = txt + "tongue barbs, ";};
+                            if (jawtype(ferjaw).equals("K")) {txt = txt + "a beaked mouth, ";};
+                            };
+                    }; // end strong version
+                    if (fer2&&!fer1) { // the weak version 
+                        if (!skincovering(ferskin).equals("bare")) {txt = txt + "partially " + skincovering(ferskin) + " skin, ";};
+                        if (!jawtype(ferjaw).equals("normal")) {
+                            if (jawtype(ferjaw).equals("F")) {txt = txt + "fangs, ";};
+                            if (jawtype(ferjaw).equals("B")) {txt = txt + "many pointed teeth, ";};
+                            if (jawtype(ferjaw).equals("T")) {txt = txt + "small tusks, ";};
+                            if (jawtype(ferjaw).equals("S")) {txt = txt + "sawlike teeth, ";};
+                            if (jawtype(ferjaw).equals("R")) {txt = txt + "two large front teeth, ";};
+                            if (jawtype(ferjaw).equals("G")) {txt = txt + "an abrasive tongue, ";};
+                            if (jawtype(ferjaw).equals("K")) {txt = txt + "fused teeth-ridges, ";};                            
+                            };// end jawtype
+                        }; // end weak version
+                }; // end feralblock
+            // and something that doesn't depend on feral status at all.
+            // if (grubscars) {txt = txt + "and grubscars";};
+            if (txt.equals("")) {txt = "nonferal";};
+            return txt;
+	};
 
-		// new segment.
-		cont = true;
-		while ((!skiptodone)&&(cont)) {
-			//segment 2
-			cont=false;};
+        private static String jawtype(String in) {
+            String t = "normal";
+            // Listed in reverse order of dominance, N>F>B>T>S>R>G>K
+            if (Gene.canhas(in, 'K')) {t="K";};
+            if (Gene.canhas(in, 'G')) {t="G";};
+            if (Gene.canhas(in, 'R')) {t="R";};
+            if (Gene.canhas(in, 'S')) {t="S";};
+            if (Gene.canhas(in, 'T')) {t="T";};
+            if (Gene.canhas(in, 'B')) {t="B";};
+            if (Gene.canhas(in, 'F')) {t="F";};
+            if (Gene.canhas(in, 'N')) {t="normal";};
+            return t;
+        };       
+        
+        private static String skincovering(String in) {
+            String t = "bare";
+            if (in.equals("FF")) {t="furred";};
+            if (in.equals("FC")) {t="scaled";};
+            if (in.equals("CF")) {t="scaled";};
+            if (in.equals("FB")) {t="feathered";};
+            if (in.equals("BF")) {t="feathered";};
+            if (in.equals("CC")) {t="carapaced";};
+            if (in.equals("CB")) {t="platelike calloused";};
+            if (in.equals("BC")) {t="platelike calloused";};
+            if (in.equals("BB")) {t="bare";};
+            return t;
+        };
 
-		return txt;
-	}
+        private static String wingtype(String in) {
+            String t = "strange";
+            if (in.equals("B")) {t="Butterfly";};
+            if (in.equals("b")) {t="butterfly";};
+            if (in.equals("A")) {t="Bird";};
+            if (in.equals("a")) {t="bird";};
+            if (in.equals("S")) {t="Bat";};
+            if (in.equals("s")) {t="bat";};
+            if (in.equals("D")) {t="Dragonfly";};
+            if (in.equals("d")) {t="dragonfly";};
+            if (in.equals("F")) {t="Gossamer Finlike";};
+            if (in.equals("f")) {t="gossamer finlike";};
+            if (in.equals("E")) {t="Beetle";};
+            if (in.equals("e")) {t="beetle";};
+            if (in.equals("T")) {t="Tentacle";};
+            if (in.equals("t")) {t="tentacle";};           
+            return t;
+        };
 
+        private static String descgender(String infert, String g) {
+            String t = "";
+            String sex = infert.substring(0,2);
+            // What bits do they have
+            boolean nook = true; boolean bulge = true;
+            if (sex.startsWith("XY")) {nook=false;};
+            if (sex.startsWith("XX")) {bulge=false;};
+            // Do they work? 
+            boolean nf = Gene.isfertfem(infert);
+            boolean bf = Gene.isfertmasc(infert);
+            // Is the person a mammal or visibly troll-esque
+            boolean mammal = false;
+            if ((sex.startsWith("X"))||sex.startsWith("W")) {mammal=true;};
+            // Is their natively-passing sex opposite to their gender
+            boolean trans = false;
+            if ((sex.endsWith("Y"))&&(g.equals("F"))) {trans=true;};
+            if ((sex.endsWith("X"))&&(g.equals("M"))) {trans=true;};
+            // are they fertile
+            boolean fertile = true; boolean livebirth = false;
+            String puberty   = infert.substring(2,3);
+            if (puberty.startsWith("0")) {fertile=false;}; // No Neoteny
+            String fertility = infert.substring(3,4);
+            if (fertility.startsWith("0")) {fertile=false;}; // No infertility
+            String live = infert.substring(4,5); // Live or Egglaying
+            if (live.startsWith("L")) {livebirth=true;};
+            String litter = infert.substring(5,9);
+            if (litter.startsWith("0000")) {fertile=false;}; // No infertility
+            
+            // prepare the text string
+            // fertility
+            if (fertile&&(Gene.digsum(puberty)+Gene.digsum(fertility)+Gene.digsum(litter)>5)) {t = "highly fertile ";};
+            if (fertile&&(Gene.digsum(puberty)+Gene.digsum(fertility)+Gene.digsum(litter)==3)) {t = "barely-fertile ";};
+            if (!fertile) {t = "infertile ";};
+            // reproductive and anatomical type
+            if (livebirth)  {t = t + "live-birth ";};
+            if (!livebirth) {t = t + "egg-laying ";};           
+            if (mammal)  {t = t + "mammal ";};
+            if (!mammal) {t = t + "troll ";};
+            // trans gender
+            if (trans) {t = t + "trans-";};
+            if (g.equals("F")) {t = t + "woman";};
+            if (g.equals("M")) {t = t + "man";};
+            if (g.equals("N")) {t = t + "person";};
+            if (g.equals("?")) {t = t + "person";};
+            // quirks 
+            t = t + ", with ";
+            if (puberty.startsWith("0")) {t = t + "neotany, ";};
+            t = t + puberty + " puberties, ";
+            // equipment
+            if (nook) {t = t + "a nook, ";};
+            if ((bulge)&&(mammal)) {t = t + "a phallus, ";};
+            if ((bulge)&&(!mammal)) {t = t + "a bulge, ";};
+            // functionality
+            t = t + "who produces ";
+            if (nf&&!bf) {t = t + "only ";};
+            if (nf)      {t = t + "eggs";};
+            if (nf&&bf)  {t = t + " and ";};
+            if (bf&&!nf) {t = t + "only ";};
+            if (bf)      {t = t + "semen";};
+            if (!nf&&!bf) {t = t + "no gametes";};
+            
+            return t;
+        };
 
+        private static String descpigment(troll.husk.Body body, troll.husk.Horns horns, troll.husk.Eye eyes, troll.fluff.Stats stats) {
+            String var = "";  // use body.blood, body.hue, or body.caste if needed
+            // actual pigment gene
+            // -- Options: Aa (albino colorless), Ll (leucistic white), Mm (melanism black) Gg (grey: GG = LM or ML)
+            // --(contd) Ee (Erythrism red/orange), Xx (Xanthism yellow / lack of non-yellow), Bb (axanthism, lack of yellow)
+            // --(contd) Cc (caste color) Ii (inverted caste color) Tt (earthtone)
+            // -- lowercase = 1 pt, upper = 2 pt.  you need 3 points for a trait to express.
+            String streak = body.pigmentgene.substring(0,2);
+            // 2char: Hair Streaking - Pp (plain) Kk (streaking)
+            String hair = body.pigmentgene.substring(2,6);
+            // 4char: Hair - Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt  (trolls MMMM, hum M/E/T, fae M/E/T/any)
+            String blood = body.pigmentgene.substring(6,8);
+            // 2char: blood - Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt (trolls Cc/Ii, hum EE, fae EE/BB/any)
+            boolean inverted = false; if (Gene.counthas(blood, 'I', 'i')>0) {inverted=true;};
+            boolean chroma = false;   if (Gene.counthas(blood, 'C', 'c')>0) {chroma=true;};
+            String bloodcol = "";
+            String skinpig = body.pigmentgene.substring(8,12);
+            // 4char: skin - Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt
+            // -- if multiple things express, either blend them or check skin patterning + second character of feral control gene
+            // -- vitiligo and birthmarks come from here
+            String accent = body.pigmentgene.substring(12,14);
+            // 2char: lips / accent color : Aa Ll Mm Gg Ee Xx Bb Cc Ii Tt (trolls MC, hum TC, fae TE)
+            
+            // skin Stuff
+            String skinpattern = body.skingene.substring(0,4); 
+            // 4char - Rr(rainbowdrinker, full skin) Pp(psychic eye glow) Nn Ee (none)
+            // sea varieties - Ss(larger spots) Tt(stripe) Bb(blotches) Ff(tiny freckle dots)
+            String skinfreckle = body.skingene.substring(10,11); // FF Lots, Ff some, fF less, ff none.
+            String skinthick = body.skingene.substring(11,12); // number 0-9, 3 = norm
+            
+            // syndrome Stuff
+            String undeath = body.syndromegene.substring(0,2);
+            // need 2 letters of a gene for it to express usually - but Undying and Weak Spark stack with everything
+            // 2char: undeath - N(nothing), V(vampire/Drinker), G(ghoul), Z(mindless zombie), U(undying), W(weak spark)
+            String powers = body.syndromegene.substring(2,8);           
+            // 6char: supernatural - v(voodoo), e(eldritch), m(magic), n(null)
+            // ------ p(physical psychic), o(oracular psychic), q(mental psychic)
+            
+            // eye stuff
+            // placeholder : include this AFTER eye gets a full redo.  See husk.Eye
+
+            return var;
+            };
+        
         // blank entry
 	public static String blank(String code) {
 		String txt = new String("");
